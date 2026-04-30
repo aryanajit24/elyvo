@@ -1,1 +1,3924 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELYVO — Colecție Nouă 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & VARIABLES ─── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
+:root {
+  --c-black:   #0a0a0a;
+  --c-white:   #faf8f5;
+  --c-cream:   #f2ede6;
+  --c-sand:    #c8b89a;
+  --c-taupe:   #8b7355;
+  --c-gold:    #c9a96e;
+  --c-dark:    #1a1714;
+  --c-mid:     #5a5248;
+  --c-light:   #e8e0d5;
+  --ff-serif:  'Cormorant Garamond', Georgia, serif;
+  --ff-sans:   'Montserrat', sans-serif;
+  --transition: .45s cubic-bezier(.25,.46,.45,.94);
+  --transition-fast: .2s ease;
+}
+
+html { scroll-behavior: smooth; font-size:16px; }
+
+body {
+  background: var(--c-white);
+  color: var(--c-black);
+  font-family: var(--ff-sans);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:var(--c-cream); }
+::-webkit-scrollbar-thumb { background:var(--c-sand); border-radius:2px; }
+
+/* ─── PAGE SYSTEM ─── */
+.page { display:none; min-height:100vh; }
+.page.active { display:block; }
+
+/* ─── CURSOR ─── */
+.cursor {
+  width:10px; height:10px;
+  background:var(--c-black);
+  border-radius:50%;
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9999;
+  transition:transform .1s ease;
+  mix-blend-mode:difference;
+}
+.cursor-ring {
+  width:40px; height:40px;
+  border:1px solid var(--c-black);
+  border-radius:50%;
+  position:fixed; top:0; left:0;
+  pointer-events:none; z-index:9998;
+  transition:all .25s ease;
+  mix-blend-mode:difference;
+}
+
+/* ─── NAV ─── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 40px;
+  height:72px;
+  transition: background var(--transition), backdrop-filter var(--transition);
+}
+nav.scrolled {
+  background:rgba(250,248,245,.92);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--c-light);
+}
+.nav-logo {
+  font-family:var(--ff-serif);
+  font-size:28px;
+  font-weight:400;
+  letter-spacing:6px;
+  cursor:pointer;
+  color:var(--c-black);
+  text-decoration:none;
+}
+.nav-links {
+  display:flex; gap:36px; list-style:none;
+}
+.nav-links a {
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  color:var(--c-black);
+  text-decoration:none;
+  position:relative;
+  padding-bottom:3px;
+}
+.nav-links a::after {
+  content:'';
+  position:absolute; bottom:0; left:0;
+  width:0; height:1px;
+  background:var(--c-black);
+  transition:width var(--transition);
+}
+.nav-links a:hover::after { width:100%; }
+.nav-icons {
+  display:flex; gap:22px; align-items:center;
+}
+.nav-icons button {
+  background:none; border:none; cursor:pointer;
+  color:var(--c-black);
+  display:flex; align-items:center; justify-content:center;
+  width:36px; height:36px;
+  border-radius:50%;
+  transition:background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  position:relative;
+}
+.nav-icons button:hover { background:var(--c-cream); transform:scale(1.08); }
+.nav-icons button svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+.cart-badge { position:relative; }
+.cart-count {
+  position:absolute; top:-4px; right:-4px;
+  background:var(--c-gold); color:var(--c-white);
+  border-radius:50%; width:15px; height:15px;
+  font-size:8px; display:flex; align-items:center; justify-content:center;
+  font-weight:700; line-height:1; letter-spacing:0;
+  border:1.5px solid var(--c-white);
+}
+
+/* ─── LANGUAGE TOGGLE ─── */
+.lang-toggle {
+  display:flex; align-items:center; gap:0;
+  border:1px solid var(--c-light);
+  border-radius:20px;
+  overflow:hidden;
+  height:28px;
+}
+.lang-btn {
+  background:none; border:none; cursor:pointer;
+  font-family:var(--ff-sans);
+  font-size:10px; font-weight:600;
+  letter-spacing:1px;
+  padding:0 10px;
+  height:100%;
+  color:var(--c-mid);
+  transition:background var(--transition-fast), color var(--transition-fast);
+}
+.lang-btn.active {
+  background:var(--c-black);
+  color:var(--c-white);
+}
+.lang-btn:hover:not(.active) { color:var(--c-black); }
+
+/* ─── HERO / PARALLAX ─── */
+.hero {
+  height:100vh;
+  position:relative;
+  overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.hero-bg {
+  position:absolute; inset:-20%;
+  background: linear-gradient(160deg,
+    #1a1410 0%,
+    #2d2218 30%,
+    #3d2e1e 60%,
+    #1a1410 100%);
+  will-change:transform;
+}
+.hero-bg::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,169,110,.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(200,184,154,.08) 0%, transparent 50%);
+}
+.hero-bg::after {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+.hero-fabric {
+  position:absolute;
+  width:420px; height:620px;
+  right:12%;
+  top:50%;
+  transform:translateY(-50%);
+  background:linear-gradient(135deg,
+    #3d2e1e 0%,
+    #5a4433 25%,
+    #c9a96e 45%,
+    #8b6540 65%,
+    #3d2e1e 100%);
+  clip-path:polygon(15% 0%, 85% 3%, 92% 12%, 96% 88%, 85% 97%, 12% 100%, 4% 90%, 0% 8%);
+  opacity:.35;
+  animation:fabricFloat 8s ease-in-out infinite;
+}
+@keyframes fabricFloat {
+  0%,100% { transform:translateY(-50%) rotate(-1deg); }
+  50% { transform:translateY(calc(-50% - 12px)) rotate(1deg); }
+}
+.hero-content {
+  position:relative; z-index:2;
+  text-align:center;
+  color:var(--c-white);
+}
+.hero-eyebrow {
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--c-gold);
+  margin-bottom:24px;
+  opacity:0;
+  animation:fadeUp .8s .3s forwards;
+}
+.hero-title {
+  font-family:var(--ff-serif);
+  font-size:clamp(64px,10vw,140px);
+  font-weight:300;
+  line-height:.95;
+  letter-spacing:2px;
+  margin-bottom:32px;
+  opacity:0;
+  animation:fadeUp .9s .5s forwards;
+}
+.hero-title em {
+  font-style:italic;
+  color:var(--c-gold);
+}
+.hero-sub {
+  font-size:13px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(250,248,245,.6);
+  margin-bottom:52px;
+  opacity:0;
+  animation:fadeUp .8s .7s forwards;
+}
+.btn-hero {
+  display:inline-block;
+  padding:18px 52px;
+  border:1px solid var(--c-gold);
+  color:var(--c-gold);
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all var(--transition);
+  background:none;
+  opacity:0;
+  animation:fadeUp .8s .9s forwards;
+  text-decoration:none;
+}
+.btn-hero:hover {
+  background:var(--c-gold);
+  color:var(--c-black);
+}
+.hero-scroll {
+  position:absolute; bottom:40px; left:50%;
+  transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  color:rgba(250,248,245,.5);
+  font-size:9px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+}
+.scroll-line {
+  width:1px; height:48px;
+  background:linear-gradient(to bottom, rgba(201,169,110,.8), transparent);
+  animation:scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse {
+  0%,100% { opacity:.5; transform:scaleY(1); }
+  50% { opacity:1; transform:scaleY(1.2); }
+}
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ─── MARQUEE ─── */
+.marquee-strip {
+  background:var(--c-black);
+  color:var(--c-gold);
+  padding:14px 0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.marquee-inner {
+  display:inline-flex;
+  animation:marquee 22s linear infinite;
+}
+.marquee-inner span {
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  padding:0 40px;
+}
+.marquee-inner .dot {
+  color:var(--c-sand);
+}
+@keyframes marquee {
+  0% { transform:translateX(0); }
+  100% { transform:translateX(-50%); }
+}
+
+/* ─── SECTIONS ─── */
+.section { padding:100px 60px; }
+.section-label {
+  font-size:10px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--c-taupe);
+  margin-bottom:16px;
+}
+.section-title {
+  font-family:var(--ff-serif);
+  font-size:clamp(36px,5vw,64px);
+  font-weight:300;
+  line-height:1.1;
+  margin-bottom:24px;
+}
+.section-title em { font-style:italic; color:var(--c-taupe); }
+
+/* ─── CATEGORIES GRID ─── */
+.categories {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:4px;
+  margin-top:60px;
+}
+.cat-card {
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+  cursor:pointer;
+}
+.cat-card:first-child {
+  grid-row:span 2;
+  aspect-ratio:auto;
+}
+.cat-bg {
+  width:100%; height:100%;
+  transition:transform .8s cubic-bezier(.25,.46,.45,.94);
+}
+.cat-card:hover .cat-bg { transform:scale(1.06); }
+.cat-bg-1 { background:linear-gradient(160deg,#3d2e1e,#8b6540,#c9a96e); }
+.cat-bg-2 { background:linear-gradient(140deg,#2d3a2e,#4a6450,#8fa88e); }
+.cat-bg-3 { background:linear-gradient(150deg,#1e2a3d,#2e4060,#6080a8); }
+.cat-bg-4 { background:linear-gradient(130deg,#3d1e2e,#6a3050,#a86080); }
+.cat-bg-5 { background:linear-gradient(155deg,#2e1e3d,#503060,#8060a8); }
+.cat-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(10,10,10,.7) 0%, transparent 60%);
+}
+.cat-info {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:32px 28px;
+  color:var(--c-white);
+}
+.cat-info h3 {
+  font-family:var(--ff-serif);
+  font-size:28px;
+  font-weight:300;
+  margin-bottom:6px;
+}
+.cat-info p {
+  font-size:11px;
+  letter-spacing:2px;
+  color:rgba(250,248,245,.7);
+  text-transform:uppercase;
+}
+.cat-arrow {
+  position:absolute; top:24px; right:24px;
+  width:40px; height:40px;
+  border:1px solid rgba(250,248,245,.4);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:var(--c-white);
+  font-size:18px;
+  opacity:0;
+  transition:opacity var(--transition), background var(--transition);
+}
+.cat-card:hover .cat-arrow { opacity:1; background:rgba(250,248,245,.1); }
+
+/* ─── FEATURED PRODUCTS ─── */
+.products-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:24px;
+  margin-top:60px;
+}
+.product-card {
+  cursor:pointer;
+  position:relative;
+}
+.product-img {
+  aspect-ratio:3/4;
+  position:relative;
+  overflow:hidden;
+  margin-bottom:16px;
+}
+.product-img-bg {
+  width:100%; height:100%;
+  transition:transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.product-card:hover .product-img-bg { transform:scale(1.05); }
+.product-p1 { background:linear-gradient(145deg,#e8e0d5,#d4c8b8,#bba898); }
+.product-p2 { background:linear-gradient(145deg,#d5e0e8,#b8c8d4,#98a8bb); }
+.product-p3 { background:linear-gradient(145deg,#e8d5d5,#d4b8b8,#bb9898); }
+.product-p4 { background:linear-gradient(145deg,#d5e8d5,#b8d4b8,#98bb98); }
+.product-p5 { background:linear-gradient(145deg,#e8e8d5,#d4d4b8,#bbbb98); }
+.product-p6 { background:linear-gradient(145deg,#e8d5e8,#d4b8d4,#bb98bb); }
+.product-p7 { background:linear-gradient(145deg,#d5d5e8,#b8b8d4,#9898bb); }
+.product-p8 { background:linear-gradient(145deg,#e8ddd5,#d4c4b8,#bbab98); }
+
+/* dress silhouette */
+.dress-shape {
+  position:absolute; bottom:0; left:50%;
+  transform:translateX(-50%);
+  width:65%;
+  height:88%;
+}
+
+/* Product quick actions */
+.product-actions {
+  position:absolute; bottom:16px; left:0; right:0;
+  display:flex; justify-content:center; gap:10px;
+  transform:translateY(10px);
+  opacity:0;
+  transition:all var(--transition);
+}
+.product-card:hover .product-actions { opacity:1; transform:translateY(0); }
+.btn-quick {
+  background:var(--c-white);
+  border:none;
+  padding:10px 20px;
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  cursor:pointer;
+  font-family:var(--ff-sans);
+  font-weight:500;
+  transition:background var(--transition), color var(--transition);
+}
+.btn-quick:hover { background:var(--c-black); color:var(--c-white); }
+.btn-wish {
+  background:var(--c-white);
+  border:none;
+  width:40px; height:40px;
+  cursor:pointer;
+  font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+  transition:background var(--transition);
+}
+.btn-wish:hover { background:var(--c-cream); }
+.product-badge {
+  position:absolute; top:12px; left:12px;
+  background:var(--c-black);
+  color:var(--c-white);
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  padding:5px 10px;
+}
+.product-badge.sale { background:var(--c-taupe); }
+.product-info h4 {
+  font-family:var(--ff-serif);
+  font-size:18px;
+  font-weight:400;
+  margin-bottom:4px;
+}
+.product-info .price {
+  font-size:14px;
+  color:var(--c-mid);
+  font-weight:300;
+}
+.product-info .price s { color:var(--c-sand); margin-right:8px; }
+.product-colors {
+  display:flex; gap:6px;
+  margin-top:8px;
+}
+.color-dot {
+  width:12px; height:12px;
+  border-radius:50%;
+  cursor:pointer;
+  border:1px solid transparent;
+  transition:transform var(--transition-fast);
+}
+.color-dot:hover, .color-dot.active {
+  transform:scale(1.3);
+  border-color:var(--c-mid);
+}
+
+/* ─── PARALLAX STORY ─── */
+.parallax-story {
+  height:80vh;
+  position:relative;
+  overflow:hidden;
+  display:flex; align-items:center;
+}
+.parallax-bg {
+  position:absolute; inset:-30%;
+  background:linear-gradient(135deg,#1a1410 0%,#2d2218 50%,#0a0a0a 100%);
+  will-change:transform;
+}
+.parallax-bg::before {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 60% 60% at 60% 50%, rgba(201,169,110,.12) 0%, transparent 70%);
+}
+.parallax-content {
+  position:relative; z-index:2;
+  padding:0 10%;
+  max-width:600px;
+}
+.parallax-content .section-label { color:var(--c-gold); }
+.parallax-content .section-title { color:var(--c-white); }
+.parallax-content p {
+  color:rgba(250,248,245,.7);
+  line-height:1.8;
+  font-size:14px;
+  margin-bottom:36px;
+}
+.btn-outline-light {
+  display:inline-block;
+  padding:16px 40px;
+  border:1px solid var(--c-gold);
+  color:var(--c-gold);
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all var(--transition);
+  background:none;
+  text-decoration:none;
+  font-family:var(--ff-sans);
+  font-weight:400;
+}
+.btn-outline-light:hover { background:var(--c-gold); color:var(--c-black); }
+
+/* ─── ABOUT STRIP ─── */
+.about-strip {
+  background:var(--c-cream);
+  padding:80px 60px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:60px;
+}
+.about-item {
+  text-align:center;
+}
+.about-num {
+  font-family:var(--ff-serif);
+  font-size:72px;
+  font-weight:300;
+  color:var(--c-taupe);
+  line-height:1;
+  margin-bottom:12px;
+}
+.about-item p {
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-mid);
+}
+
+/* ─── NEWSLETTER ─── */
+.newsletter {
+  background:var(--c-black);
+  padding:100px 60px;
+  text-align:center;
+}
+.newsletter .section-title { color:var(--c-white); }
+.newsletter p {
+  color:rgba(250,248,245,.6);
+  font-size:14px;
+  margin-bottom:48px;
+  max-width:400px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.newsletter-form {
+  display:flex;
+  max-width:440px;
+  margin:0 auto;
+  border-bottom:1px solid var(--c-sand);
+}
+.newsletter-form input {
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  color:var(--c-white);
+  font-family:var(--ff-sans);
+  font-size:13px;
+  letter-spacing:1px;
+  padding:14px 0;
+}
+.newsletter-form input::placeholder { color:rgba(250,248,245,.4); }
+.newsletter-form button {
+  background:none;
+  border:none;
+  color:var(--c-gold);
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  padding:14px 0 14px 20px;
+  font-family:var(--ff-sans);
+  transition:color var(--transition);
+}
+.newsletter-form button:hover { color:var(--c-white); }
+
+/* ─── FOOTER ─── */
+footer {
+  background:var(--c-dark);
+  padding:80px 60px 40px;
+}
+.footer-grid {
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:60px;
+  margin-bottom:60px;
+}
+.footer-brand .nav-logo { color:var(--c-white); display:block; margin-bottom:20px; }
+.footer-brand p {
+  font-size:13px;
+  color:rgba(250,248,245,.5);
+  line-height:1.8;
+  margin-bottom:28px;
+}
+.footer-social {
+  display:flex; gap:16px;
+}
+.social-icon {
+  width:36px; height:36px;
+  border:1px solid rgba(250,248,245,.2);
+  border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  color:rgba(250,248,245,.6);
+  font-size:14px;
+  cursor:pointer;
+  transition:all var(--transition);
+  text-decoration:none;
+}
+.social-icon:hover { border-color:var(--c-gold); color:var(--c-gold); }
+.footer-col h5 {
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--c-white);
+  margin-bottom:24px;
+}
+.footer-col ul { list-style:none; }
+.footer-col ul li {
+  margin-bottom:12px;
+}
+.footer-col ul li a {
+  font-size:13px;
+  color:rgba(250,248,245,.5);
+  text-decoration:none;
+  transition:color var(--transition);
+  cursor:pointer;
+}
+.footer-col ul li a:hover { color:var(--c-gold); }
+.footer-bottom {
+  border-top:1px solid rgba(250,248,245,.1);
+  padding-top:32px;
+  display:flex; justify-content:space-between; align-items:center;
+  font-size:12px;
+  color:rgba(250,248,245,.3);
+}
+
+/* ─── PRODUCT DETAIL PAGE ─── */
+.product-detail {
+  padding:120px 60px 100px;
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:80px;
+  align-items:start;
+}
+.pdp-gallery {
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:12px;
+}
+.pdp-thumbs {
+  display:flex; flex-direction:column; gap:10px;
+}
+.pdp-thumb {
+  aspect-ratio:1;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:border-color var(--transition);
+  overflow:hidden;
+}
+.pdp-thumb.active { border-color:var(--c-black); }
+.pdp-main-img {
+  aspect-ratio:3/4;
+  overflow:hidden;
+  position:relative;
+}
+.pdp-main-bg {
+  width:100%; height:100%;
+  transition:transform .5s ease;
+  position:relative;
+  overflow:hidden;
+}
+.pdp-main-bg svg {
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:block;
+  pointer-events:none;
+}
+.pdp-main-img:hover .pdp-main-bg { transform:scale(1.03); }
+.pdp-info {
+  position:sticky;
+  top:100px;
+}
+.pdp-brand {
+  font-size:11px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--c-taupe);
+  margin-bottom:12px;
+}
+.pdp-title {
+  font-family:var(--ff-serif);
+  font-size:44px;
+  font-weight:300;
+  line-height:1.1;
+  margin-bottom:20px;
+}
+.pdp-price {
+  font-size:24px;
+  color:var(--c-mid);
+  margin-bottom:32px;
+}
+.pdp-price s { color:var(--c-sand); font-size:18px; margin-right:10px; }
+.pdp-desc {
+  font-size:14px;
+  line-height:1.8;
+  color:var(--c-mid);
+  margin-bottom:36px;
+}
+.pdp-label {
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-black);
+  margin-bottom:14px;
+}
+.size-grid {
+  display:flex; gap:8px;
+  margin-bottom:32px;
+  flex-wrap:wrap;
+}
+.size-btn {
+  width:52px; height:52px;
+  border:1px solid var(--c-light);
+  background:none;
+  cursor:pointer;
+  font-family:var(--ff-sans);
+  font-size:12px;
+  transition:all var(--transition);
+}
+.size-btn:hover, .size-btn.active {
+  background:var(--c-black);
+  color:var(--c-white);
+  border-color:var(--c-black);
+}
+.color-grid {
+  display:flex; gap:10px;
+  margin-bottom:36px;
+}
+.color-swatch {
+  width:32px; height:32px;
+  border-radius:50%;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:all var(--transition);
+}
+.color-swatch.active { outline:2px solid var(--c-black); outline-offset:3px; }
+.btn-add-cart {
+  width:100%;
+  padding:20px;
+  background:var(--c-black);
+  color:var(--c-white);
+  border:none;
+  font-family:var(--ff-sans);
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all var(--transition);
+  margin-bottom:14px;
+}
+.btn-add-cart:hover { background:var(--c-taupe); }
+.btn-wishlist {
+  width:100%;
+  padding:18px;
+  background:none;
+  color:var(--c-black);
+  border:1px solid var(--c-light);
+  font-family:var(--ff-sans);
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all var(--transition);
+}
+.btn-wishlist:hover { border-color:var(--c-black); }
+.pdp-details {
+  margin-top:40px;
+  border-top:1px solid var(--c-light);
+}
+.pdp-accordion-item {
+  border-bottom:1px solid var(--c-light);
+}
+.pdp-accordion-toggle {
+  width:100%;
+  background:none;
+  border:none;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 0;
+  cursor:pointer;
+  font-family:var(--ff-sans);
+  font-size:12px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-black);
+}
+.pdp-accordion-body {
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .4s ease;
+}
+.pdp-accordion-body.open { max-height:200px; }
+.pdp-accordion-body p {
+  font-size:13px;
+  line-height:1.8;
+  color:var(--c-mid);
+  padding-bottom:18px;
+}
+
+/* ─── SHOP PAGE ─── */
+.shop-header {
+  padding:160px 60px 60px;
+  background:var(--c-cream);
+}
+.shop-filters {
+  display:flex;
+  gap:40px;
+  align-items:center;
+  padding:24px 60px;
+  border-bottom:1px solid var(--c-light);
+  flex-wrap:wrap;
+}
+.filter-group {
+  display:flex; gap:12px; align-items:center;
+}
+.filter-label {
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-mid);
+}
+.filter-btn {
+  padding:8px 18px;
+  border:1px solid var(--c-light);
+  background:none;
+  font-family:var(--ff-sans);
+  font-size:11px;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:all var(--transition);
+}
+.filter-btn:hover, .filter-btn.active {
+  background:var(--c-black);
+  color:var(--c-white);
+  border-color:var(--c-black);
+}
+.shop-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:32px;
+  padding:60px;
+}
+
+/* ─── LOGIN PAGE ─── */
+.login-wrapper {
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+}
+.login-visual {
+  background:linear-gradient(160deg,#1a1410,#2d2218,#3d2e1e);
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.login-visual-logo {
+  font-family:var(--ff-serif);
+  font-size:80px;
+  color:rgba(250,248,245,.12);
+  letter-spacing:8px;
+  writing-mode:vertical-lr;
+  text-orientation:mixed;
+  position:relative; z-index:2;
+}
+.login-visual::after {
+  content:'';
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse at 50% 50%, rgba(201,169,110,.18) 0%, transparent 70%);
+}
+.login-form-wrap {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:60px;
+  background:#ffffff;
+}
+.login-form {
+  width:100%;
+  max-width:400px;
+}
+.login-form .nav-logo {
+  display:block;
+  margin-bottom:40px;
+  color:var(--c-black);
+}
+.form-group {
+  margin-bottom:20px;
+}
+.form-group label {
+  display:block;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  margin-bottom:8px;
+  color:var(--c-mid);
+}
+.form-group input {
+  width:100%;
+  border:1.5px solid #e8e4e0;
+  border-radius:6px;
+  background:#fff;
+  padding:14px 16px;
+  font-family:var(--ff-sans);
+  font-size:14px;
+  outline:none;
+  transition:border-color var(--transition), box-shadow var(--transition);
+  color:var(--c-black);
+}
+.form-group input:focus { border-color:var(--c-black); box-shadow:0 0 0 3px rgba(10,10,10,.06); }
+.form-group input::placeholder { color:#bbb; }
+.btn-primary {
+  width:100%;
+  padding:17px;
+  background:var(--c-black);
+  color:var(--c-white);
+  border:none;
+  border-radius:6px;
+  font-family:var(--ff-sans);
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  margin-top:8px;
+  transition:background var(--transition), transform .15s;
+}
+.btn-primary:hover { background:#222; transform:translateY(-1px); }
+.btn-primary:active { transform:translateY(0); }
+.btn-social {
+  width:100%;
+  padding:15px 20px;
+  background:#fff;
+  color:#2c2c2c;
+  border:1.5px solid #e0dcd8;
+  border-radius:6px;
+  font-family:var(--ff-sans);
+  font-size:13px;
+  font-weight:500;
+  cursor:pointer;
+  margin-bottom:12px;
+  display:flex; align-items:center; justify-content:center; gap:12px;
+  transition:border-color .2s, background .2s, box-shadow .2s;
+}
+.btn-social:hover { border-color:#c0bbb6; background:#fafafa; box-shadow:0 2px 10px rgba(0,0,0,.07); }
+.form-alt {
+  text-align:center;
+  margin-top:24px;
+  font-size:13px;
+  color:var(--c-mid);
+}
+.form-alt a {
+  color:var(--c-black);
+  cursor:pointer;
+  text-decoration:underline;
+}
+.divider {
+  display:flex; align-items:center; gap:14px;
+  margin:22px 0;
+  color:#bbb;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.divider::before, .divider::after {
+  content:''; flex:1; height:1px; background:#eee;
+}
+
+/* ─── CART DRAWER ─── */
+.cart-overlay {
+  position:fixed; inset:0;
+  background:rgba(10,10,10,.45);
+  backdrop-filter:blur(4px);
+  z-index:1200;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .4s ease;
+}
+.cart-overlay.open { opacity:1; pointer-events:all; }
+.cart-drawer {
+  position:fixed;
+  top:0; right:0;
+  width:440px; height:100vh;
+  background:#fff;
+  z-index:1300;
+  transform:translateX(100%);
+  transition:transform .5s cubic-bezier(.25,.46,.45,.94);
+  display:flex; flex-direction:column;
+  box-shadow:-20px 0 60px rgba(0,0,0,.12);
+}
+.cart-drawer.open { transform:translateX(0); }
+.cart-header {
+  padding:24px 28px 20px;
+  background:#fff;
+  display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid #f0ece8;
+}
+.cart-header-left {
+  display:flex; flex-direction:column; gap:2px;
+}
+.cart-header h3 {
+  font-family:var(--ff-serif);
+  font-size:24px;
+  font-weight:400;
+  letter-spacing:.5px;
+}
+.cart-item-count-label {
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-sand);
+}
+.cart-close {
+  width:36px; height:36px;
+  background:#f5f2ee;
+  border:none;
+  border-radius:50%;
+  font-size:16px;
+  cursor:pointer;
+  color:var(--c-mid);
+  display:flex; align-items:center; justify-content:center;
+  transition:background .2s, color .2s;
+}
+.cart-close:hover { background:var(--c-black); color:#fff; }
+.cart-items {
+  flex:1; overflow-y:auto;
+  padding:20px 28px;
+}
+.cart-items::-webkit-scrollbar { width:3px; }
+.cart-items::-webkit-scrollbar-thumb { background:var(--c-light); border-radius:2px; }
+.cart-item {
+  display:grid;
+  grid-template-columns:72px 1fr;
+  gap:16px;
+  padding:18px 0;
+  border-bottom:1px solid #f0ece8;
+  position:relative;
+}
+.cart-item-img {
+  aspect-ratio:3/4;
+  border-radius:4px;
+  overflow:hidden;
+  background:var(--c-cream);
+}
+.cart-item-body {
+  display:flex; flex-direction:column; justify-content:space-between; min-width:0;
+}
+.cart-item-top {
+  display:flex; justify-content:space-between; align-items:flex-start; gap:8px;
+}
+.cart-item-name {
+  font-family:var(--ff-serif);
+  font-size:16px;
+  font-weight:400;
+  line-height:1.2;
+}
+.cart-item-price {
+  font-size:15px;
+  font-weight:600;
+  color:var(--c-black);
+  white-space:nowrap;
+}
+.cart-item-detail {
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--c-sand);
+  margin:4px 0 10px;
+}
+.cart-item-bottom {
+  display:flex; align-items:center; justify-content:space-between;
+}
+.qty-controls {
+  display:flex; align-items:center; gap:0;
+  border:1px solid #e8e4e0;
+  border-radius:4px;
+  overflow:hidden;
+}
+.qty-btn {
+  width:30px; height:30px;
+  border:none;
+  background:#fff;
+  cursor:pointer;
+  font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s;
+  color:var(--c-black);
+}
+.qty-btn:hover { background:var(--c-black); color:#fff; }
+.qty-num {
+  font-size:13px;
+  min-width:28px;
+  text-align:center;
+  font-weight:500;
+  border-left:1px solid #e8e4e0;
+  border-right:1px solid #e8e4e0;
+  height:30px;
+  display:flex; align-items:center; justify-content:center;
+}
+.cart-remove {
+  background:none; border:none;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--c-sand);
+  cursor:pointer;
+  transition:color .2s;
+  padding:0;
+  font-family:var(--ff-sans);
+}
+.cart-remove:hover { color:#c9505a; }
+.cart-free-shipping {
+  margin:16px 0 0;
+  padding:12px 14px;
+  background:linear-gradient(135deg,#f5f2ee,#ede9e3);
+  border-radius:6px;
+  font-size:11px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:var(--c-taupe);
+  display:flex; align-items:center; gap:8px;
+}
+.cart-free-shipping span { font-size:16px; }
+.cart-footer {
+  padding:20px 28px 28px;
+  border-top:1px solid #f0ece8;
+  background:#fff;
+}
+.cart-totals {
+  margin-bottom:18px;
+}
+.cart-total {
+  display:flex; justify-content:space-between;
+  font-size:13px;
+  color:var(--c-mid);
+  padding:5px 0;
+}
+.cart-total.grand {
+  font-family:var(--ff-serif);
+  font-size:21px;
+  color:var(--c-black);
+  margin-top:10px;
+  padding-top:14px;
+  border-top:1px solid #e8e4e0;
+}
+.btn-checkout-full {
+  width:100%;
+  padding:18px;
+  background:var(--c-black);
+  color:var(--c-white);
+  border:none;
+  border-radius:6px;
+  font-family:var(--ff-sans);
+  font-size:12px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background var(--transition), transform .15s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.btn-checkout-full:hover { background:#222; transform:translateY(-1px); }
+.btn-checkout-full:active { transform:translateY(0); }
+.cart-continue {
+  display:block;
+  text-align:center;
+  margin-top:12px;
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-sand);
+  cursor:pointer;
+  background:none; border:none;
+  font-family:var(--ff-sans);
+  width:100%;
+  transition:color .2s;
+}
+.cart-continue:hover { color:var(--c-black); }
+
+/* ─── CHECKOUT PAGE ─── */
+.checkout-wrap {
+  padding:120px 0 60px;
+  display:grid;
+  grid-template-columns:1fr 420px;
+  min-height:100vh;
+}
+.checkout-form-col {
+  padding:60px;
+  border-right:1px solid var(--c-light);
+}
+.checkout-summary-col {
+  padding:60px;
+  background:var(--c-cream);
+}
+.checkout-title {
+  font-family:var(--ff-serif);
+  font-size:36px;
+  font-weight:300;
+  margin-bottom:40px;
+}
+.checkout-section-title {
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--c-black);
+  margin-bottom:24px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--c-light);
+}
+.form-row {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.checkout-summary-item {
+  display:grid;
+  grid-template-columns:72px 1fr auto;
+  gap:14px;
+  padding:16px 0;
+  border-bottom:1px solid var(--c-light);
+  align-items:center;
+}
+.checkout-img {
+  aspect-ratio:3/4;
+}
+.summary-name {
+  font-family:var(--ff-serif);
+  font-size:16px;
+  margin-bottom:4px;
+}
+.summary-detail { font-size:12px; color:var(--c-mid); }
+.summary-price { font-size:15px; font-weight:500; }
+.order-totals { margin-top:24px; }
+.order-total-row {
+  display:flex; justify-content:space-between;
+  font-size:14px;
+  padding:8px 0;
+  color:var(--c-mid);
+}
+.order-total-row.final {
+  font-family:var(--ff-serif);
+  font-size:22px;
+  color:var(--c-black);
+  border-top:1px solid var(--c-light);
+  margin-top:12px;
+  padding-top:20px;
+}
+.payment-methods {
+  display:flex; gap:12px;
+  margin-bottom:32px;
+}
+.payment-btn {
+  flex:1;
+  padding:14px;
+  border:1px solid var(--c-light);
+  background:none;
+  cursor:pointer;
+  font-family:var(--ff-sans);
+  font-size:11px;
+  letter-spacing:1px;
+  transition:all var(--transition);
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.payment-btn.active, .payment-btn:hover {
+  border-color:var(--c-black);
+  background:var(--c-black);
+  color:var(--c-white);
+}
+
+/* ─── SEARCH OVERLAY ─── */
+.search-overlay {
+  position:fixed; inset:0;
+  background:rgba(250,248,245,.97);
+  z-index:1100;
+  opacity:0; pointer-events:none;
+  transition:opacity var(--transition);
+  display:flex; align-items:center; justify-content:center;
+}
+.search-overlay.open { opacity:1; pointer-events:all; }
+.search-inner {
+  text-align:center;
+  width:100%;
+  max-width:700px;
+  padding:40px;
+}
+.search-inner h2 {
+  font-family:var(--ff-serif);
+  font-size:52px;
+  font-weight:300;
+  margin-bottom:40px;
+}
+.search-input-wrap {
+  display:flex;
+  border-bottom:2px solid var(--c-black);
+  margin-bottom:40px;
+}
+.search-input-wrap input {
+  flex:1;
+  background:none;
+  border:none;
+  outline:none;
+  font-size:24px;
+  font-family:var(--ff-sans);
+  font-weight:300;
+  padding:16px 0;
+  letter-spacing:1px;
+}
+.search-close {
+  background:none; border:none;
+  font-size:28px; cursor:pointer;
+  color:var(--c-mid);
+  padding:0 16px;
+}
+.search-tags {
+  display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+}
+.search-tag {
+  padding:10px 20px;
+  border:1px solid var(--c-light);
+  background:none;
+  cursor:pointer;
+  font-family:var(--ff-sans);
+  font-size:12px;
+  letter-spacing:1px;
+  transition:all var(--transition);
+}
+.search-tag:hover { background:var(--c-black); color:var(--c-white); border-color:var(--c-black); }
+
+/* ─── MOBILE MENU ─── */
+.mobile-menu {
+  position:fixed; inset:0;
+  background:var(--c-black);
+  z-index:1400;
+  transform:translateX(-100%);
+  transition:transform var(--transition);
+  display:flex; flex-direction:column;
+  padding:60px 40px;
+}
+.mobile-menu.open { transform:translateX(0); }
+.mobile-menu-links {
+  display:flex; flex-direction:column; gap:28px;
+  margin-top:60px;
+  flex:1;
+}
+.mobile-menu-links a {
+  font-family:var(--ff-serif);
+  font-size:48px;
+  font-weight:300;
+  color:var(--c-white);
+  text-decoration:none;
+  transition:color var(--transition);
+}
+.mobile-menu-links a:hover { color:var(--c-gold); }
+.menu-close {
+  position:absolute; top:28px; right:32px;
+  background:none; border:none;
+  color:var(--c-white); font-size:24px; cursor:pointer;
+}
+.hamburger {
+  display:none;
+  flex-direction:column; gap:5px;
+  background:none; border:none; cursor:pointer;
+}
+.hamburger span {
+  width:24px; height:1px;
+  background:var(--c-black);
+  transition:all var(--transition);
+}
+
+/* ─── TOAST ─── */
+.toast {
+  position:fixed; bottom:40px; left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--c-black);
+  color:var(--c-white);
+  padding:16px 32px;
+  font-size:13px;
+  letter-spacing:1px;
+  z-index:9000;
+  opacity:0;
+  transition:all .4s ease;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:1100px) {
+  .products-grid { grid-template-columns:repeat(3,1fr); }
+}
+@media(max-width:900px) {
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .hero-title { font-size:clamp(48px,12vw,80px); }
+  .hero-fabric { display:none; }
+  .section { padding:70px 30px; }
+  .categories { grid-template-columns:1fr 1fr; }
+  .cat-card:first-child { grid-column:span 2; }
+  .products-grid { grid-template-columns:repeat(2,1fr); }
+  .about-strip { grid-template-columns:1fr; text-align:center; gap:40px; padding:60px 30px; }
+  .footer-grid { grid-template-columns:1fr 1fr; gap:40px; }
+  .product-detail { grid-template-columns:1fr; padding:100px 30px 60px; }
+  .pdp-gallery { grid-template-columns:1fr; }
+  .pdp-thumbs { flex-direction:row; }
+  .pdp-main-img { grid-row:1; }
+  .shop-grid { grid-template-columns:repeat(2,1fr); padding:40px 30px; }
+  .checkout-wrap { grid-template-columns:1fr; }
+  .checkout-summary-col { order:-1; }
+  .login-wrapper { grid-template-columns:1fr; }
+  .login-visual { display:none; }
+  .cart-drawer { width:100%; }
+  nav { padding:0 24px; }
+  .shop-header, .checkout-form-col, .checkout-summary-col { padding:40px 30px; }
+  .newsletter { padding:70px 30px; }
+  footer { padding:60px 30px 30px; }
+  .footer-bottom { flex-direction:column; gap:16px; text-align:center; }
+}
+@media(max-width:600px) {
+  .products-grid { grid-template-columns:1fr 1fr; gap:16px; }
+  .categories { grid-template-columns:1fr; }
+  .cat-card:first-child { grid-column:1; }
+  .form-row { grid-template-columns:1fr; }
+  .shop-grid { grid-template-columns:1fr 1fr; gap:16px; padding:24px 16px; }
+  .section { padding:60px 20px; }
+  nav { padding:0 20px; }
+}
+
+/* ─── ANIMATIONS ON SCROLL ─── */
+.reveal {
+  opacity:0;
+  transform:translateY(32px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+.reveal-delay-1 { transition-delay:.1s; }
+.reveal-delay-2 { transition-delay:.2s; }
+.reveal-delay-3 { transition-delay:.3s; }
+.reveal-delay-4 { transition-delay:.4s; }
+
+/* ─── BREADCRUMB ─── */
+.breadcrumb {
+  font-size:12px;
+  color:var(--c-sand);
+  letter-spacing:1px;
+  margin-bottom:20px;
+}
+.breadcrumb span { cursor:pointer; }
+.breadcrumb span:hover { color:var(--c-black); }
+
+/* ─── BACK BTN ─── */
+.btn-back {
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:11px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--c-mid); cursor:pointer;
+  background:none; border:none;
+  font-family:var(--ff-sans);
+  transition:color var(--transition);
+  padding:0;
+  margin-bottom:32px;
+}
+.btn-back:hover { color:var(--c-black); }
+
+/* ─── WISHLIST HEART ANIMATION ─── */
+@keyframes heartBeat {
+  0%,100% { transform:scale(1); }
+  50% { transform:scale(1.3); }
+}
+.hearted { animation:heartBeat .3s ease; color:#c9505a !important; }
+
+/* ─── PROGRESS BAR ─── */
+.progress-bar {
+  position:fixed; top:0; left:0;
+  height:2px;
+  background:var(--c-gold);
+  z-index:2000;
+  transition:width .1s linear;
+  width:0%;
+}
+
+/* ─── OUR STORY PAGE ─── */
+.story-hero-section {
+  min-height:100vh;
+  position:relative;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  padding:120px 60px 100px;
+}
+.story-hero-bg {
+  position:absolute; inset:-20%;
+  background:linear-gradient(160deg,#0d0b09 0%,#1a1410 35%,#2d2218 65%,#1a1410 100%);
+  will-change:transform;
+}
+.story-hero-bg::before {
+  content:'';
+  position:absolute; inset:0;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(201,169,110,.13) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 20% 80%, rgba(200,184,154,.07) 0%, transparent 50%);
+}
+.story-hero-film-grain {
+  position:absolute; inset:0; z-index:1; pointer-events:none; opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+.story-vert-text {
+  position:absolute;
+  font-family:var(--ff-sans);
+  font-size:9px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:rgba(201,169,110,.22);
+  writing-mode:vertical-lr;
+  top:50%; transform:translateY(-50%);
+  z-index:2;
+}
+.story-vert-left { left:36px; }
+.story-vert-right { right:36px; transform:translateY(-50%) rotate(180deg); }
+.story-hero-content {
+  position:relative; z-index:3;
+  text-align:center;
+  color:var(--c-white);
+  max-width:800px;
+}
+.story-hero-eyebrow {
+  font-size:11px;
+  letter-spacing:5px;
+  text-transform:uppercase;
+  color:var(--c-gold);
+  margin-bottom:28px;
+  animation:fadeUp .8s .2s both;
+}
+.story-hero-title {
+  display:flex; flex-direction:column; align-items:center;
+  gap:0;
+  margin-bottom:32px;
+  animation:fadeUp .9s .4s both;
+}
+.story-title-line1 {
+  font-family:var(--ff-serif);
+  font-size:clamp(100px,16vw,180px);
+  font-weight:300;
+  line-height:.9;
+  color:var(--c-white);
+  letter-spacing:-2px;
+}
+.story-title-em {
+  font-family:var(--ff-serif);
+  font-size:clamp(22px,3vw,38px);
+  font-style:italic;
+  color:var(--c-gold);
+  letter-spacing:4px;
+  font-weight:300;
+  margin:4px 0;
+}
+.story-title-line2 {
+  font-family:var(--ff-serif);
+  font-size:clamp(52px,9vw,110px);
+  font-weight:300;
+  line-height:.95;
+  letter-spacing:8px;
+  text-transform:uppercase;
+  color:var(--c-white);
+}
+.story-hero-sub {
+  font-size:15px;
+  line-height:1.9;
+  color:rgba(250,248,245,.65);
+  max-width:520px;
+  margin:0 auto 48px;
+  font-weight:300;
+  animation:fadeUp .8s .6s both;
+}
+.story-hero-actions {
+  display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+  animation:fadeUp .8s .75s both;
+}
+.story-scroll-cta {
+  display:inline-block;
+  padding:18px 40px;
+  border:1px solid rgba(250,248,245,.2);
+  color:rgba(250,248,245,.7);
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:all var(--transition);
+  background:none;
+  font-family:var(--ff-sans);
+}
+.story-scroll-cta:hover { border-color:rgba(201,169,110,.6); color:var(--c-gold); }
+.story-hero-stats {
+  position:absolute; bottom:48px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:40px;
+  z-index:3;
+  animation:fadeUp .7s 1s both;
+}
+.story-stat {
+  text-align:center;
+}
+.story-stat-num {
+  display:block;
+  font-family:var(--ff-serif);
+  font-size:36px;
+  font-weight:300;
+  color:var(--c-white);
+  line-height:1;
+  margin-bottom:6px;
+}
+.story-stat-label {
+  font-size:9px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:rgba(201,169,110,.7);
+}
+.story-stat-divider {
+  width:1px; height:40px;
+  background:rgba(201,169,110,.2);
+}
+.story-hero-scroll {
+  position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+  z-index:3;
+}
+/* Values strip */
+.story-values-strip {
+  background:var(--c-gold);
+  padding:0;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.story-values-inner {
+  display:inline-flex;
+  animation:marquee 28s linear infinite;
+  padding:14px 0;
+}
+.story-values-inner span {
+  font-size:11px;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  padding:0 36px;
+  color:var(--c-black);
+  font-family:var(--ff-sans);
+}
+.story-strip-dot { color:rgba(10,10,10,.4) !important; padding:0 !important; }
+/* Origin section */
+.story-origin-section {
+  padding:120px 60px;
+  background:var(--c-white);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+  align-items:center;
+}
+.story-origin-quote {
+  position:relative;
+  padding:28px 32px;
+  background:var(--c-cream);
+  border-left:3px solid var(--c-gold);
+  margin:32px 0;
+}
+.story-quote-mark {
+  position:absolute; top:-12px; left:20px;
+  font-family:var(--ff-serif);
+  font-size:80px;
+  color:var(--c-gold);
+  line-height:1;
+  opacity:.3;
+}
+.story-origin-quote p {
+  font-family:var(--ff-serif);
+  font-size:20px;
+  font-style:italic;
+  color:var(--c-black);
+  margin-bottom:8px;
+  line-height:1.5;
+}
+.story-origin-quote cite {
+  font-size:11px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-taupe);
+  font-style:normal;
+}
+.story-body-text {
+  font-size:15px;
+  line-height:1.95;
+  color:var(--c-mid);
+  margin-bottom:24px;
+}
+.story-origin-visual {
+  position:relative;
+}
+.story-origin-img {
+  aspect-ratio:4/5;
+  background:linear-gradient(135deg,#1a1410 0%,#3d2e1e 30%,#c9a96e 55%,#8b6540 75%,#2d2218 100%);
+  clip-path:polygon(8% 0%,100% 0%,92% 100%,0% 100%);
+  position:relative;
+  overflow:hidden;
+}
+.story-origin-img-bg {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.story-origin-img-caption {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:32px 36px;
+  background:linear-gradient(to top, rgba(10,10,10,.85), transparent);
+}
+.story-origin-img-caption p {
+  font-family:var(--ff-serif);
+  font-size:20px;
+  color:var(--c-white);
+  font-style:italic;
+  margin-bottom:6px;
+  line-height:1.4;
+}
+.story-origin-img-caption cite {
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-gold);
+  font-style:normal;
+}
+.story-year-badge {
+  position:absolute; top:-24px; right:-24px;
+  width:88px; height:88px;
+  background:var(--c-gold);
+  border-radius:50%;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  box-shadow:0 8px 32px rgba(201,169,110,.4);
+}
+.story-year-num {
+  font-family:var(--ff-serif);
+  font-size:28px;
+  font-weight:300;
+  color:var(--c-black);
+  line-height:1;
+}
+.story-year-label {
+  font-size:9px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-black);
+}
+/* Timeline */
+.story-timeline-section {
+  padding:100px 60px;
+  background:var(--c-cream);
+}
+.story-timeline {
+  max-width:840px;
+  margin:0 auto;
+  position:relative;
+}
+.story-timeline-line {
+  position:absolute; left:50%; top:12px; bottom:12px;
+  width:1px;
+  background:linear-gradient(to bottom, transparent, var(--c-sand) 8%, var(--c-sand) 92%, transparent);
+  transform:translateX(-50%);
+}
+.story-timeline-item {
+  display:grid;
+  grid-template-columns:1fr 32px 1fr;
+  gap:0;
+  margin-bottom:60px;
+  align-items:start;
+}
+.story-timeline-left .story-timeline-content {
+  text-align:right;
+  padding-right:44px;
+  grid-column:1;
+  grid-row:1;
+}
+.story-timeline-left .story-timeline-node {
+  grid-column:2; grid-row:1;
+  justify-self:center; align-self:start;
+  margin-top:16px;
+}
+.story-timeline-right .story-timeline-node {
+  grid-column:2; grid-row:1;
+  justify-self:center; align-self:start;
+  margin-top:16px;
+}
+.story-timeline-right .story-timeline-content {
+  padding-left:44px;
+  grid-column:3; grid-row:1;
+}
+.story-timeline-year {
+  font-family:var(--ff-serif);
+  font-size:52px;
+  font-weight:300;
+  color:var(--c-taupe);
+  line-height:1;
+  margin-bottom:4px;
+}
+.story-timeline-year-current {
+  color:var(--c-black);
+}
+.story-timeline-title {
+  font-family:var(--ff-serif);
+  font-size:20px;
+  font-weight:400;
+  margin-bottom:10px;
+  color:var(--c-black);
+}
+.story-timeline-text {
+  font-size:13px;
+  line-height:1.8;
+  color:var(--c-mid);
+}
+.story-timeline-node {
+  width:14px; height:14px;
+  border-radius:50%;
+  background:var(--c-gold);
+  border:3px solid var(--c-cream);
+  box-shadow:0 0 0 2px var(--c-gold);
+  flex-shrink:0;
+}
+.story-timeline-node-current {
+  width:18px; height:18px;
+  background:var(--c-black);
+  box-shadow:0 0 0 2px var(--c-black);
+}
+/* Values dark section */
+.story-values-section {
+  padding:120px 60px;
+  background:var(--c-black);
+}
+.story-values-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:2px;
+  max-width:1100px;
+  margin:0 auto;
+}
+.story-value-card {
+  padding:52px 44px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(201,169,110,.1);
+  text-align:center;
+  transition:background .4s, transform .3s;
+  cursor:default;
+}
+.story-value-card:hover { background:rgba(201,169,110,.07); transform:translateY(-4px); }
+.story-value-card-center {
+  background:rgba(201,169,110,.04);
+  border-color:rgba(201,169,110,.2);
+}
+.story-value-icon {
+  font-family:var(--ff-serif);
+  font-size:52px;
+  color:var(--c-gold);
+  margin-bottom:20px;
+  line-height:1;
+}
+.story-value-title {
+  font-family:var(--ff-serif);
+  font-size:24px;
+  font-weight:300;
+  color:var(--c-white);
+  margin-bottom:16px;
+}
+.story-value-text {
+  font-size:13px;
+  line-height:1.9;
+  color:rgba(250,248,245,.5);
+}
+/* Atelier section */
+.story-atelier-section {
+  padding:120px 60px;
+  background:var(--c-cream);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+  align-items:center;
+}
+.story-atelier-mosaic {
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.story-mosaic-card {
+  aspect-ratio:1;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:2px;
+  overflow:hidden;
+}
+.story-mosaic-dark { background:linear-gradient(135deg,#2d2218,#5a4433); }
+.story-mosaic-light { background:linear-gradient(135deg,#e8e0d5,#c8b89a); }
+.story-mosaic-wide {
+  grid-column:span 2;
+  aspect-ratio:2/1;
+  flex-direction:column;
+  padding:36px;
+  gap:12px;
+}
+.story-mosaic-mid { background:linear-gradient(135deg,#1a1410,#3d2e1e); }
+.story-mosaic-quote {
+  font-family:var(--ff-serif);
+  font-size:20px;
+  color:rgba(250,248,245,.85);
+  font-style:italic;
+  text-align:center;
+  line-height:1.55;
+}
+.story-mosaic-cite {
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-gold);
+  font-style:normal;
+  text-align:center;
+}
+.story-team-badge-card {
+  position:absolute;
+  bottom:-20px; right:-20px;
+  background:var(--c-white);
+  padding:20px 28px;
+  box-shadow:0 8px 40px rgba(0,0,0,.1);
+  border-radius:2px;
+}
+.story-team-num {
+  display:block;
+  font-family:var(--ff-serif);
+  font-size:42px;
+  font-weight:300;
+  color:var(--c-taupe);
+  line-height:1;
+}
+.story-team-label {
+  font-size:10px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--c-mid);
+}
+.story-atelier-text { }
+/* Responsive story */
+@media(max-width:900px) {
+  .story-hero-stats { display:none; }
+  .story-vert-text { display:none; }
+  .story-origin-section { grid-template-columns:1fr; gap:60px; padding:80px 30px; }
+  .story-timeline-section { padding:80px 24px; }
+  .story-timeline-line { left:24px; }
+  .story-timeline-item { grid-template-columns:24px 1fr; }
+  .story-timeline-left .story-timeline-content { grid-column:2; text-align:left; padding:0 0 0 20px; }
+  .story-timeline-left .story-timeline-node { grid-column:1; }
+  .story-timeline-right .story-timeline-node { grid-column:1; }
+  .story-timeline-right .story-timeline-content { grid-column:2; padding:0 0 0 20px; }
+  .story-values-grid { grid-template-columns:1fr; }
+  .story-atelier-section { grid-template-columns:1fr; gap:60px; padding:80px 30px; }
+  .story-atelier-mosaic { max-width:420px; }
+  .story-hero-section { padding:100px 24px 140px; }
+  .story-hero-title { }
+  .story-title-line1 { font-size:clamp(80px,20vw,140px); }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Navigation -->
+<nav id="mainNav">
+  <a class="nav-logo" onclick="showPage('home')">ELYVO</a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('shop')" data-i18n="nav.collection">Colecție</a></li>
+    <li><a onclick="showPage('shop')" data-i18n="nav.dresses">Rochii</a></li>
+    <li><a onclick="showPage('shop')" data-i18n="nav.blouses">Bluze</a></li>
+    <li><a onclick="showPage('shop')" data-i18n="nav.accessories">Accesorii</a></li>
+    <li><a onclick="showPage('story')" data-i18n="nav.story">Povestea Noastră</a></li>
+    <li><a onclick="showPage('shop')" data-i18n="nav.sale">Sale</a></li>
+  </ul>
+  <div class="nav-icons">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="langRO" onclick="setLang('ro')">RO</button>
+      <button class="lang-btn" id="langEN" onclick="setLang('en')">EN</button>
+    </div>
+    <button onclick="toggleSearch()" title="Căutare">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button onclick="showPage('login')" title="Cont">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+    <button class="cart-badge" onclick="toggleCart()" title="Cos">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-count" id="cartCount">2</span>
+    </button>
+    <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="menu-close" onclick="toggleMenu()">✕</button>
+  <a class="nav-logo" style="color:var(--c-white)">ELYVO</a>
+  <nav class="mobile-menu-links">
+    <a onclick="showPage('home');toggleMenu()" data-i18n="mob.home">Acasă</a>
+    <a onclick="showPage('shop');toggleMenu()" data-i18n="nav.collection">Colecție</a>
+    <a onclick="showPage('shop');toggleMenu()" data-i18n="nav.dresses">Rochii</a>
+    <a onclick="showPage('shop');toggleMenu()" data-i18n="nav.blouses">Bluze</a>
+    <a onclick="showPage('shop');toggleMenu()" data-i18n="nav.accessories">Accesorii</a>
+    <a onclick="showPage('story');toggleMenu()" data-i18n="nav.story">Povestea Noastră</a>
+    <a onclick="showPage('login');toggleMenu()" data-i18n="mob.account">Contul Meu</a>
+  </nav>
+</div>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-inner">
+    <h2 data-i18n="nav.search_title">Ce cauți?</h2>
+    <div class="search-input-wrap">
+      <input type="text" placeholder="Caută produse..." data-i18n="nav.search_placeholder" data-i18n-attr="placeholder" autofocus id="searchInput">
+      <button class="search-close" onclick="toggleSearch()">✕</button>
+    </div>
+    <div class="search-tags">
+      <button class="search-tag" onclick="showPage('shop');toggleSearch()">Rochii de seară</button>
+      <button class="search-tag" onclick="showPage('shop');toggleSearch()">Bluze elegante</button>
+      <button class="search-tag" onclick="showPage('shop');toggleSearch()">Colecție nouă</button>
+      <button class="search-tag" onclick="showPage('shop');toggleSearch()">Sale</button>
+      <button class="search-tag" onclick="showPage('shop');toggleSearch()">Accesorii</button>
+    </div>
+  </div>
+</div>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <div class="cart-header-left">
+      <h3 data-i18n="cart.title">Coșul Tău</h3>
+      <span class="cart-item-count-label" id="cartItemLabel">2 piese</span>
+    </div>
+    <button class="cart-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItemsList">
+    <div class="cart-item">
+      <div class="cart-item-img" style="background:linear-gradient(145deg,#e8e0d5,#bba898)">
+        <svg viewBox="0 0 80 107" style="width:100%;height:100%;opacity:.55" fill="#5a5248"><path d="M20 30 Q25 15 40 12 Q55 15 60 30 L70 35 L65 100 L15 100 Z"/></svg>
+      </div>
+      <div class="cart-item-body">
+        <div class="cart-item-top">
+          <div class="cart-item-name">Rochie Luna</div>
+          <div class="cart-item-price">389 RON</div>
+        </div>
+        <div class="cart-item-detail">Maro Cald · M</div>
+        <div class="cart-item-bottom">
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <span class="qty-num">1</span>
+            <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button class="cart-remove">Elimină</button>
+        </div>
+      </div>
+    </div>
+    <div class="cart-item">
+      <div class="cart-item-img" style="background:linear-gradient(145deg,#d5e0e8,#98a8bb)">
+        <svg viewBox="0 0 80 107" style="width:100%;height:100%;opacity:.55" fill="#4a6450"><path d="M22 28 Q28 18 40 15 Q52 18 58 28 L68 38 L62 100 L18 100 Z"/></svg>
+      </div>
+      <div class="cart-item-body">
+        <div class="cart-item-top">
+          <div class="cart-item-name">Bluza Elara</div>
+          <div class="cart-item-price">249 RON</div>
+        </div>
+        <div class="cart-item-detail">Albastru · S</div>
+        <div class="cart-item-bottom">
+          <div class="qty-controls">
+            <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+            <span class="qty-num">1</span>
+            <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+          </div>
+          <button class="cart-remove">Elimină</button>
+        </div>
+      </div>
+    </div>
+    <div class="cart-free-shipping">
+      <span>🚚</span>
+      <span data-i18n="cart.shipping_promo">Transport gratuit pentru această comandă!</span>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-totals">
+      <div class="cart-total"><span data-i18n="cart.subtotal">Subtotal</span><span>638 RON</span></div>
+      <div class="cart-total"><span data-i18n="cart.shipping">Transport</span><span style="color:var(--c-taupe)" data-i18n="cart.free">Gratuit</span></div>
+      <div class="cart-total grand"><span data-i18n="cart.total">Total</span><span>638 RON</span></div>
+    </div>
+    <button class="btn-checkout-full" data-i18n="cart.checkout" onclick="showPage('checkout');toggleCart()">
+      Finalizează Comanda &nbsp;→
+    </button>
+    <button class="cart-continue" onclick="toggleCart()">Continuă Cumpărăturile</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ===========================
+     PAGE: HOME
+     =========================== -->
+<div class="page active" id="page-home">
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-fabric"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow" data-i18n="hero.eyebrow">Colecție Primăvară – Vară 2025</p>
+      <h1 class="hero-title">ELYVO<br><em>Elegance</em></h1>
+      <p class="hero-sub" data-i18n="hero.sub">27 de ani de modă românească autentică</p>
+      <a class="btn-hero" data-i18n="hero.cta" onclick="showPage('shop')">Descoperă Colecția</a>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span data-i18n="hero.scroll">Derulează</span>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-strip">
+    <div class="marquee-inner" id="marqueeInner">
+      <span>Colecție Nouă</span><span class="dot">✦</span>
+      <span>Livrare Gratuită</span><span class="dot">✦</span>
+      <span>Producție Românească</span><span class="dot">✦</span>
+      <span>27 Ani de Eleganță</span><span class="dot">✦</span>
+      <span>Retururi Gratuite</span><span class="dot">✦</span>
+      <span>Modă Exclusivă</span><span class="dot">✦</span>
+      <span>Colecție Nouă</span><span class="dot">✦</span>
+      <span>Livrare Gratuită</span><span class="dot">✦</span>
+      <span>Producție Românească</span><span class="dot">✦</span>
+      <span>27 Ani de Eleganță</span><span class="dot">✦</span>
+      <span>Retururi Gratuite</span><span class="dot">✦</span>
+      <span>Modă Exclusivă</span><span class="dot">✦</span>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <section class="section">
+    <div class="reveal">
+      <p class="section-label" data-i18n="home.cat_label">Categorii</p>
+      <h2 class="section-title">Explorează <em>Stilul</em><br>Tău</h2>
+    </div>
+    <div class="categories">
+      <div class="cat-card reveal" onclick="showPage('shop')">
+        <div class="cat-bg cat-bg-1" style="height:100%">
+          <svg viewBox="0 0 420 620" style="width:100%;height:100%;opacity:.25" fill="#c9a96e">
+            <path d="M100 140 Q140 80 210 70 Q280 80 320 140 L360 170 L380 560 L40 560 Z"/>
+            <path d="M150 70 Q170 30 210 20 Q250 30 270 70" stroke="#c9a96e" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-arrow">→</div>
+        <div class="cat-info">
+          <h3>Rochii de Seară</h3>
+          <p>42 produse</p>
+        </div>
+      </div>
+      <div class="cat-card reveal reveal-delay-1" onclick="showPage('shop')">
+        <div class="cat-bg cat-bg-2" style="height:100%">
+          <svg viewBox="0 0 280 380" style="width:100%;height:100%;opacity:.3" fill="#8fa88e">
+            <path d="M60 80 Q80 40 140 30 Q200 40 220 80 L250 100 L240 360 L40 360 Z"/>
+          </svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-arrow">→</div>
+        <div class="cat-info">
+          <h3>Bluze Elegante</h3>
+          <p>38 produse</p>
+        </div>
+      </div>
+      <div class="cat-card reveal reveal-delay-2" onclick="showPage('shop')">
+        <div class="cat-bg cat-bg-3" style="height:100%">
+          <svg viewBox="0 0 280 380" style="width:100%;height:100%;opacity:.3" fill="#6080a8">
+            <path d="M80 100 Q110 60 140 50 Q170 60 200 100 L240 130 L230 360 L50 360 Z"/>
+          </svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-arrow">→</div>
+        <div class="cat-info">
+          <h3>Rochii de Zi</h3>
+          <p>55 produse</p>
+        </div>
+      </div>
+      <div class="cat-card reveal reveal-delay-1" onclick="showPage('shop')">
+        <div class="cat-bg cat-bg-4" style="height:100%">
+          <svg viewBox="0 0 280 380" style="width:100%;height:100%;opacity:.3" fill="#a86080">
+            <path d="M50 90 Q80 50 140 40 Q200 50 230 90 L260 120 L250 360 L30 360 Z"/>
+          </svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-arrow">→</div>
+        <div class="cat-info">
+          <h3>Sacouri</h3>
+          <p>28 produse</p>
+        </div>
+      </div>
+      <div class="cat-card reveal reveal-delay-2" onclick="showPage('shop')">
+        <div class="cat-bg cat-bg-5" style="height:100%">
+          <svg viewBox="0 0 280 380" style="width:100%;height:100%;opacity:.3" fill="#8060a8">
+            <path d="M70 100 Q100 60 140 50 Q180 60 210 100 L250 130 L240 360 L40 360 Z"/>
+          </svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-arrow">→</div>
+        <div class="cat-info">
+          <h3>Accesorii</h3>
+          <p>19 produse</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="section" style="background:var(--c-cream)">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end">
+      <div>
+        <p class="section-label" data-i18n="home.best_label">Bestsellers</p>
+        <h2 class="section-title"><span data-i18n="home.best_title">Cele Mai</span> <em data-i18n="home.best_title2">Iubite</em></h2>
+      </div>
+      <a onclick="showPage('shop')" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--c-black);cursor:pointer;text-decoration:none" data-i18n="home.all_products">
+        Toate Produsele →
+      </a>
+    </div>
+    <div class="products-grid">
+      <!-- Product 1 -->
+      <div class="product-card reveal" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p1">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#8b7355" opacity=".6">
+              <path d="M55 50 Q65 25 100 20 Q135 25 145 50 L165 75 L170 290 L30 290 Z"/>
+              <path d="M75 20 Q85 5 100 3 Q115 5 125 20" stroke="#c9a96e" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="product-badge">Nou</div>
+          <div class="product-actions">
+            <button class="btn-quick" data-i18n="pdp.quick_add" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Rochie Luna</h4>
+          <div class="price">389 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#8b7355"></div>
+            <div class="color-dot" style="background:#5a4433"></div>
+            <div class="color-dot" style="background:#c8b89a"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Product 2 -->
+      <div class="product-card reveal reveal-delay-1" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p2">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#4a6450" opacity=".6">
+              <path d="M60 55 Q70 30 100 25 Q130 30 140 55 L155 70 L145 290 L55 290 Z"/>
+            </svg>
+          </div>
+          <div class="product-badge sale">Sale</div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Rochie Serena</h4>
+          <div class="price"><s>449 RON</s> 319 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#4a6450"></div>
+            <div class="color-dot" style="background:#2d3a2e"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Product 3 -->
+      <div class="product-card reveal reveal-delay-2" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p3">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#a86080" opacity=".6">
+              <path d="M50 45 Q65 18 100 14 Q135 18 150 45 L175 78 L175 290 L25 290 Z"/>
+            </svg>
+          </div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Rochie Aurora</h4>
+          <div class="price">529 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#a86080"></div>
+            <div class="color-dot" style="background:#6a3050"></div>
+            <div class="color-dot" style="background:#d4b8b8"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Product 4 -->
+      <div class="product-card reveal reveal-delay-3" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p4">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#4a8050" opacity=".6">
+              <path d="M65 60 Q78 35 100 30 Q122 35 135 60 L150 80 L145 290 L55 290 Z"/>
+            </svg>
+          </div>
+          <div class="product-badge">Nou</div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Bluza Elara</h4>
+          <div class="price">249 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#4a8050"></div>
+            <div class="color-dot" style="background:#b8d4b8"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parallax Story -->
+  <section class="parallax-story" id="parallaxStory">
+    <div class="parallax-bg" id="parallaxBg"></div>
+    <div class="parallax-content">
+      <p class="section-label" data-i18n="home.story_label">Povestea Noastră</p>
+      <h2 class="section-title" style="color:var(--c-white)" data-i18n="home.story_title">27 de Ani de Pasiune Românească</h2>
+      <p data-i18n="home.story_text">Din 1997, ELYVO creează rochii și haine care celebrează feminitatea autentică. Fiecare piesă este concepută cu grijă în atelierele noastre din București, folosind materiale premium și croieli ce îmbracă frumos orice siluetă.</p>
+      <a class="btn-outline-light" data-i18n="home.story_cta" onclick="showPage('shop')">Colecția Completă</a>
+    </div>
+  </section>
+
+  <!-- About Numbers -->
+  <section class="about-strip">
+    <div class="about-item reveal">
+      <div class="about-num">27+</div>
+      <p data-i18n="num.years">Ani de Experiență</p>
+    </div>
+    <div class="about-item reveal reveal-delay-1">
+      <div class="about-num">5K+</div>
+      <p data-i18n="num.clients">Clienți Fericiți</p>
+    </div>
+    <div class="about-item reveal reveal-delay-2">
+      <div class="about-num">200+</div>
+      <p data-i18n="num.models">Modele Exclusive</p>
+    </div>
+  </section>
+
+  <!-- New Arrivals -->
+  <section class="section">
+    <div class="reveal" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px">
+      <div>
+        <p class="section-label" data-i18n="home.new_label">Noutăți</p>
+        <h2 class="section-title"><span data-i18n="home.new_title">Tocmai</span> <em data-i18n="home.new_title2">Sosit</em></h2>
+      </div>
+      <a onclick="showPage('shop')" style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--c-black);cursor:pointer" data-i18n="home.all_new">
+        Toate Noutățile →
+      </a>
+    </div>
+    <div class="products-grid">
+      <div class="product-card reveal" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p5">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#80805a" opacity=".6">
+              <path d="M55 50 Q68 22 100 18 Q132 22 145 50 L168 85 L162 290 L38 290 Z"/>
+            </svg>
+          </div>
+          <div class="product-badge">Nou</div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Rochie Mara</h4>
+          <div class="price">459 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#80805a"></div>
+            <div class="color-dot" style="background:#d4d4b8"></div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card reveal reveal-delay-1" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p6">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#8050a8" opacity=".6">
+              <path d="M60 55 Q72 28 100 22 Q128 28 140 55 L160 78 L155 290 L45 290 Z"/>
+            </svg>
+          </div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Rochie Viola</h4>
+          <div class="price">379 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#8060a8"></div>
+            <div class="color-dot" style="background:#503060"></div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card reveal reveal-delay-2" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p7">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#5060a8" opacity=".6">
+              <path d="M58 52 Q70 26 100 21 Q130 26 142 52 L164 79 L159 290 L41 290 Z"/>
+            </svg>
+          </div>
+          <div class="product-badge">Nou</div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Rochie Corina</h4>
+          <div class="price">499 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#5060a8"></div>
+            <div class="color-dot" style="background:#2e4060"></div>
+            <div class="color-dot" style="background:#98a8bb"></div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card reveal reveal-delay-3" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p8">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#a87060" opacity=".6">
+              <path d="M52 48 Q66 20 100 16 Q134 20 148 48 L170 80 L165 290 L35 290 Z"/>
+            </svg>
+          </div>
+          <div class="product-badge sale">Sale</div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+          </div>
+        </div>
+        <div class="product-info">
+          <h4>Sacou Ioana</h4>
+          <div class="price"><s>349 RON</s> 249 RON</div>
+          <div class="product-colors">
+            <div class="color-dot active" style="background:#a87060"></div>
+            <div class="color-dot" style="background:#5a3828"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <div class="reveal">
+      <p class="section-label" style="color:var(--c-gold)" data-i18n="home.news_label">Rămâi la curent</p>
+      <h2 class="section-title" style="color:var(--c-white)" data-i18n="home.news_title">Abonează-te la Newsletter</h2>
+      <p data-i18n="home.news_text">Fii prima care află despre colecțiile noi, reduceri exclusive și noutăți ELYVO.</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Adresa ta de email" data-i18n="home.news_placeholder" data-i18n-attr="placeholder">
+        <button data-i18n="home.news_btn">Abonează-te</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" onclick="showPage('home')" style="cursor:pointer">ELYVO</a>
+        <p data-i18n="footer.tagline">Modă românească autentică de 27 de ani. Fiecare rochie spune o poveste — a feminității, eleganței și calității.</p>
+        <div class="footer-social">
+          <a class="social-icon" href="https://www.facebook.com/brokart.elyvo/" target="_blank">f</a>
+          <a class="social-icon" href="#" title="Instagram">✦</a>
+          <a class="social-icon" href="#" title="Pinterest">⊕</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.col1">Colecție</h5>
+        <ul>
+          <li><a onclick="showPage('shop')" data-i18n="footer.evening">Rochii de Seară</a></li>
+          <li><a onclick="showPage('shop')" data-i18n="footer.day">Rochii de Zi</a></li>
+          <li><a onclick="showPage('shop')" data-i18n="nav.blouses">Bluze</a></li>
+          <li><a onclick="showPage('shop')" data-i18n="footer.jackets">Sacouri</a></li>
+          <li><a onclick="showPage('shop')" data-i18n="nav.accessories">Accesorii</a></li>
+          <li><a onclick="showPage('shop')" data-i18n="nav.sale">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.col2">Informații</h5>
+        <ul>
+          <li><a data-i18n="footer.about">Despre Noi</a></li>
+          <li><a data-i18n="footer.contact">Contact</a></li>
+          <li><a data-i18n="footer.size">Ghid Mărimi</a></li>
+          <li><a data-i18n="footer.delivery">Livrare & Retururi</a></li>
+          <li><a data-i18n="footer.terms">Termeni & Condiții</a></li>
+          <li><a data-i18n="footer.gdpr">GDPR</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5 data-i18n="footer.col3">Contact</h5>
+        <ul>
+          <li><a>București, România</a></li>
+          <li><a>elyvo@elyvo.ro</a></li>
+          <li><a>+40 721 000 000</a></li>
+          <li><a style="margin-top:16px;display:block" data-i18n="footer.hours">Lun – Vin: 9:00 – 17:00</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span data-i18n="footer.copy">© 2025 ELYVO. Toate drepturile rezervate.</span>
+      <span data-i18n="footer.made">Fabricat cu ♡ în România</span>
+      <span>Visa • Mastercard • PayPal • Revolut</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: SHOP
+     =========================== -->
+<div class="page" id="page-shop">
+  <div class="shop-header">
+    <p class="section-label">Magazin</p>
+    <h1 class="section-title">Colecția <em>Completă</em></h1>
+  </div>
+  <div class="shop-filters">
+    <div class="filter-group">
+      <span class="filter-label" data-i18n="shop.cat_label">Categorie:</span>
+      <button class="filter-btn active" data-i18n="shop.cat_all" onclick="setFilter(this)">Toate</button>
+      <button class="filter-btn" data-i18n="shop.cat_dresses" onclick="setFilter(this)">Rochii</button>
+      <button class="filter-btn" data-i18n="shop.cat_blouses" onclick="setFilter(this)">Bluze</button>
+      <button class="filter-btn" data-i18n="shop.cat_jackets" onclick="setFilter(this)">Sacouri</button>
+      <button class="filter-btn" data-i18n="shop.cat_acc" onclick="setFilter(this)">Accesorii</button>
+    </div>
+    <div class="filter-group" style="margin-left:auto">
+      <span class="filter-label" data-i18n="shop.sort_label">Sortare:</span>
+      <button class="filter-btn active" data-i18n="shop.sort_rec" onclick="setFilter(this)">Recomandate</button>
+      <button class="filter-btn" data-i18n="shop.sort_asc" onclick="setFilter(this)">Preț ↑</button>
+      <button class="filter-btn" data-i18n="shop.sort_desc" onclick="setFilter(this)">Preț ↓</button>
+      <button class="filter-btn" data-i18n="shop.sort_new" onclick="setFilter(this)">Noutăți</button>
+    </div>
+  </div>
+  <div class="shop-grid">
+    <!-- 6 products in shop grid -->
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p1">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#8b7355" opacity=".6">
+            <path d="M55 50 Q65 25 100 20 Q135 25 145 50 L165 75 L170 290 L30 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-badge">Nou</div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Rochie Luna</h4><div class="price">389 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p2">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#4a6450" opacity=".6">
+            <path d="M60 55 Q70 30 100 25 Q130 30 140 55 L155 70 L145 290 L55 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-badge sale">Sale</div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Rochie Serena</h4><div class="price"><s>449 RON</s> 319 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p3">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#a86080" opacity=".6">
+            <path d="M50 45 Q65 18 100 14 Q135 18 150 45 L175 78 L175 290 L25 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Rochie Aurora</h4><div class="price">529 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p4">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#4a8050" opacity=".6">
+            <path d="M65 60 Q78 35 100 30 Q122 35 135 60 L150 80 L145 290 L55 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-badge">Nou</div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Bluza Elara</h4><div class="price">249 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p5">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#80805a" opacity=".6">
+            <path d="M55 50 Q68 22 100 18 Q132 22 145 50 L168 85 L162 290 L38 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-badge">Nou</div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Rochie Mara</h4><div class="price">459 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p7">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#5060a8" opacity=".6">
+            <path d="M58 52 Q70 26 100 21 Q130 26 142 52 L164 79 L159 290 L41 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Rochie Corina</h4><div class="price">499 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p6">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#8050a8" opacity=".6">
+            <path d="M60 55 Q72 28 100 22 Q128 28 140 55 L160 78 L155 290 L45 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Rochie Viola</h4><div class="price">379 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p8">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#a87060" opacity=".6">
+            <path d="M52 48 Q66 20 100 16 Q134 20 148 48 L170 80 L165 290 L35 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-badge sale">Sale</div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Sacou Ioana</h4><div class="price"><s>349 RON</s> 249 RON</div></div>
+    </div>
+    <div class="product-card" onclick="showPage('product')">
+      <div class="product-img">
+        <div class="product-img-bg product-p1" style="filter:hue-rotate(180deg)">
+          <svg class="dress-shape" viewBox="0 0 200 300" fill="#556b8b" opacity=".6">
+            <path d="M56 51 Q67 24 100 19 Q133 24 144 51 L166 76 L171 290 L29 290 Z"/>
+          </svg>
+        </div>
+        <div class="product-badge">Nou</div>
+        <div class="product-actions">
+          <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+          <button class="btn-wish" onclick="toggleWish(event)">♡</button>
+        </div>
+      </div>
+      <div class="product-info"><h4>Rochie Diana</h4><div class="price">429 RON</div></div>
+    </div>
+  </div>
+  <!-- Footer reuse -->
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO. Toate drepturile rezervate.</span>
+      <span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: PRODUCT DETAIL
+     =========================== -->
+<div class="page" id="page-product">
+  <div class="product-detail">
+    <div class="pdp-gallery">
+      <div class="pdp-thumbs">
+        <div class="pdp-thumb active" onclick="switchThumb(0)">
+          <div style="width:100%;height:100%;background:linear-gradient(145deg,#e8e0d5,#bba898)">
+            <svg viewBox="0 0 80 107" style="width:100%;opacity:.5" fill="#8b7355"><path d="M20 30 Q25 15 40 12 Q55 15 60 30 L70 35 L65 100 L15 100 Z"/></svg>
+          </div>
+        </div>
+        <div class="pdp-thumb" onclick="switchThumb(1)">
+          <div style="width:100%;height:100%;background:linear-gradient(145deg,#d4c8b8,#bba898)">
+            <svg viewBox="0 0 80 107" style="width:100%;opacity:.5" fill="#5a4433"><path d="M20 30 Q25 15 40 12 Q55 15 60 30 L70 35 L65 100 L15 100 Z"/></svg>
+          </div>
+        </div>
+        <div class="pdp-thumb" onclick="switchThumb(2)">
+          <div style="width:100%;height:100%;background:linear-gradient(145deg,#c8b89a,#bba898)">
+            <svg viewBox="0 0 80 107" style="width:100%;opacity:.5" fill="#3d2e1e"><path d="M20 30 Q25 15 40 12 Q55 15 60 30 L70 35 L65 100 L15 100 Z"/></svg>
+          </div>
+        </div>
+        <div class="pdp-thumb" onclick="switchThumb(3)">
+          <div style="width:100%;height:100%;background:linear-gradient(145deg,#e8e0d5,#c8b89a)">
+            <svg viewBox="0 0 80 107" style="width:100%;opacity:.3" fill="#8b7355"><path d="M20 30 Q25 15 40 12 Q55 15 60 30 L70 35 L65 100 L15 100 Z"/></svg>
+          </div>
+        </div>
+      </div>
+      <div class="pdp-main-img" id="pdpMain">
+        <div class="pdp-main-bg" id="pdpMainBg" style="background:linear-gradient(145deg,#e8e0d5,#d4c8b8,#bba898)">
+          <svg viewBox="0 0 420 560" style="opacity:.55" fill="#8b7355">
+            <path d="M110 150 Q135 80 210 65 Q285 80 310 150 L365 200 L380 540 L40 540 Z"/>
+            <path d="M158 65 Q175 22 210 14 Q245 22 262 65" stroke="#c9a96e" stroke-width="3" fill="none"/>
+            <ellipse cx="210" cy="400" rx="90" ry="120" fill="none" stroke="#c9a96e" stroke-width="1" opacity=".3"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="pdp-info">
+      <div class="breadcrumb">
+        <span onclick="showPage('home')" data-i18n="pdp.home">Acasă</span> &nbsp;/&nbsp;
+        <span onclick="showPage('shop')" data-i18n="pdp.collection">Colecție</span> &nbsp;/&nbsp;
+        <span>Rochie Luna</span>
+      </div>
+      <div class="pdp-brand">ELYVO</div>
+      <h1 class="pdp-title">Rochie Luna</h1>
+      <div class="pdp-price">389 RON</div>
+      <p class="pdp-desc" data-i18n="pdp.desc">O rochie elegantă cu decolteu în V și talie marcată, confecționată din materiale premium. Perfectă pentru ocazii speciale sau seri romantice. Disponibilă în trei culori exclusiviste.</p>
+
+      <div class="pdp-label" data-i18n="pdp.color_label">Culoare: Maro Cald</div>
+      <div class="color-grid">
+        <div class="color-swatch active" style="background:#8b7355" title="Maro Cald"></div>
+        <div class="color-swatch" style="background:#5a4433" title="Ciocolată"></div>
+        <div class="color-swatch" style="background:#c8b89a" title="Nisip"></div>
+      </div>
+
+      <div class="pdp-label" data-i18n="pdp.size_label">Mărime:</div>
+      <div class="size-grid">
+        <button class="size-btn" onclick="selectSize(this)">XS</button>
+        <button class="size-btn" onclick="selectSize(this)">S</button>
+        <button class="size-btn active" onclick="selectSize(this)">M</button>
+        <button class="size-btn" onclick="selectSize(this)">L</button>
+        <button class="size-btn" onclick="selectSize(this)">XL</button>
+        <button class="size-btn" onclick="selectSize(this)">XXL</button>
+      </div>
+
+      <button class="btn-add-cart" data-i18n="pdp.add" onclick="addToCartFull()">Adaugă în Coș</button>
+      <button class="btn-wishlist" data-i18n="pdp.wishlist" onclick="toggleWishFull(this)">♡ Salvează la Favorite</button>
+
+      <div class="pdp-details">
+        <div class="pdp-accordion-item">
+          <button class="pdp-accordion-toggle" onclick="toggleAccordion(this)">
+            <span data-i18n="pdp.details">Detalii Produs</span>
+            <span>+</span>
+          </button>
+          <div class="pdp-accordion-body">
+            <p data-i18n="pdp.details_text">Rochie cu mâneci scurte, decolteu în V, talie marcată cu bandă elastică. Lungime midi. Compoziție: 95% viscoza, 5% elastan. Produs în România.</p>
+          </div>
+        </div>
+        <div class="pdp-accordion-item">
+          <button class="pdp-accordion-toggle" onclick="toggleAccordion(this)">
+            <span data-i18n="pdp.size_guide">Ghid Mărimi</span>
+            <span>+</span>
+          </button>
+          <div class="pdp-accordion-body">
+            <p data-i18n="pdp.size_text">XS: Bust 80, Talie 62 | S: Bust 84, Talie 66 | M: Bust 88, Talie 70 | L: Bust 92, Talie 74 | XL: Bust 96, Talie 78 | XXL: Bust 100, Talie 82. Toate măsurătorile în cm.</p>
+          </div>
+        </div>
+        <div class="pdp-accordion-item">
+          <button class="pdp-accordion-toggle" onclick="toggleAccordion(this)">
+            <span data-i18n="pdp.delivery">Livrare & Retururi</span>
+            <span>+</span>
+          </button>
+          <div class="pdp-accordion-body">
+            <p data-i18n="pdp.delivery_text">Livrare gratuită pentru comenzi peste 300 RON. Livrare prin Romanian Post, UPS, DHL sau GLS în 2-5 zile lucrătoare. Returnare acceptată în 14 zile.</p>
+          </div>
+        </div>
+        <div class="pdp-accordion-item">
+          <button class="pdp-accordion-toggle" onclick="toggleAccordion(this)">
+            <span data-i18n="pdp.care">Instrucțiuni Spălare</span>
+            <span>+</span>
+          </button>
+          <div class="pdp-accordion-body">
+            <p data-i18n="pdp.care_text">Spălare delicată la 30°C. Nu folosiți înălbitor. Uscare la temperatura camerei. Călcat la temperatură scăzută.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  <section class="section" style="background:var(--c-cream)">
+    <p class="section-label" data-i18n="pdp.related_label">Completează Look-ul</p>
+    <h2 class="section-title" style="margin-bottom:48px"><span data-i18n="pdp.related_title">Poate Îți</span> <em data-i18n="pdp.related_em">Place</em></h2>
+    <div class="products-grid">
+      <div class="product-card" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p2"><svg class="dress-shape" viewBox="0 0 200 300" fill="#4a6450" opacity=".6"><path d="M60 55 Q70 30 100 25 Q130 30 140 55 L155 70 L145 290 L55 290 Z"/></svg></div>
+          <div class="product-actions"><button class="btn-quick" onclick="addToCart(event)">Adaugă</button><button class="btn-wish" onclick="toggleWish(event)">♡</button></div>
+        </div>
+        <div class="product-info"><h4>Rochie Serena</h4><div class="price">319 RON</div></div>
+      </div>
+      <div class="product-card" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p5"><svg class="dress-shape" viewBox="0 0 200 300" fill="#80805a" opacity=".6"><path d="M55 50 Q68 22 100 18 Q132 22 145 50 L168 85 L162 290 L38 290 Z"/></svg></div>
+          <div class="product-actions"><button class="btn-quick" onclick="addToCart(event)">Adaugă</button><button class="btn-wish" onclick="toggleWish(event)">♡</button></div>
+        </div>
+        <div class="product-info"><h4>Rochie Mara</h4><div class="price">459 RON</div></div>
+      </div>
+      <div class="product-card" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p4"><svg class="dress-shape" viewBox="0 0 200 300" fill="#4a8050" opacity=".6"><path d="M65 60 Q78 35 100 30 Q122 35 135 60 L150 80 L145 290 L55 290 Z"/></svg></div>
+          <div class="product-actions"><button class="btn-quick" onclick="addToCart(event)">Adaugă</button><button class="btn-wish" onclick="toggleWish(event)">♡</button></div>
+        </div>
+        <div class="product-info"><h4>Bluza Elara</h4><div class="price">249 RON</div></div>
+      </div>
+      <div class="product-card" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p3"><svg class="dress-shape" viewBox="0 0 200 300" fill="#a86080" opacity=".6"><path d="M50 45 Q65 18 100 14 Q135 18 150 45 L175 78 L175 290 L25 290 Z"/></svg></div>
+          <div class="product-actions"><button class="btn-quick" onclick="addToCart(event)">Adaugă</button><button class="btn-wish" onclick="toggleWish(event)">♡</button></div>
+        </div>
+        <div class="product-info"><h4>Rochie Aurora</h4><div class="price">529 RON</div></div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO.</span><span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: OUR STORY
+     =========================== -->
+<div class="page" id="page-story">
+
+  <!-- Story Hero - Cinematic full-bleed -->
+  <section class="story-hero-section">
+    <div class="story-hero-bg" id="storyHeroBg"></div>
+    <div class="story-hero-film-grain"></div>
+    <!-- decorative vertical text left -->
+    <div class="story-vert-text story-vert-left">Est. 1997 Bucharest Romania</div>
+    <!-- decorative vertical text right -->
+    <div class="story-vert-text story-vert-right">Artisan Fashion House</div>
+    <div class="story-hero-content">
+      <p class="story-hero-eyebrow" data-i18n="story.eyebrow">Povestea Noastră</p>
+      <h1 class="story-hero-title">
+        <span class="story-title-line1">27</span>
+        <em class="story-title-em" data-i18n="story.hero_em">de Ani de</em>
+        <span class="story-title-line2" data-i18n="story.hero_main">Eleganță</span>
+      </h1>
+      <p class="story-hero-sub" data-i18n="story.hero_sub">
+        Din inima Bucureștiului, ELYVO celebrează feminitatea prin haine create cu grijă, pasiune și respect pentru frumusețea fiecărei femei.
+      </p>
+      <div class="story-hero-actions">
+        <a class="btn-hero" onclick="showPage('shop')" style="opacity:1" data-i18n="story.cta_shop">Descoperă Colecția</a>
+        <button class="story-scroll-cta" onclick="document.getElementById('story-origin').scrollIntoView({behavior:'smooth'})" data-i18n="story.cta_timeline">Istoria Noastră ↓</button>
+      </div>
+    </div>
+    <!-- Floating stats -->
+    <div class="story-hero-stats">
+      <div class="story-stat">
+        <span class="story-stat-num">27</span>
+        <span class="story-stat-label" data-i18n="story.num_year">Ani de Activitate</span>
+      </div>
+      <div class="story-stat-divider"></div>
+      <div class="story-stat">
+        <span class="story-stat-num">200+</span>
+        <span class="story-stat-label">Modele / An</span>
+      </div>
+      <div class="story-stat-divider"></div>
+      <div class="story-stat">
+        <span class="story-stat-num">34</span>
+        <span class="story-stat-label" data-i18n="story.num_team">Artizani Locali</span>
+      </div>
+    </div>
+    <div class="story-hero-scroll">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- Values strip - gold bar -->
+  <div class="story-values-strip">
+    <div class="story-values-inner">
+      <span>Calitate</span><span class="story-strip-dot">✦</span>
+      <span>Feminitate</span><span class="story-strip-dot">✦</span>
+      <span>Autenticitate</span><span class="story-strip-dot">✦</span>
+      <span>România</span><span class="story-strip-dot">✦</span>
+      <span>Calitate</span><span class="story-strip-dot">✦</span>
+      <span>Feminitate</span><span class="story-strip-dot">✦</span>
+      <span>Autenticitate</span><span class="story-strip-dot">✦</span>
+      <span>România</span><span class="story-strip-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- Origin story section -->
+  <section id="story-origin" class="story-origin-section">
+    <div class="story-origin-text reveal">
+      <p class="section-label" data-i18n="story.origin_label">Originile</p>
+      <h2 class="section-title">Născut din <em>Pasiune</em></h2>
+      <div class="story-origin-quote">
+        <span class="story-quote-mark">"</span>
+        <p>Fiecare rochie spune povestea ta.</p>
+        <cite>— Elena Voicu, Fondatoare ELYVO</cite>
+      </div>
+      <p class="story-body-text" data-i18n="story.origin_p1">
+        În 1997, pe o stradă liniștită din București, s-a deschis primul atelier ELYVO. Fondatoarea brandului, Elena Voicu, visa la haine care să celebreze feminitatea românească — piese elegante, bine croite, accesibile și purtate cu mândrie.
+      </p>
+      <p class="story-body-text" data-i18n="story.origin_p2">
+        Cu o singură mașină de cusut și o echipă de trei croitorese, ELYVO a creat primele 40 de modele. Rochiile s-au vândut în prima săptămână. Lumea voia mai mult.
+      </p>
+      <p class="story-body-text" data-i18n="story.origin_p3">
+        Astăzi, brandul numără peste 5.000 de cliente fidele, 200+ modele exclusive pe an și o echipă de 34 de artizani dedicați, toți angajați în București.
+      </p>
+    </div>
+    <div class="story-origin-visual reveal reveal-delay-2">
+      <div class="story-origin-img">
+        <div class="story-origin-img-bg">
+          <svg viewBox="0 0 400 520" style="width:68%;opacity:.5;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)" fill="#faf8f5">
+            <path d="M100 140 Q135 75 200 62 Q265 75 300 140 L348 185 L360 500 L40 500 Z"/>
+            <path d="M148 62 Q168 20 200 12 Q232 20 252 62" stroke="#c9a96e" stroke-width="2.5" fill="none"/>
+            <ellipse cx="200" cy="360" rx="80" ry="105" fill="none" stroke="#c9a96e" stroke-width="1" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="story-origin-img-caption">
+          <p>"Fiecare rochie spune povestea ta."</p>
+          <cite>Elena Voicu, Fondatoare ELYVO</cite>
+        </div>
+      </div>
+      <div class="story-year-badge">
+        <span class="story-year-num">27</span>
+        <span class="story-year-label">ani</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline section -->
+  <section id="story-timeline" class="story-timeline-section">
+    <div class="reveal" style="text-align:center;margin-bottom:80px">
+      <p class="section-label" data-i18n="story.timeline_label">Cronologie</p>
+      <h2 class="section-title">Drumul <em>Nostru</em></h2>
+    </div>
+    <div class="story-timeline">
+      <div class="story-timeline-line"></div>
+      <div class="story-timeline-item story-timeline-left reveal">
+        <div class="story-timeline-content">
+          <div class="story-timeline-year">1997</div>
+          <h4 class="story-timeline-title" data-i18n="t1_title">Primul Atelier</h4>
+          <p class="story-timeline-text" data-i18n="t1_text">Elena Voicu deschide atelierul din Sectorul 1, București. Primele 40 de modele sunt create manual, cu materiale importate din Italia.</p>
+        </div>
+        <div class="story-timeline-node"></div>
+      </div>
+      <div class="story-timeline-item story-timeline-right reveal reveal-delay-1">
+        <div class="story-timeline-node"></div>
+        <div class="story-timeline-content">
+          <div class="story-timeline-year">2003</div>
+          <h4 class="story-timeline-title" data-i18n="t2_title">Primul Magazin</h4>
+          <p class="story-timeline-text" data-i18n="t2_text">ELYVO deschide primul magazin propriu pe Calea Victoriei. Colecția de toamnă se epuizează în 3 zile. Brandul devine o voce a eleganței românești.</p>
+        </div>
+      </div>
+      <div class="story-timeline-item story-timeline-left reveal reveal-delay-2">
+        <div class="story-timeline-content">
+          <div class="story-timeline-year">2010</div>
+          <h4 class="story-timeline-title" data-i18n="t3_title">Extindere Națională</h4>
+          <p class="story-timeline-text" data-i18n="t3_text">ELYVO ajunge în Cluj, Timișoara și Iași. Colecțiile anuale trec de 150 de modele, iar echipa crește la 20 de angajați.</p>
+        </div>
+        <div class="story-timeline-node"></div>
+      </div>
+      <div class="story-timeline-item story-timeline-right reveal">
+        <div class="story-timeline-node"></div>
+        <div class="story-timeline-content">
+          <div class="story-timeline-year">2018</div>
+          <h4 class="story-timeline-title" data-i18n="t4_title">Lansare Online</h4>
+          <p class="story-timeline-text" data-i18n="t4_text">elyvo.ro se lansează și aduce ELYVO în casele clientelor din toată România și din diaspora. Primele comenzi internaționale sosesc din Italia, Germania și Franța.</p>
+        </div>
+      </div>
+      <div class="story-timeline-item story-timeline-left reveal reveal-delay-1">
+        <div class="story-timeline-content">
+          <div class="story-timeline-year story-timeline-year-current">2025</div>
+          <h4 class="story-timeline-title" data-i18n="t5_title">27 de Ani, 200+ Modele</h4>
+          <p class="story-timeline-text" data-i18n="t5_text">Cea mai nouă colecție Primăvară–Vară 2025 sărbătorește 27 de ani de eleganță autentică. Aceeași pasiune, același atelier, aceeași dedicație pentru femeia modernă.</p>
+        </div>
+        <div class="story-timeline-node story-timeline-node-current"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values section - dark -->
+  <section class="story-values-section">
+    <div class="reveal" style="text-align:center;margin-bottom:72px">
+      <p class="section-label" style="color:var(--c-gold)" data-i18n="story.values_label">Valorile Noastre</p>
+      <h2 class="section-title" style="color:var(--c-white)" data-i18n="story.values_title">Ce Ne <em>Definește</em></h2>
+    </div>
+    <div class="story-values-grid">
+      <div class="story-value-card reveal">
+        <div class="story-value-icon">✦</div>
+        <h3 class="story-value-title" data-i18n="story.v1_title">Calitate</h3>
+        <p class="story-value-text" data-i18n="story.v1_text">Folosim exclusiv materiale premium — viscoza, mătase și catifea — procurate de la furnizori italieni și turci. Fiecare piesă este testată timp de 14 zile înainte de lansare.</p>
+      </div>
+      <div class="story-value-card story-value-card-center reveal reveal-delay-1">
+        <div class="story-value-icon">◈</div>
+        <h3 class="story-value-title" data-i18n="story.v2_title">Feminitate</h3>
+        <p class="story-value-text" data-i18n="story.v2_text">Fiecare model este gândit să îmbrace frumos orice siluetă. Croiala noastră celebrează corpul feminin în toată diversitatea lui, cu eleganță și naturalețe.</p>
+      </div>
+      <div class="story-value-card reveal reveal-delay-2">
+        <div class="story-value-icon">⊕</div>
+        <h3 class="story-value-title" data-i18n="story.v3_title">România</h3>
+        <p class="story-value-text" data-i18n="story.v3_text">Proiectăm, croim și coasem totul în București. Susținem meșteșugarii locali și mândria națională prin fiecare piesă pe care o creăm și o livrăm.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Atelier section -->
+  <section class="story-atelier-section">
+    <div class="story-atelier-mosaic reveal">
+      <div class="story-mosaic-card story-mosaic-dark">
+        <svg viewBox="0 0 120 120" style="width:55%;opacity:.6" fill="none" stroke="#c9a96e" stroke-width="1.5"><circle cx="60" cy="60" r="50"/><path d="M60 20 Q80 40 60 60 Q40 80 60 100"/></svg>
+      </div>
+      <div class="story-mosaic-card story-mosaic-light">
+        <svg viewBox="0 0 120 160" style="width:55%;opacity:.55" fill="#8b7355"><path d="M30 44 Q38 22 60 18 Q82 22 90 44 L104 58 L98 152 L22 152 Z"/></svg>
+      </div>
+      <div class="story-mosaic-card story-mosaic-wide story-mosaic-mid">
+        <p class="story-mosaic-quote">"Croiesc fiecare rochie ca și cum ar fi pentru sora mea."</p>
+        <cite class="story-mosaic-cite">— Croitoreasă ELYVO, 12 ani în echipă</cite>
+      </div>
+      <div class="story-team-badge-card">
+        <span class="story-team-num">34</span>
+        <span class="story-team-label" data-i18n="story.team_badge">Artizani în Echipă</span>
+      </div>
+    </div>
+    <div class="story-atelier-text reveal reveal-delay-2">
+      <p class="section-label" data-i18n="story.atelier_label">Atelierul Nostru</p>
+      <h2 class="section-title">Mâini <em>Pricepute</em>,<br>Inimi Dedicate</h2>
+      <p class="story-body-text" data-i18n="story.atelier_p1">
+        Atelierul ELYVO din Sectorul 1, București este inima brandului. Aici, 34 de croitorese și designeri lucrează zilnic pentru a transforma viziunile noastre în realitate.
+      </p>
+      <p class="story-body-text" data-i18n="story.atelier_p2">
+        Folosim tehnici tradiționale de croitorie română combinate cu tehnologie modernă de croit. Rezultatul? Haine care rezistă în timp, confortabile și impecabile.
+      </p>
+      <a class="btn-outline-light" onclick="showPage('shop')" style="display:inline-block;margin-top:8px" data-i18n="story.atelier_cta">Explorează Colecția</a>
+    </div>
+  </section>
+
+  <!-- Numbers bar -->
+  <section class="about-strip">
+    <div class="about-item reveal">
+      <div class="about-num">1997</div>
+      <p data-i18n="story.num_year">Anul Fondării</p>
+    </div>
+    <div class="about-item reveal reveal-delay-1">
+      <div class="about-num">34</div>
+      <p data-i18n="story.num_team">Artizani Locali</p>
+    </div>
+    <div class="about-item reveal reveal-delay-2">
+      <div class="about-num">5K+</div>
+      <p data-i18n="story.num_clients">Cliente Fidele</p>
+    </div>
+  </section>
+
+  <!-- CTA section -->
+  <section style="padding:120px 60px;background:var(--c-black);text-align:center">
+    <div class="reveal">
+      <p class="section-label" style="color:var(--c-gold)" data-i18n="story.cta_label">Alătură-te comunității</p>
+      <h2 class="section-title" style="color:var(--c-white);margin-bottom:24px" data-i18n="story.cta_title">Fii Parte din <em>Povestea</em> ELYVO</h2>
+      <p style="color:rgba(250,248,245,.6);font-size:14px;margin-bottom:48px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.8" data-i18n="story.cta_text">Descoperă colecția noastră și găsește piesa care te reprezintă. Fiecare rochie este o promisiune de eleganță.</p>
+      <a class="btn-hero" onclick="showPage('shop')" style="opacity:1" data-i18n="story.cta_btn">Cumpără Acum</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO. Toate drepturile rezervate.</span>
+      <span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: LOGIN
+     =========================== -->
+<div class="page" id="page-login">
+  <div class="login-wrapper">
+    <div class="login-visual">
+      <div class="login-visual-logo">ELYVO</div>
+    </div>
+    <div class="login-form-wrap">
+      <div class="login-form" id="loginFormInner">
+        <span class="nav-logo" onclick="showPage('home')" style="cursor:pointer;display:block;margin-bottom:48px">ELYVO</span>
+        <h2 style="font-family:var(--ff-serif);font-size:36px;font-weight:300;margin-bottom:8px" data-i18n="login.title">Bun Revenit</h2>
+        <p style="color:var(--c-mid);font-size:14px;margin-bottom:40px" data-i18n="login.subtitle">Conectează-te pentru a continua</p>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="adresa@email.com">
+        </div>
+        <div class="form-group">
+          <label>Parolă</label>
+          <input type="password" placeholder="••••••••">
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+          <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--c-mid);cursor:pointer">
+            <input type="checkbox" style="width:14px;height:14px"> Ține-mă minte
+          </label>
+          <a style="font-size:12px;color:var(--c-taupe);cursor:pointer">Ai uitat parola?</a>
+        </div>
+        <button class="btn-primary" data-i18n="login.btn" onclick="handleLogin()">Intră în Cont</button>
+        <div class="divider" data-i18n="login.or">sau</div>
+        <button class="btn-social google" onclick="handleLogin()">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/><path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/><path fill="#FBBC05" d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z"/><path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58z"/></svg>
+          Continuă cu Google
+        </button>
+        <button class="btn-social apple" onclick="handleLogin()">
+          <svg width="18" height="18" viewBox="0 0 814 1000" fill="currentColor"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.3-164-39.3c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.8 135.4-317.7 268.9-317.7 89 0 163.2 59.3 220.5 59.3 56.8 0 145.6-62.3 247.6-62.3zm-175.2-67.8c-21.5 25.6-55.8 46-90.8 46-5.6 0-11.2-.6-15.7-1.9-1.9-5.6-2.5-11.2-2.5-16.5 0-23.8 10-50 28.5-71.9C551 207.3 598.4 187.3 642 186.7c1.3 6.3 1.9 12.6 1.9 18.2 0 25-4.4 49.3-31 68.2z"/></svg>
+          Continuă cu Apple
+        </button>
+        <div class="form-alt">
+          <span data-i18n="login.no_account">Nu ai cont?</span> <a onclick="showRegister()" data-i18n="login.register">Creează Cont</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     PAGE: CHECKOUT
+     =========================== -->
+<div class="page" id="page-checkout">
+  <div style="padding-top:72px">
+    <div class="checkout-wrap">
+      <div class="checkout-form-col">
+        <button class="btn-back" data-i18n="checkout.back" onclick="toggleCart()">← Înapoi la coș</button>
+        <h1 class="checkout-title">Finalizează<br><em style="font-style:italic;color:var(--c-taupe)">Comanda</em></h1>
+
+        <div style="margin-bottom:40px">
+          <div class="checkout-section-title" data-i18n="checkout.s1">1. Date de Contact</div>
+          <div class="form-group"><label>Nume Complet</label><input type="text" placeholder="Maria Popescu"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Email</label><input type="email" placeholder="maria@email.com"></div>
+            <div class="form-group"><label>Telefon</label><input type="tel" placeholder="+40 7xx xxx xxx"></div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:40px">
+          <div class="checkout-section-title" data-i18n="checkout.s2">2. Adresă de Livrare</div>
+          <div class="form-group"><label>Adresă</label><input type="text" placeholder="Str. Florilor nr. 12"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Oraș</label><input type="text" placeholder="București"></div>
+            <div class="form-group"><label>Cod Poștal</label><input type="text" placeholder="010100"></div>
+          </div>
+          <div class="form-group"><label>Județ</label><input type="text" placeholder="Ilfov"></div>
+        </div>
+
+        <div style="margin-bottom:40px">
+          <div class="checkout-section-title" data-i18n="checkout.s3">3. Metoda de Livrare</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <label style="display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--c-black);cursor:pointer">
+              <input type="radio" name="shipping" checked> <span style="font-size:13px">Romanian Post — <strong>Gratuit</strong> (3-5 zile)</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--c-light);cursor:pointer">
+              <input type="radio" name="shipping"> <span style="font-size:13px">DHL Express — <strong>25 RON</strong> (1-2 zile)</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:14px;padding:16px;border:1px solid var(--c-light);cursor:pointer">
+              <input type="radio" name="shipping"> <span style="font-size:13px">GLS — <strong>15 RON</strong> (2-3 zile)</span>
+            </label>
+          </div>
+        </div>
+
+        <div style="margin-bottom:40px">
+          <div class="checkout-section-title" data-i18n="checkout.s4">4. Plată</div>
+          <div class="payment-methods">
+            <button class="payment-btn active" onclick="setPayment(this)">💳 Card</button>
+            <button class="payment-btn" onclick="setPayment(this)">PayPal</button>
+            <button class="payment-btn" onclick="setPayment(this)">Revolut</button>
+            <button class="payment-btn" onclick="setPayment(this)">Ramburs</button>
+          </div>
+          <div class="form-group"><label>Număr Card</label><input type="text" placeholder="1234 5678 9012 3456"></div>
+          <div class="form-row">
+            <div class="form-group"><label>Expirare</label><input type="text" placeholder="MM/AA"></div>
+            <div class="form-group"><label>CVV</label><input type="text" placeholder="•••"></div>
+          </div>
+        </div>
+
+        <button class="btn-primary" onclick="placeOrder()" style="font-size:13px;letter-spacing:3px">
+          Plasează Comanda — 638 RON
+        </button>
+        <p style="font-size:11px;color:var(--c-sand);margin-top:16px;text-align:center;letter-spacing:1px">
+          🔒 Plată securizată SSL · Retururi gratuite în 14 zile
+        </p>
+      </div>
+
+      <div class="checkout-summary-col">
+        <h3 class="checkout-title" style="font-size:24px" data-i18n="checkout.summary">Sumar Comandă</h3>
+        <div class="checkout-summary-item">
+          <div class="checkout-img" style="background:linear-gradient(145deg,#e8e0d5,#bba898)">
+            <svg viewBox="0 0 72 96" style="width:100%;opacity:.5" fill="#8b7355"><path d="M18 26 Q22 13 36 10 Q50 13 54 26 L64 31 L58 90 L14 90 Z"/></svg>
+          </div>
+          <div><div class="summary-name">Rochie Luna</div><div class="summary-detail">Maro / M × 1</div></div>
+          <div class="summary-price">389 RON</div>
+        </div>
+        <div class="checkout-summary-item">
+          <div class="checkout-img" style="background:linear-gradient(145deg,#d5e0e8,#98a8bb)">
+            <svg viewBox="0 0 72 96" style="width:100%;opacity:.5" fill="#4a6450"><path d="M20 28 Q24 15 36 12 Q48 15 52 28 L62 34 L55 90 L17 90 Z"/></svg>
+          </div>
+          <div><div class="summary-name">Bluza Elara</div><div class="summary-detail">Albastru / S × 1</div></div>
+          <div class="summary-price">249 RON</div>
+        </div>
+        <div class="order-totals">
+          <div class="order-total-row"><span>Subtotal</span><span>638 RON</span></div>
+          <div class="order-total-row"><span>Transport</span><span style="color:var(--c-taupe)">Gratuit</span></div>
+          <div class="order-total-row"><span>Reducere</span><span>—</span></div>
+          <div class="order-total-row final"><span>Total</span><span>638 RON</span></div>
+        </div>
+        <div style="margin-top:28px;padding:20px;background:var(--c-light)">
+          <div class="form-group" style="margin:0">
+            <label>Cod Promoțional</label>
+            <div style="display:flex;gap:12px;margin-top:10px">
+              <input type="text" placeholder="Introdu codul" style="flex:1;border:none;border-bottom:1px solid var(--c-sand);background:none;outline:none;font-family:var(--ff-sans);font-size:13px;padding:8px 0">
+              <button style="background:var(--c-black);color:var(--c-white);border:none;padding:8px 18px;font-family:var(--ff-sans);font-size:11px;letter-spacing:1px;cursor:pointer">Aplică</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     PAGE: ORDER SUCCESS
+     =========================== -->
+<div class="page" id="page-success">
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px">
+    <div>
+      <div style="font-size:80px;margin-bottom:32px;animation:fadeUp .6s ease">✦</div>
+      <h1 style="font-family:var(--ff-serif);font-size:52px;font-weight:300;margin-bottom:16px">
+        Comandă <em style="color:var(--c-taupe)">Plasată</em>
+      </h1>
+      <p style="font-size:14px;color:var(--c-mid);margin-bottom:8px">Număr comandă: #ELV-2025-4892</p>
+      <p style="font-size:14px;color:var(--c-mid);margin-bottom:48px;line-height:1.8">
+        Îți mulțumim pentru comanda ta! Vei primi un email de confirmare<br>în cel mai scurt timp.
+      </p>
+      <button class="btn-hero" data-i18n="success.cta" onclick="showPage('home')" style="opacity:1">Continuă Cumpărăturile</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+// ── Language System ──
+const T = {
+  ro: {
+    // Nav
+    'nav.collection': 'Colecție', 'nav.dresses': 'Rochii', 'nav.blouses': 'Bluze',
+    'nav.accessories': 'Accesorii', 'nav.sale': 'Sale', 'nav.story': 'Povestea Noastră',
+    'mob.home': 'Acasă', 'mob.account': 'Contul Meu',
+    // Search
+    'nav.search_title': 'Ce cauți?', 'nav.search_placeholder': 'Caută produse...',
+    'nav.search_tag1': 'Rochii de seară', 'nav.search_tag2': 'Bluze elegante',
+    'nav.search_tag3': 'Colecție nouă', 'nav.search_tag4': 'Sale', 'nav.search_tag5': 'Accesorii',
+    // Cart
+    'cart.title': 'Coșul Tău', 'cart.subtotal': 'Subtotal', 'cart.shipping': 'Transport',
+    'cart.free': 'Gratuit', 'cart.total': 'Total', 'cart.checkout': 'Finalizează Comanda →',
+    'cart.shipping_promo': 'Transport gratuit pentru această comandă!',
+    'cart.shipping_promo': 'Transport gratuit pentru această comandă!',
+    // Hero
+    'hero.eyebrow': 'Colecție Primăvară – Vară 2025',
+    'hero.sub': '27 de ani de modă românească autentică',
+    'hero.cta': 'Descoperă Colecția', 'hero.scroll': 'Derulează',
+    // Home sections
+    'home.cat_label': 'Categorii', 'home.cat_title': 'Explorează', 'home.cat_title2': 'Stilul Tău',
+    'home.best_label': 'Bestsellers', 'home.best_title': 'Cele Mai', 'home.best_title2': 'Iubite',
+    'home.all_products': 'Toate Produsele →', 'home.new_label': 'Noutăți',
+    'home.new_title': 'Tocmai', 'home.new_title2': 'Sosit', 'home.all_new': 'Toate Noutățile →',
+    'home.story_label': 'Povestea Noastră',
+    'home.story_title': '27 de Ani de Pasiune Românească',
+    'home.story_text': 'Din 1997, ELYVO creează rochii și haine care celebrează feminitatea autentică. Fiecare piesă este concepută cu grijă în atelierele noastre din București, folosind materiale premium și croieli ce îmbracă frumos orice siluetă.',
+    'home.story_cta': 'Colecția Completă',
+    'home.news_label': 'Rămâi la curent',
+    'home.news_title': 'Abonează-te la Newsletter',
+    'home.news_text': 'Fii prima care află despre colecțiile noi, reduceri exclusive și noutăți ELYVO.',
+    'home.news_placeholder': 'Adresa ta de email', 'home.news_btn': 'Abonează-te',
+    // About numbers
+    'num.years': 'Ani de Experiență', 'num.clients': 'Clienți Fericiți', 'num.models': 'Modele Exclusive',
+    // Shop
+    'shop.label': 'Magazin', 'shop.title': 'Colecția Completă',
+    'shop.cat_all': 'Toate', 'shop.cat_dresses': 'Rochii', 'shop.cat_blouses': 'Bluze',
+    'shop.cat_jackets': 'Sacouri', 'shop.cat_acc': 'Accesorii',
+    'shop.sort_label': 'Sortare:', 'shop.sort_rec': 'Recomandate',
+    'shop.sort_asc': 'Preț ↑', 'shop.sort_desc': 'Preț ↓', 'shop.sort_new': 'Noutăți',
+    'shop.cat_label': 'Categorie:',
+    // PDP
+    'pdp.add': 'Adaugă în Coș', 'pdp.wishlist': '♡ Salvează la Favorite',
+    'pdp.home': 'Acasă', 'pdp.collection': 'Colecție',
+    'pdp.details': 'Detalii Produs', 'pdp.size_guide': 'Ghid Mărimi',
+    'pdp.delivery': 'Livrare & Retururi', 'pdp.care': 'Instrucțiuni Spălare',
+    'pdp.details_text': 'Rochie cu mâneci scurte, decolteu în V, talie marcată cu bandă elastică. Lungime midi. Compoziție: 95% viscoza, 5% elastan. Produs în România.',
+    'pdp.size_text': 'XS: Bust 80, Talie 62 | S: Bust 84, Talie 66 | M: Bust 88, Talie 70 | L: Bust 92, Talie 74 | XL: Bust 96, Talie 78 | XXL: Bust 100, Talie 82. Toate măsurătorile în cm.',
+    'pdp.delivery_text': 'Livrare gratuită pentru comenzi peste 300 RON. Livrare prin Romanian Post, UPS, DHL sau GLS în 2-5 zile lucrătoare. Returnare acceptată în 14 zile.',
+    'pdp.care_text': 'Spălare delicată la 30°C. Nu folosiți înălbitor. Uscare la temperatura camerei. Călcat la temperatură scăzută.',
+    'pdp.related_label': 'Completează Look-ul', 'pdp.related_title': 'Poate Îți',
+    'pdp.related_em': 'Place',
+    'pdp.color_label': 'Culoare: Maro Cald', 'pdp.size_label': 'Mărime:',
+    'pdp.desc': 'O rochie elegantă cu decolteu în V și talie marcată, confecționată din materiale premium. Perfectă pentru ocazii speciale sau seri romantice. Disponibilă în trei culori exclusiviste.',
+    'pdp.quick_add': 'Adaugă',
+    // Login
+    'login.title': 'Bun Revenit', 'login.subtitle': 'Conectează-te în contul tău',
+    'login.email': 'Email', 'login.password': 'Parolă', 'login.remember': 'Ține-mă minte',
+    'login.forgot': 'Ai uitat parola?', 'login.btn': 'Intră în Cont',
+    'login.or': 'sau continuă cu', 'login.no_account': 'Nu ai cont?', 'login.register': 'Creează Cont',
+    // Checkout
+    'checkout.back': '← Înapoi la coș', 'checkout.title1': 'Finalizează',
+    'checkout.title2': 'Comanda',
+    'checkout.s1': '1. Date de Contact', 'checkout.fullname': 'Nume Complet',
+    'checkout.email': 'Email', 'checkout.phone': 'Telefon',
+    'checkout.s2': '2. Adresă de Livrare', 'checkout.address': 'Adresă',
+    'checkout.city': 'Oraș', 'checkout.postal': 'Cod Poștal', 'checkout.county': 'Județ',
+    'checkout.s3': '3. Metoda de Livrare', 'checkout.s4': '4. Plată',
+    'checkout.card': 'Card', 'checkout.ramburs': 'Ramburs',
+    'checkout.card_num': 'Număr Card', 'checkout.expiry': 'Expirare', 'checkout.cvv': 'CVV',
+    'checkout.place': 'Plasează Comanda — 638 RON',
+    'checkout.secure': '🔒 Plată securizată SSL · Retururi gratuite în 14 zile',
+    'checkout.summary': 'Sumar Comandă',
+    'checkout.subtotal': 'Subtotal', 'checkout.shipping': 'Transport',
+    'checkout.discount': 'Reducere', 'checkout.total': 'Total',
+    'checkout.promo': 'Cod Promoțional', 'checkout.promo_ph': 'Introdu codul',
+    'checkout.apply': 'Aplică',
+    // Success
+    'success.title': 'Comandă', 'success.em': 'Plasată',
+    'success.order': 'Număr comandă: #ELV-2025-4892',
+    'success.text': 'Îți mulțumim pentru comanda ta! Vei primi un email de confirmare în cel mai scurt timp.',
+    'success.cta': 'Continuă Cumpărăturile',
+    // Footer
+    'footer.tagline': 'Modă românească autentică de 27 de ani. Fiecare rochie spune o poveste — a feminității, eleganței și calității.',
+    'footer.col1': 'Colecție', 'footer.col2': 'Informații', 'footer.col3': 'Contact',
+    'footer.evening': 'Rochii de Seară', 'footer.day': 'Rochii de Zi', 'footer.blouses': 'Bluze',
+    'footer.jackets': 'Sacouri', 'footer.accessories': 'Accesorii', 'footer.sale': 'Sale',
+    'footer.about': 'Despre Noi', 'footer.contact': 'Contact', 'footer.size': 'Ghid Mărimi',
+    'footer.delivery': 'Livrare & Retururi', 'footer.terms': 'Termeni & Condiții',
+    'footer.gdpr': 'GDPR', 'footer.hours': 'Lun – Vin: 9:00 – 17:00',
+    'footer.copy': '© 2025 ELYVO. Toate drepturile rezervate.',
+    'footer.made': 'Fabricat cu ♡ în România',
+    // Story page
+    'story.eyebrow': 'Povestea Noastră', 'story.hero_em': 'de Ani de', 'story.hero_main': 'Eleganță',
+    'story.hero_sub': 'Din inima Bucureștiului, ELYVO celebrează feminitatea prin haine create cu grijă, pasiune și respect pentru frumusețea fiecărei femei.',
+    'story.cta_shop': 'Descoperă Colecția', 'story.cta_timeline': 'Istoria Noastră ↓',
+    'story.origin_label': 'Originile', 'story.origin_title': 'Născut din Pasiune',
+    'story.origin_p1': 'În 1997, pe o stradă liniștită din București, s-a deschis primul atelier ELYVO. Fondatoarea brandului, Elena Voicu, visa la haine care să celebreze feminitatea românească — piese elegante, bine croite, accesibile și purtate cu mândrie.',
+    'story.origin_p2': 'Cu un singur mașina de cusut și o echipă de trei croitorese, ELYVO a creat primele 40 de modele. Rochiile s-au vândut în prima săptămână. Lumea voia mai mult.',
+    'story.origin_p3': 'Astăzi, brandul numără peste 5.000 de cliente fidele, 200+ modele exclusive pe an și o echipă de 34 de artizani dedicați, toți angajați în București.',
+    'story.timeline_label': 'Cronologie', 'story.timeline_title': 'Drumul Nostru',
+    't1_title': 'Primul Atelier', 't1_text': 'Elena Voicu deschide atelierul din Sectorul 1, București. Primele 40 de modele sunt create manual, cu materiale importate din Italia.',
+    't2_title': 'Primul Magazin', 't2_text': 'ELYVO deschide primul magazin propriu pe Calea Victoriei. Colecția de toamnă se epuizează în 3 zile. Brandul devine o voce a eleganței românești.',
+    't3_title': 'Extindere Națională', 't3_text': 'ELYVO ajunge în Cluj, Timișoara și Iași. Colecțiile anuale trec de 150 de modele, iar echipa crește la 20 de angajați.',
+    't4_title': 'Lansare Online', 't4_text': 'elyvo.ro se lansează și aduce ELYVO în casele clientelor din toată România și din diaspora. Primele comenzi internaționale sosesc din Italia, Germania și Franța.',
+    't5_title': '27 de Ani, 200+ Modele', 't5_text': 'Cea mai nouă colecție Primăvară–Vară 2025 sărbătorește 27 de ani de eleganță autentică. Aceeași pasiune, același atelier, aceeași dedicație pentru femeia modernă.',
+    'story.values_label': 'Valorile Noastre', 'story.values_title': 'Ce Ne Definește',
+    'story.v1_title': 'Calitate', 'story.v1_text': 'Folosim exclusiv materiale premium — viscoza, mătase și catifea — procurate de la furnizori italieni și turci. Fiecare piesă este testată timp de 14 zile înainte de lansare.',
+    'story.v2_title': 'Feminitate', 'story.v2_text': 'Fiecare model este gândit să îmbrace frumos orice siluetă. Croiala noastră celebrează corpul feminin în toată diversitatea lui, cu eleganță și naturalețe.',
+    'story.v3_title': 'România', 'story.v3_text': 'Proiectăm, croim și coasem totul în București. Susținem meșteșugarii locali și mândria națională prin fiecare piesă pe care o creăm și o livrăm.',
+    'story.team_badge': 'Artizani în Echipă',
+    'story.atelier_label': 'Atelierul Nostru', 'story.atelier_title': 'Mâini Pricepute, Inimi Dedicate',
+    'story.atelier_p1': 'Atelierul ELYVO din Sectorul 1, București este inima brandului. Aici, 34 de croitorese și designeri lucrează zilnic pentru a transforma viziunile noastre în realitate.',
+    'story.atelier_p2': 'Folosim tehnici tradiționale de croitorie română combinate cu tehnologie modernă de croit. Rezultatul? Haine care rezistă în timp, confortabile și impecabile.',
+    'story.atelier_cta': 'Explorează Colecția',
+    'story.num_year': 'Anul Fondării', 'story.num_team': 'Artizani Locali', 'story.num_clients': 'Cliente Fidele',
+    'story.cta_label': 'Alătură-te comunității', 'story.cta_title': 'Fii Parte din Povestea ELYVO',
+    'story.cta_text': 'Descoperă colecția noastră și găsește piesa care te reprezintă. Fiecare rochie este o promisiune de eleganță.',
+    'story.cta_btn': 'Cumpără Acum',
+    // Marquee items
+    'marquee': ['Colecție Nouă','Livrare Gratuită','Producție Românească','27 Ani de Eleganță','Retururi Gratuite','Modă Exclusivă'],
+  },
+  en: {
+    // Nav
+    'nav.collection': 'Collection', 'nav.dresses': 'Dresses', 'nav.blouses': 'Blouses',
+    'nav.accessories': 'Accessories', 'nav.sale': 'Sale', 'nav.story': 'Our Story',
+    'mob.home': 'Home', 'mob.account': 'My Account',
+    // Search
+    'nav.search_title': 'What are you looking for?', 'nav.search_placeholder': 'Search products...',
+    'nav.search_tag1': 'Evening dresses', 'nav.search_tag2': 'Elegant blouses',
+    'nav.search_tag3': 'New collection', 'nav.search_tag4': 'Sale', 'nav.search_tag5': 'Accessories',
+    // Cart
+    'cart.title': 'Your Cart', 'cart.subtotal': 'Subtotal', 'cart.shipping': 'Shipping',
+    'cart.free': 'Free', 'cart.total': 'Total', 'cart.checkout': 'Checkout →',
+    'cart.shipping_promo': 'Free shipping on this order!',
+    'cart.shipping_promo': 'Free shipping on this order!',
+    // Hero
+    'hero.eyebrow': 'Spring – Summer 2025 Collection',
+    'hero.sub': '27 years of authentic Romanian fashion',
+    'hero.cta': 'Discover the Collection', 'hero.scroll': 'Scroll',
+    // Home sections
+    'home.cat_label': 'Categories', 'home.cat_title': 'Explore', 'home.cat_title2': 'Your Style',
+    'home.best_label': 'Bestsellers', 'home.best_title': 'Most', 'home.best_title2': 'Loved',
+    'home.all_products': 'All Products →', 'home.new_label': 'New Arrivals',
+    'home.new_title': 'Just', 'home.new_title2': 'Arrived', 'home.all_new': 'All New Arrivals →',
+    'home.story_label': 'Our Story',
+    'home.story_title': '27 Years of Romanian Passion',
+    'home.story_text': 'Since 1997, ELYVO has created dresses and garments that celebrate authentic femininity. Each piece is carefully crafted in our Bucharest ateliers, using premium materials and cuts that beautifully flatter every silhouette.',
+    'home.story_cta': 'Full Collection',
+    'home.news_label': 'Stay in the loop',
+    'home.news_title': 'Subscribe to our Newsletter',
+    'home.news_text': 'Be the first to hear about new collections, exclusive discounts and ELYVO news.',
+    'home.news_placeholder': 'Your email address', 'home.news_btn': 'Subscribe',
+    // About numbers
+    'num.years': 'Years of Experience', 'num.clients': 'Happy Clients', 'num.models': 'Exclusive Designs',
+    // Shop
+    'shop.label': 'Shop', 'shop.title': 'Full Collection',
+    'shop.cat_all': 'All', 'shop.cat_dresses': 'Dresses', 'shop.cat_blouses': 'Blouses',
+    'shop.cat_jackets': 'Blazers', 'shop.cat_acc': 'Accessories',
+    'shop.sort_label': 'Sort by:', 'shop.sort_rec': 'Recommended',
+    'shop.sort_asc': 'Price ↑', 'shop.sort_desc': 'Price ↓', 'shop.sort_new': 'New',
+    'shop.cat_label': 'Category:',
+    // PDP
+    'pdp.add': 'Add to Cart', 'pdp.wishlist': '♡ Save to Wishlist',
+    'pdp.home': 'Home', 'pdp.collection': 'Collection',
+    'pdp.details': 'Product Details', 'pdp.size_guide': 'Size Guide',
+    'pdp.delivery': 'Delivery & Returns', 'pdp.care': 'Care Instructions',
+    'pdp.details_text': 'Short-sleeve dress with V-neckline and elasticated waist. Midi length. Composition: 95% viscose, 5% elastane. Made in Romania.',
+    'pdp.size_text': 'XS: Bust 80, Waist 62 | S: Bust 84, Waist 66 | M: Bust 88, Waist 70 | L: Bust 92, Waist 74 | XL: Bust 96, Waist 78 | XXL: Bust 100, Waist 82. All measurements in cm.',
+    'pdp.delivery_text': 'Free delivery on orders over 300 RON. Delivery via Romanian Post, UPS, DHL or GLS in 2-5 working days. Returns accepted within 14 days.',
+    'pdp.care_text': 'Gentle wash at 30°C. Do not bleach. Dry at room temperature. Iron on low heat.',
+    'pdp.related_label': 'Complete Your Look', 'pdp.related_title': 'You Might',
+    'pdp.related_em': 'Also Like',
+    'pdp.color_label': 'Color: Warm Brown', 'pdp.size_label': 'Size:',
+    'pdp.desc': 'An elegant dress with a V-neckline and marked waist, made from premium materials. Perfect for special occasions or romantic evenings. Available in three exclusive colours.',
+    'pdp.quick_add': 'Add',
+    // Login
+    'login.title': 'Welcome Back', 'login.subtitle': 'Sign in to your account',
+    'login.email': 'Email', 'login.password': 'Password', 'login.remember': 'Remember me',
+    'login.forgot': 'Forgot password?', 'login.btn': 'Sign In',
+    'login.or': 'or continue with', 'login.no_account': "Don't have an account?", 'login.register': 'Create Account',
+    // Checkout
+    'checkout.back': '← Back to cart', 'checkout.title1': 'Complete',
+    'checkout.title2': 'Your Order',
+    'checkout.s1': '1. Contact Details', 'checkout.fullname': 'Full Name',
+    'checkout.email': 'Email', 'checkout.phone': 'Phone',
+    'checkout.s2': '2. Delivery Address', 'checkout.address': 'Address',
+    'checkout.city': 'City', 'checkout.postal': 'Postcode', 'checkout.county': 'County',
+    'checkout.s3': '3. Shipping Method', 'checkout.s4': '4. Payment',
+    'checkout.card': 'Card', 'checkout.ramburs': 'Cash on Delivery',
+    'checkout.card_num': 'Card Number', 'checkout.expiry': 'Expiry', 'checkout.cvv': 'CVV',
+    'checkout.place': 'Place Order — 638 RON',
+    'checkout.secure': '🔒 SSL Secured Payment · Free returns within 14 days',
+    'checkout.summary': 'Order Summary',
+    'checkout.subtotal': 'Subtotal', 'checkout.shipping': 'Shipping',
+    'checkout.discount': 'Discount', 'checkout.total': 'Total',
+    'checkout.promo': 'Promo Code', 'checkout.promo_ph': 'Enter code',
+    'checkout.apply': 'Apply',
+    // Success
+    'success.title': 'Order', 'success.em': 'Placed',
+    'success.order': 'Order number: #ELV-2025-4892',
+    'success.text': 'Thank you for your order! You will receive a confirmation email shortly.',
+    'success.cta': 'Continue Shopping',
+    // Footer
+    'footer.tagline': 'Authentic Romanian fashion for 27 years. Every dress tells a story — of femininity, elegance and quality.',
+    'footer.col1': 'Collection', 'footer.col2': 'Information', 'footer.col3': 'Contact',
+    'footer.evening': 'Evening Dresses', 'footer.day': 'Day Dresses', 'footer.blouses': 'Blouses',
+    'footer.jackets': 'Blazers', 'footer.accessories': 'Accessories', 'footer.sale': 'Sale',
+    'footer.about': 'About Us', 'footer.contact': 'Contact', 'footer.size': 'Size Guide',
+    'footer.delivery': 'Delivery & Returns', 'footer.terms': 'Terms & Conditions',
+    'footer.gdpr': 'Privacy Policy', 'footer.hours': 'Mon – Fri: 9:00 – 17:00',
+    'footer.copy': '© 2025 ELYVO. All rights reserved.',
+    'footer.made': 'Made with ♡ in Romania',
+    // Story page
+    'story.eyebrow': 'Our Story', 'story.hero_em': 'Years of', 'story.hero_main': 'Elegance',
+    'story.hero_sub': 'From the heart of Bucharest, ELYVO celebrates femininity through garments created with care, passion and respect for the beauty of every woman.',
+    'story.cta_shop': 'Discover the Collection', 'story.cta_timeline': 'Our History ↓',
+    'story.origin_label': 'Origins', 'story.origin_title': 'Born from Passion',
+    'story.origin_p1': 'In 1997, on a quiet street in Bucharest, the first ELYVO atelier opened. The brand\'s founder, Elena Voicu, dreamed of garments that would celebrate Romanian femininity — elegant, well-cut pieces, accessible and worn with pride.',
+    'story.origin_p2': 'With a single sewing machine and a team of three seamstresses, ELYVO created its first 40 designs. The dresses sold out in the first week. The world wanted more.',
+    'story.origin_p3': 'Today the brand counts over 5,000 loyal clients, 200+ exclusive designs per year and a team of 34 dedicated artisans, all based in Bucharest.',
+    'story.timeline_label': 'Timeline', 'story.timeline_title': 'Our Journey',
+    't1_title': 'First Atelier', 't1_text': 'Elena Voicu opens the atelier in Sector 1, Bucharest. The first 40 designs are handcrafted using materials imported from Italy.',
+    't2_title': 'First Store', 't2_text': 'ELYVO opens its first standalone store on Calea Victoriei. The autumn collection sells out in 3 days. The brand becomes a voice of Romanian elegance.',
+    't3_title': 'National Expansion', 't3_text': 'ELYVO reaches Cluj, Timișoara and Iași. Annual collections exceed 150 designs and the team grows to 20 employees.',
+    't4_title': 'Online Launch', 't4_text': 'elyvo.ro launches, bringing ELYVO into the homes of clients across Romania and the diaspora. First international orders arrive from Italy, Germany and France.',
+    't5_title': '27 Years, 200+ Designs', 't5_text': 'The newest Spring–Summer 2025 collection celebrates 27 years of authentic elegance. Same passion, same atelier, same dedication to the modern woman.',
+    'story.values_label': 'Our Values', 'story.values_title': 'What Defines Us',
+    'story.v1_title': 'Quality', 'story.v1_text': 'We use exclusively premium materials — viscose, silk and velvet — sourced from Italian and Turkish suppliers. Every piece is tested for 14 days before launch.',
+    'story.v2_title': 'Femininity', 'story.v2_text': 'Every design is crafted to beautifully flatter any silhouette. Our cuts celebrate the female body in all its diversity, with elegance and naturalness.',
+    'story.v3_title': 'Romania', 'story.v3_text': 'We design, cut and sew everything in Bucharest. We support local artisans and national pride through every piece we create and deliver.',
+    'story.team_badge': 'Artisans on the Team',
+    'story.atelier_label': 'Our Atelier', 'story.atelier_title': 'Skilled Hands, Dedicated Hearts',
+    'story.atelier_p1': 'The ELYVO atelier in Sector 1, Bucharest is the heart of the brand. Here, 34 seamstresses and designers work daily to transform our visions into reality.',
+    'story.atelier_p2': 'We combine traditional Romanian tailoring techniques with modern cutting technology. The result? Garments that stand the test of time, comfortable and impeccable.',
+    'story.atelier_cta': 'Explore the Collection',
+    'story.num_year': 'Year Founded', 'story.num_team': 'Local Artisans', 'story.num_clients': 'Loyal Clients',
+    'story.cta_label': 'Join the community', 'story.cta_title': 'Be Part of the ELYVO Story',
+    'story.cta_text': 'Discover our collection and find the piece that represents you. Every dress is a promise of elegance.',
+    'story.cta_btn': 'Shop Now',
+    'story.team_badge': 'Artisans on the Team',
+    'story.num_year': 'Years Active', 'story.num_team': 'Local Artisans', 'story.num_clients': 'Loyal Clients',
+    'story.atelier_label': 'Our Atelier', 'story.atelier_title': 'Skilled Hands, Dedicated Hearts',
+    'story.atelier_p1': 'The ELYVO atelier in Sector 1, Bucharest is the heart of the brand. Here, 34 seamstresses and designers work daily to transform our visions into reality.',
+    'story.atelier_p2': 'We combine traditional Romanian tailoring techniques with modern cutting technology. The result? Garments that stand the test of time, comfortable and impeccable.',
+    'story.atelier_cta': 'Explore the Collection',
+    'story.values_label': 'Our Values', 'story.values_title': 'What Defines Us',
+    'story.v1_title': 'Quality', 'story.v1_text': 'We use exclusively premium materials — viscose, silk and velvet — sourced from Italian and Turkish suppliers. Every piece is tested for 14 days before launch.',
+    'story.v2_title': 'Femininity', 'story.v2_text': 'Every design is crafted to beautifully flatter any silhouette. Our cuts celebrate the female body in all its diversity, with elegance and naturalness.',
+    'story.v3_title': 'Romania', 'story.v3_text': 'We design, cut and sew everything in Bucharest. We support local artisans and national pride through every piece we create and deliver.',
+    'story.origin_p1': 'In 1997, on a quiet street in Bucharest, the first ELYVO atelier opened. The brand's founder, Elena Voicu, dreamed of garments that would celebrate Romanian femininity.',
+    'story.origin_p2': 'With a single sewing machine and a team of three seamstresses, ELYVO created its first 40 designs. The dresses sold out in the first week.',
+    'story.origin_p3': 'Today the brand counts over 5,000 loyal clients, 200+ exclusive designs per year and a team of 34 dedicated artisans, all based in Bucharest.',
+    'story.origin_label': 'Origins', 'story.origin_title': 'Born from Passion',
+    'story.timeline_label': 'Timeline', 'story.timeline_title': 'Our Journey',
+    't1_title': 'First Atelier', 't1_text': 'Elena Voicu opens the atelier in Sector 1, Bucharest. The first 40 designs are handcrafted using materials imported from Italy.',
+    't2_title': 'First Store', 't2_text': 'ELYVO opens its first standalone store on Calea Victoriei. The autumn collection sells out in 3 days.',
+    't3_title': 'National Expansion', 't3_text': 'ELYVO reaches Cluj, Timișoara and Iași. Annual collections exceed 150 designs and the team grows to 20 employees.',
+    't4_title': 'Online Launch', 't4_text': 'elyvo.ro launches, bringing ELYVO into the homes of clients across Romania and the diaspora. First international orders arrive.',
+    't5_title': '27 Years, 200+ Designs', 't5_text': 'The newest Spring–Summer 2025 collection celebrates 27 years of authentic elegance. Same passion, same atelier, same dedication.',
+    'story.cta_label': 'Join the community', 'story.cta_title': 'Be Part of the ELYVO Story',
+    'story.cta_text': 'Discover our collection and find the piece that represents you. Every dress is a promise of elegance.',
+    // Marquee items
+    'marquee': ['New Collection','Free Shipping','Romanian Production','27 Years of Elegance','Free Returns','Exclusive Fashion'],
+  }
+};
+
+let currentLang = 'ro';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = T[lang];
+  document.getElementById('langRO').classList.toggle('active', lang === 'ro');
+  document.getElementById('langEN').classList.toggle('active', lang === 'en');
+  document.documentElement.lang = lang;
+  document.title = lang === 'ro' ? 'ELYVO — Colecție Nouă 2025' : 'ELYVO — New Collection 2025';
+
+  // Apply all data-i18n text nodes
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const attr = el.getAttribute('data-i18n-attr');
+    if (t[key] !== undefined) {
+      if (attr) el.setAttribute(attr, t[key]);
+      else el.textContent = t[key];
+    }
+  });
+
+  // Update marquee
+  const marquee = document.getElementById('marqueeInner');
+  if (marquee) {
+    const items = t['marquee'];
+    const doubled = [...items, ...items];
+    marquee.innerHTML = doubled.map(tx => `<span>${tx}</span><span class="dot">✦</span>`).join('');
+  }
+
+  // Dynamic inline content that can't easily use data-i18n
+  // Nav titles
+  const searchBtn = document.querySelector('[onclick="toggleSearch()"]');
+  if (searchBtn) searchBtn.title = lang === 'ro' ? 'Căutare' : 'Search';
+  const loginBtn = document.querySelector('[onclick="showPage(\'login\')"]');
+  if (loginBtn) loginBtn.title = lang === 'ro' ? 'Cont' : 'Account';
+  const cartBtn = document.querySelector('[onclick="toggleCart()"]');
+  if (cartBtn) cartBtn.title = lang === 'ro' ? 'Coș' : 'Cart';
+
+  // Update toast messages globally so they respond in correct language
+  window._addedToCart = lang === 'ro' ? 'Adăugat în coș ✓' : 'Added to cart ✓';
+  window._savedFav = lang === 'ro' ? 'Salvat la favorite ♥' : 'Saved to wishlist ♥';
+  window._removedFav = lang === 'ro' ? 'Eliminat din favorite' : 'Removed from wishlist';
+  window._loggedIn = lang === 'ro' ? 'Conectare reușită! Bun revenit 👋' : 'Signed in! Welcome back 👋';
+
+  // Update dynamic login form if visible
+  const loginFormInner = document.getElementById('loginFormInner');
+  if (loginFormInner) {
+    const t = T[lang];
+    const h2 = loginFormInner.querySelector('h2');
+    if (h2 && h2.hasAttribute('data-i18n')) h2.textContent = t[h2.getAttribute('data-i18n')] || h2.textContent;
+    const subtitle = loginFormInner.querySelector('p[data-i18n]');
+    if (subtitle) subtitle.textContent = t[subtitle.getAttribute('data-i18n')] || subtitle.textContent;
+    const btn = loginFormInner.querySelector('.btn-primary[data-i18n]');
+    if (btn) btn.textContent = t[btn.getAttribute('data-i18n')] || btn.textContent;
+    // Update social button text
+    const googleBtn = loginFormInner.querySelector('.btn-social.google');
+    if (googleBtn) googleBtn.innerHTML = googleBtn.innerHTML.replace(lang === 'en' ? 'Continuă cu Google' : 'Continue with Google', lang === 'ro' ? 'Continuă cu Google' : 'Continue with Google');
+    const appleBtn = loginFormInner.querySelector('.btn-social.apple');
+    if (appleBtn) appleBtn.innerHTML = appleBtn.innerHTML.replace(lang === 'en' ? 'Continuă cu Apple' : 'Continue with Apple', lang === 'ro' ? 'Continuă cu Apple' : 'Continue with Apple');
+  }
+
+  // Update cart item label
+  const lbl = document.getElementById('cartItemLabel');
+  if (lbl) {
+    const n = parseInt(document.getElementById('cartCount').textContent) || 0;
+    lbl.textContent = lang === 'ro' ? n + ' ' + (n === 1 ? 'piesă' : 'piese') : n + ' ' + (n === 1 ? 'item' : 'items');
+  }
+}
+
+// Initialize defaults
+window._addedToCart = 'Adăugat în coș ✓';
+window._savedFav = 'Salvat la favorite ♥';
+window._removedFav = 'Eliminat din favorite';
+window._loggedIn = 'Conectare reușită! Bun revenit 👋';
+
+// ── Page Navigation ──
+function showPage(id) {
+  // Close any open overlays first
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartOverlay').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.remove('active');
+  });
+
+  // Show target page
+  const target = document.getElementById('page-' + id);
+  if (!target) return;
+  target.classList.add('active');
+
+  // Scroll to top immediately
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // Reset reveal animations for new page
+  target.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('visible');
+  });
+
+  // Re-run reveal after a brief paint
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      initReveal();
+    });
+  });
+
+  // Update nav scrolled state
+  document.getElementById('mainNav').classList.toggle('scrolled', false);
+}
+
+// ── Custom Cursor ──
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+});
+
+function animateRing() {
+  rx += (mx - rx) * .12;
+  ry += (my - ry) * .12;
+  ring.style.transform = `translate(${rx - 20}px, ${ry - 20}px)`;
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .product-card, .cat-card, [onclick]').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '16px';
+    cursor.style.height = '16px';
+    ring.style.width = '56px';
+    ring.style.height = '56px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '10px';
+    cursor.style.height = '10px';
+    ring.style.width = '40px';
+    ring.style.height = '40px';
+  });
+});
+
+// ── Parallax & Scroll Effects ──
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+
+  // Nav
+  document.getElementById('mainNav').classList.toggle('scrolled', y > 60);
+
+  // Progress bar
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  document.getElementById('progressBar').style.width = total > 0 ? (y / total * 100) + '%' : '0%';
+
+  // Hero parallax
+  const heroBg = document.getElementById('heroBg');
+  if (heroBg) heroBg.style.transform = `translateY(${y * 0.4}px)`;
+
+  // Story parallax (new story hero bg)
+  const storyBg = document.getElementById('storyHeroBg');
+  if (storyBg) storyBg.style.transform = `translateY(${y * 0.35}px)`;
+
+  const pBg = document.getElementById('parallaxBg');
+  if (pBg) {
+    const section = pBg.closest('section');
+    if (section) {
+      const rect = section.getBoundingClientRect();
+      pBg.style.transform = `translateY(${rect.top * -0.3}px)`;
+    }
+  }
+
+  // Reveal on scroll
+  initReveal();
+});
+
+function initReveal() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight - 60) el.classList.add('visible');
+  });
+}
+initReveal();
+
+// ── Cart ──
+function toggleCart() {
+  document.getElementById('cartDrawer').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+}
+
+let cartNum = 2;
+function updateCartLabel() {
+  const lang = typeof currentLang !== 'undefined' ? currentLang : 'ro';
+  const lbl = document.getElementById('cartItemLabel');
+  if (lbl) lbl.textContent = lang === 'ro' ? cartNum + ' ' + (cartNum === 1 ? 'piesă' : 'piese') : cartNum + ' ' + (cartNum === 1 ? 'item' : 'items');
+}
+function addToCart(e) {
+  e.stopPropagation();
+  cartNum++;
+  document.getElementById('cartCount').textContent = cartNum;
+  updateCartLabel();
+  showToast(window._addedToCart || 'Adăugat în coș ✓');
+}
+function addToCartFull() {
+  cartNum++;
+  document.getElementById('cartCount').textContent = cartNum;
+  updateCartLabel();
+  showToast((window._addedToCart || 'Adăugat în coș ✓').replace(' ✓',': Rochie Luna ✓'));
+}
+
+function changeQty(btn, dir) {
+  const span = btn.parentElement.querySelector('.qty-num');
+  let q = parseInt(span.textContent) + dir;
+  if (q < 1) q = 1;
+  span.textContent = q;
+}
+
+// ── Wishlist ──
+function toggleWish(e) {
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  btn.classList.toggle('hearted');
+  btn.textContent = btn.classList.contains('hearted') ? '♥' : '♡';
+  showToast(btn.classList.contains('hearted') ? (window._savedFav||'Salvat la favorite ♥') : (window._removedFav||'Eliminat din favorite'));
+}
+function toggleWishFull(btn) {
+  btn.classList.toggle('hearted');
+  const lang = typeof currentLang !== 'undefined' ? currentLang : 'ro';
+  if (btn.classList.contains('hearted')) {
+    btn.textContent = lang === 'en' ? '♥ Saved to Wishlist' : '♥ Salvat la Favorite';
+  } else {
+    btn.textContent = lang === 'en' ? '♡ Save to Wishlist' : '♡ Salvează la Favorite';
+  }
+}
+
+// ── Search ──
+function toggleSearch() {
+  document.getElementById('searchOverlay').classList.toggle('open');
+  setTimeout(() => document.getElementById('searchInput')?.focus(), 100);
+}
+
+// ── Mobile Menu ──
+function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+// ── Filters ──
+function setFilter(btn) {
+  btn.closest('.filter-group').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── PDP ──
+const thumbBgs = [
+  'linear-gradient(145deg,#e8e0d5,#d4c8b8,#bba898)',
+  'linear-gradient(145deg,#d4c0a8,#b89880,#8b6540)',
+  'linear-gradient(145deg,#f0e8e0,#e0d0c0,#c8b89a)',
+  'linear-gradient(145deg,#c8c0b8,#b0a898,#988880)',
+];
+function switchThumb(i) {
+  document.querySelectorAll('.pdp-thumb').forEach((t, j) => t.classList.toggle('active', j === i));
+  document.getElementById('pdpMainBg').style.background = thumbBgs[i];
+}
+function selectSize(btn) {
+  btn.closest('.size-grid').querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+function toggleAccordion(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  document.querySelectorAll('.pdp-accordion-body').forEach(b => b.classList.remove('open'));
+  document.querySelectorAll('.pdp-accordion-toggle span:last-child').forEach(s => s.textContent = '+');
+  if (!isOpen) {
+    body.classList.add('open');
+    btn.querySelector('span:last-child').textContent = '−';
+  }
+}
+
+// ── Login ──
+function handleLogin() {
+  showToast(window._loggedIn || 'Conectare reușită! Bun revenit 👋');
+  setTimeout(() => showPage('home'), 1000);
+}
+function showRegister() {
+  document.getElementById('loginFormInner').innerHTML = `
+    <span class="nav-logo" onclick="showPage('home')" style="cursor:pointer;display:block;margin-bottom:48px">ELYVO</span>
+    <h2 style="font-family:var(--ff-serif);font-size:36px;font-weight:300;margin-bottom:8px">Cont Nou</h2>
+    <p style="color:var(--c-mid);font-size:14px;margin-bottom:40px">Creează-ți contul ELYVO</p>
+    <div class="form-row">
+      <div class="form-group"><label>Prenume</label><input type="text" placeholder="Maria"></div>
+      <div class="form-group"><label>Nume</label><input type="text" placeholder="Popescu"></div>
+    </div>
+    <div class="form-group"><label>Email</label><input type="email" placeholder="adresa@email.com"></div>
+    <div class="form-group"><label>Parolă</label><input type="password" placeholder="Min. 8 caractere"></div>
+    <div class="form-group"><label>Confirmă Parola</label><input type="password" placeholder="••••••••"></div>
+    <button class="btn-primary" onclick="handleLogin()" style="margin-top:12px">Creează Cont</button>
+    <div class="form-alt" style="margin-top:28px;text-align:center;font-size:13px;color:var(--c-mid)">
+      Ai deja cont? <a onclick="showPage('login')" style="color:var(--c-black);cursor:pointer;text-decoration:underline">Conectează-te</a>
+    </div>
+  `;
+}
+
+// ── Checkout ──
+function placeOrder() {
+  showPage('success');
+}
+function setPayment(btn) {
+  btn.closest('.payment-methods').querySelectorAll('.payment-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ── Keyboard shortcuts ──
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('searchOverlay').classList.remove('open');
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+});
+
+// ── Color swatches on PDP ──
+document.querySelectorAll('.color-swatch').forEach(s => {
+  s.addEventListener('click', () => {
+    s.closest('.color-grid').querySelectorAll('.color-swatch').forEach(x => x.classList.remove('active'));
+    s.classList.add('active');
+  });
+});
+
+// Init
+window.dispatchEvent(new Event('scroll'));
+// Init cart label
+updateCartLabel();
+</script>
+</body>
+</html>
