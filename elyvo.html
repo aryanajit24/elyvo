@@ -4816,12 +4816,14 @@ function addToCart(e) {
   document.getElementById('cartCount').textContent = cartNum;
   updateCartLabel();
   showToast(window._addedToCart || 'Adăugat în coș ✓');
+  try { localStorage.setItem('elyvo_cart', cartNum); } catch(err) { console.error('localStorage unavailable:', err); }
 }
 function addToCartFull() {
   cartNum++;
   document.getElementById('cartCount').textContent = cartNum;
   updateCartLabel();
   showToast((window._addedToCart || 'Adăugat în coș ✓').replace(' ✓',': Rochie Luna ✓'));
+  try { localStorage.setItem('elyvo_cart', cartNum); } catch(err) { console.error('localStorage unavailable:', err); }
 }
 
 function changeQty(btn, dir) {
@@ -4831,13 +4833,61 @@ function changeQty(btn, dir) {
   span.textContent = q;
 }
 
-// ── Wishlist ──
+// ── Wishlist state (declared here so toggleWish can reference it) ──
+const wishlistItems = new Map(); // product name -> {price}
+function refreshWishlistPage() {
+  const empty = document.getElementById('wishlistEmpty');
+  const grid = document.getElementById('wishlistGrid');
+  if (!empty || !grid) return;
+  if (wishlistItems.size === 0) {
+    empty.style.display = '';
+    grid.style.display = 'none';
+    grid.innerHTML = '';
+  } else {
+    empty.style.display = 'none';
+    grid.style.display = '';
+    grid.innerHTML = [...wishlistItems.entries()].map(([name, data]) => `
+      <div class="product-card" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p1">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#8b7355" opacity=".6"><path d="M55 50 Q65 25 100 20 Q135 25 145 50 L165 75 L170 290 L30 290 Z"/></svg>
+          </div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish hearted" onclick="removeFromWishlistPage(${JSON.stringify(name)},event)">♥</button>
+          </div>
+        </div>
+        <div class="product-info"><h4>${name}</h4><div class="price">${data.price}</div></div>
+      </div>`).join('');
+  }
+}
+function removeFromWishlistPage(name, e) {
+  if (e) e.stopPropagation();
+  wishlistItems.delete(name);
+  refreshWishlistPage();
+}
+
+// ── Wishlist toggle ──
 function toggleWish(e) {
   e.stopPropagation();
   const btn = e.currentTarget;
   btn.classList.toggle('hearted');
   btn.textContent = btn.classList.contains('hearted') ? '♥' : '♡';
   showToast(btn.classList.contains('hearted') ? (window._savedFav||'Salvat la favorite ♥') : (window._removedFav||'Eliminat din favorite'));
+  // Sync wishlist page
+  const card = btn.closest('.product-card');
+  if (card) {
+    const nameEl = card.querySelector('h4');
+    const priceEl = card.querySelector('.price');
+    const name = nameEl ? nameEl.textContent : 'Produs';
+    const price = priceEl ? priceEl.textContent : '';
+    if (btn.classList.contains('hearted')) {
+      wishlistItems.set(name, {price});
+    } else {
+      wishlistItems.delete(name);
+    }
+    refreshWishlistPage();
+  }
 }
 function toggleWishFull(btn) {
   btn.classList.toggle('hearted');
@@ -4952,9 +5002,6 @@ document.querySelectorAll('.color-swatch').forEach(s => {
 });
 
 // ── Cart Persistence (localStorage) ──
-function saveCart() {
-  try { localStorage.setItem('elyvo_cart', cartNum); } catch(e) {}
-}
 function loadCart() {
   try {
     const saved = localStorage.getItem('elyvo_cart');
@@ -4963,13 +5010,8 @@ function loadCart() {
       document.getElementById('cartCount').textContent = cartNum;
       updateCartLabel();
     }
-  } catch(e) {}
+  } catch(err) { console.error('localStorage unavailable:', err); }
 }
-// Patch addToCart to also save
-const _origAddToCart = addToCart;
-addToCart = function(e) { _origAddToCart(e); saveCart(); };
-const _origAddToCartFull = addToCartFull;
-addToCartFull = function() { _origAddToCartFull(); saveCart(); };
 loadCart();
 
 // ── Cookie Consent ──
@@ -4980,17 +5022,18 @@ function initCookieBanner() {
         document.getElementById('cookieBanner').classList.add('show');
       }, 1500);
     }
-  } catch(e) {
+  } catch(err) {
+    console.error('localStorage unavailable:', err);
     document.getElementById('cookieBanner').classList.add('show');
   }
 }
 function acceptCookies() {
-  try { localStorage.setItem('elyvo_cookie_consent', 'all'); } catch(e) {}
+  try { localStorage.setItem('elyvo_cookie_consent', 'all'); } catch(err) { console.error('localStorage unavailable:', err); }
   document.getElementById('cookieBanner').classList.remove('show');
   showToast('Preferințe salvate ✓');
 }
 function declineCookies() {
-  try { localStorage.setItem('elyvo_cookie_consent', 'essential'); } catch(e) {}
+  try { localStorage.setItem('elyvo_cookie_consent', 'essential'); } catch(err) { console.error('localStorage unavailable:', err); }
   document.getElementById('cookieBanner').classList.remove('show');
 }
 initCookieBanner();
@@ -5014,8 +5057,9 @@ function trackOrder(inputId, resultId) {
     showToast('Introdu un număr de comandă sau cod de urmărire');
     return;
   }
+  // Show demo tracking data (in production this would call a real API)
   result.classList.add('visible');
-  showToast('Comandă găsită: ' + val + ' ✓');
+  showToast('Se afișează statusul demo pentru: ' + val);
 }
 
 // ── Contact Form ──
@@ -5031,57 +5075,6 @@ function sendContact() {
   if (email) email.value = '';
   if (msg) msg.value = '';
 }
-
-// ── Wishlist Page ──
-const wishlistItems = new Map(); // name -> {price, color}
-function refreshWishlistPage() {
-  const empty = document.getElementById('wishlistEmpty');
-  const grid = document.getElementById('wishlistGrid');
-  if (!empty || !grid) return;
-  if (wishlistItems.size === 0) {
-    empty.style.display = '';
-    grid.style.display = 'none';
-    grid.innerHTML = '';
-  } else {
-    empty.style.display = 'none';
-    grid.style.display = '';
-    grid.innerHTML = [...wishlistItems.entries()].map(([name, data]) => `
-      <div class="product-card" onclick="showPage('product')">
-        <div class="product-img">
-          <div class="product-img-bg product-p1">
-            <svg class="dress-shape" viewBox="0 0 200 300" fill="#8b7355" opacity=".6"><path d="M55 50 Q65 25 100 20 Q135 25 145 50 L165 75 L170 290 L30 290 Z"/></svg>
-          </div>
-          <div class="product-actions">
-            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
-            <button class="btn-wish hearted" onclick="removeFromWishlistPage('${name}',event)">♥</button>
-          </div>
-        </div>
-        <div class="product-info"><h4>${name}</h4><div class="price">${data.price}</div></div>
-      </div>`).join('');
-  }
-}
-function removeFromWishlistPage(name, e) {
-  if (e) e.stopPropagation();
-  wishlistItems.delete(name);
-  refreshWishlistPage();
-}
-
-// Patch toggleWish to also track wishlist page items
-const _origToggleWish = toggleWish;
-toggleWish = function(e) {
-  _origToggleWish(e);
-  const btn = e.currentTarget;
-  const card = btn.closest('.product-card');
-  if (card) {
-    const name = card.querySelector('h4') ? card.querySelector('h4').textContent : 'Produs';
-    const price = card.querySelector('.price') ? card.querySelector('.price').textContent : '';
-    if (btn.classList.contains('hearted')) {
-      wishlistItems.set(name, {price});
-    } else {
-      wishlistItems.delete(name);
-    }
-  }
-};
 
 // Init
 window.dispatchEvent(new Event('scroll'));
