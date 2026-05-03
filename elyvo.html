@@ -2108,6 +2108,297 @@ nav.scrolled .hamburger span { background:var(--c-black); }
   .story-hero-title { }
   .story-title-line1 { font-size:clamp(80px,20vw,140px); }
 }
+
+/* ─── COOKIE BANNER ─── */
+.cookie-banner {
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--c-dark);
+  color:var(--c-white);
+  padding:20px 40px;
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  z-index:5000;
+  transform:translateY(100%);
+  transition:transform .5s cubic-bezier(.25,.46,.45,.94);
+  flex-wrap:wrap;
+  border-top:2px solid rgba(201,169,110,.3);
+}
+.cookie-banner.show { transform:translateY(0); }
+.cookie-banner p { font-size:13px; color:rgba(250,248,245,.75); line-height:1.6; max-width:640px; flex:1; }
+.cookie-banner p a { color:var(--c-gold); cursor:pointer; text-decoration:underline; }
+.cookie-actions { display:flex; gap:12px; flex-shrink:0; flex-wrap:wrap; }
+.btn-cookie-accept {
+  padding:12px 28px; background:var(--c-gold); color:var(--c-black);
+  border:none; font-family:var(--ff-sans); font-size:11px; letter-spacing:2px;
+  text-transform:uppercase; cursor:pointer; transition:background .2s;
+}
+.btn-cookie-accept:hover { background:var(--c-sand); }
+.btn-cookie-decline {
+  padding:12px 20px; background:none; color:rgba(250,248,245,.5);
+  border:1px solid rgba(250,248,245,.2); font-family:var(--ff-sans); font-size:11px;
+  letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all .2s;
+}
+.btn-cookie-decline:hover { border-color:rgba(250,248,245,.5); color:var(--c-white); }
+@media(max-width:600px) {
+  .cookie-banner { padding:20px 24px; }
+  .cookie-actions { width:100%; }
+  .btn-cookie-accept, .btn-cookie-decline { flex:1; text-align:center; }
+}
+
+/* ─── WHATSAPP WIDGET ─── */
+.whatsapp-btn {
+  position:fixed; bottom:32px; right:32px;
+  width:56px; height:56px; background:#25D366; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; z-index:4000;
+  box-shadow:0 4px 20px rgba(37,211,102,.4);
+  transition:transform .25s, box-shadow .25s; text-decoration:none; border:none;
+}
+.whatsapp-btn:hover { transform:scale(1.1); box-shadow:0 6px 28px rgba(37,211,102,.55); }
+.whatsapp-btn svg { width:28px; height:28px; fill:#fff; }
+@media(max-width:600px) {
+  .whatsapp-btn { bottom:24px; right:20px; width:50px; height:50px; }
+  .whatsapp-btn svg { width:24px; height:24px; }
+}
+
+/* ─── INSTAGRAM SECTION ─── */
+.instagram-section { padding:80px 60px; text-align:center; background:var(--c-white); }
+.instagram-grid {
+  display:grid; grid-template-columns:repeat(6,1fr); gap:4px; margin-top:40px;
+}
+.insta-card { aspect-ratio:1; position:relative; overflow:hidden; cursor:pointer; }
+.insta-card-bg { width:100%; height:100%; transition:transform .6s cubic-bezier(.25,.46,.45,.94); }
+.insta-card:hover .insta-card-bg { transform:scale(1.08); }
+.insta-overlay {
+  position:absolute; inset:0; background:rgba(10,10,10,0);
+  display:flex; align-items:center; justify-content:center; transition:background .4s;
+}
+.insta-card:hover .insta-overlay { background:rgba(10,10,10,.45); }
+.insta-icon { color:#fff; font-size:22px; opacity:0; transition:opacity .3s; }
+.insta-card:hover .insta-icon { opacity:1; }
+@media(max-width:900px) {
+  .instagram-grid { grid-template-columns:repeat(3,1fr); }
+  .instagram-section { padding:60px 30px; }
+}
+@media(max-width:600px) {
+  .instagram-grid { grid-template-columns:repeat(2,1fr); }
+  .instagram-section { padding:50px 20px; }
+}
+
+/* ─── REVIEWS ─── */
+.reviews-section { padding:60px; border-top:1px solid var(--c-light); }
+.reviews-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; flex-wrap:wrap; gap:16px; }
+.reviews-summary { display:flex; align-items:center; gap:16px; }
+.reviews-score { font-family:var(--ff-serif); font-size:52px; font-weight:300; line-height:1; color:var(--c-black); }
+.reviews-stars { color:var(--c-gold); font-size:18px; letter-spacing:2px; }
+.reviews-count { font-size:12px; letter-spacing:1px; color:var(--c-mid); margin-top:4px; }
+.reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.review-card { padding:28px; background:var(--c-cream); border-radius:2px; }
+.review-stars { color:var(--c-gold); font-size:14px; margin-bottom:12px; }
+.review-text { font-size:14px; line-height:1.75; color:var(--c-mid); margin-bottom:16px; font-style:italic; }
+.review-author { display:flex; align-items:center; gap:12px; }
+.review-avatar {
+  width:36px; height:36px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--ff-serif); font-size:14px; color:var(--c-white); flex-shrink:0;
+}
+.review-name { font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--c-black); }
+.review-date { font-size:11px; color:var(--c-sand); }
+@media(max-width:900px) {
+  .reviews-section { padding:40px 30px; }
+  .reviews-grid { grid-template-columns:1fr; }
+}
+
+/* ─── CONTACT PAGE ─── */
+.contact-hero { padding:160px 60px 80px; background:var(--c-cream); }
+.contact-body { display:grid; grid-template-columns:1fr 1fr; gap:80px; padding:80px 60px; }
+.contact-info-item { display:flex; gap:20px; margin-bottom:36px; align-items:flex-start; }
+.contact-icon {
+  width:44px; height:44px; border:1px solid var(--c-light); border-radius:50%;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+  flex-shrink:0; background:var(--c-white);
+}
+.contact-info-text h4 { font-size:11px; letter-spacing:3px; text-transform:uppercase; color:var(--c-taupe); margin-bottom:6px; }
+.contact-info-text p { font-size:14px; color:var(--c-mid); line-height:1.7; }
+.contact-form-wrap h3 { font-family:var(--ff-serif); font-size:32px; font-weight:300; margin-bottom:32px; }
+.contact-map {
+  background:linear-gradient(135deg,#e8e0d5,#d4c8b8); height:200px;
+  display:flex; align-items:center; justify-content:center; margin-top:36px;
+  border-radius:2px; font-size:13px; color:var(--c-mid); letter-spacing:2px;
+  text-transform:uppercase; position:relative; overflow:hidden;
+}
+@media(max-width:900px) {
+  .contact-body { grid-template-columns:1fr; gap:60px; padding:60px 30px; }
+  .contact-hero { padding:120px 30px 60px; }
+}
+
+/* ─── SIZE GUIDE PAGE ─── */
+.size-guide-hero { padding:160px 60px 80px; background:var(--c-cream); }
+.size-guide-body { padding:80px 60px; }
+.size-table-wrap { overflow-x:auto; margin-bottom:60px; }
+.size-table { width:100%; border-collapse:collapse; font-size:13px; }
+.size-table th {
+  background:var(--c-black); color:var(--c-white); padding:14px 20px;
+  font-size:10px; letter-spacing:2px; text-transform:uppercase; text-align:center;
+  font-family:var(--ff-sans); font-weight:500;
+}
+.size-table td { padding:14px 20px; text-align:center; border-bottom:1px solid var(--c-light); color:var(--c-mid); }
+.size-table tr:nth-child(even) td { background:var(--c-cream); }
+.size-table tr:hover td { background:var(--c-light); }
+.size-table td:first-child { font-weight:600; color:var(--c-black); letter-spacing:1px; }
+.measure-guide { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; margin-top:60px; }
+.measure-card { padding:32px; background:var(--c-cream); text-align:center; }
+.measure-num { font-family:var(--ff-serif); font-size:48px; font-weight:300; color:var(--c-taupe); line-height:1; margin-bottom:8px; }
+.measure-card h4 { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--c-black); margin-bottom:8px; }
+.measure-card p { font-size:13px; color:var(--c-mid); line-height:1.7; }
+@media(max-width:900px) {
+  .size-guide-body { padding:60px 30px; }
+  .size-guide-hero { padding:120px 30px 60px; }
+  .measure-guide { grid-template-columns:1fr; }
+}
+
+/* ─── DELIVERY PAGE ─── */
+.delivery-hero { padding:160px 60px 80px; background:var(--c-cream); }
+.delivery-body { padding:80px 60px; display:grid; grid-template-columns:1fr 1fr; gap:80px; }
+.delivery-cards { display:flex; flex-direction:column; gap:16px; margin-top:32px; }
+.delivery-card {
+  padding:24px 28px; border:1px solid var(--c-light);
+  display:flex; justify-content:space-between; align-items:center; transition:border-color .3s;
+}
+.delivery-card:hover { border-color:var(--c-black); }
+.delivery-card-left h4 { font-family:var(--ff-serif); font-size:18px; font-weight:400; margin-bottom:4px; }
+.delivery-card-left p { font-size:12px; letter-spacing:1px; color:var(--c-mid); }
+.delivery-card-price { font-family:var(--ff-serif); font-size:22px; color:var(--c-taupe); }
+.returns-steps { margin-top:32px; }
+.returns-step { padding:24px 0; border-bottom:1px solid var(--c-light); display:flex; gap:20px; align-items:flex-start; }
+.returns-step-num {
+  width:36px; height:36px; border:1px solid var(--c-gold); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--ff-serif); font-size:16px; color:var(--c-gold); flex-shrink:0;
+}
+.returns-step-text h4 { font-size:13px; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
+.returns-step-text p { font-size:13px; color:var(--c-mid); line-height:1.7; }
+@media(max-width:900px) {
+  .delivery-body { grid-template-columns:1fr; gap:60px; padding:60px 30px; }
+  .delivery-hero { padding:120px 30px 60px; }
+}
+
+/* ─── LEGAL PAGES (TERMS / GDPR) ─── */
+.legal-hero { padding:160px 60px 60px; background:var(--c-cream); }
+.legal-body { padding:60px; max-width:860px; }
+.legal-section { margin-bottom:48px; }
+.legal-section h3 { font-family:var(--ff-serif); font-size:22px; font-weight:400; margin-bottom:16px; color:var(--c-black); }
+.legal-section p, .legal-section ul { font-size:14px; line-height:1.85; color:var(--c-mid); margin-bottom:12px; }
+.legal-section ul { padding-left:20px; }
+.legal-section ul li { margin-bottom:6px; }
+@media(max-width:900px) {
+  .legal-hero { padding:120px 30px 40px; }
+  .legal-body { padding:40px 30px; }
+}
+
+/* ─── WISHLIST PAGE ─── */
+.wishlist-hero { padding:160px 60px 60px; background:var(--c-cream); }
+.wishlist-body { padding:60px; }
+.wishlist-empty { text-align:center; padding:100px 40px; }
+.wishlist-empty-icon { font-size:64px; margin-bottom:24px; color:var(--c-light); }
+.wishlist-empty h3 { font-family:var(--ff-serif); font-size:32px; font-weight:300; margin-bottom:12px; }
+.wishlist-empty p { font-size:14px; color:var(--c-mid); margin-bottom:36px; }
+@media(max-width:900px) {
+  .wishlist-hero { padding:120px 30px 40px; }
+  .wishlist-body { padding:40px 30px; }
+}
+
+/* ─── ACCOUNT DASHBOARD ─── */
+.account-wrap {
+  display:grid; grid-template-columns:240px 1fr;
+  min-height:calc(100vh - 72px); padding-top:72px;
+}
+.account-sidebar { background:var(--c-cream); padding:48px 32px; border-right:1px solid var(--c-light); }
+.account-avatar {
+  width:72px; height:72px; border-radius:50%;
+  background:linear-gradient(135deg,var(--c-taupe),var(--c-sand));
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--ff-serif); font-size:28px; color:var(--c-white); margin-bottom:16px;
+}
+.account-name { font-family:var(--ff-serif); font-size:20px; font-weight:400; margin-bottom:4px; }
+.account-email { font-size:12px; color:var(--c-mid); margin-bottom:36px; }
+.account-nav { list-style:none; }
+.account-nav li { margin-bottom:4px; }
+.account-nav a {
+  display:block; padding:12px 16px; font-size:12px; letter-spacing:2px;
+  text-transform:uppercase; color:var(--c-mid); cursor:pointer; border-radius:2px;
+  transition:background .2s, color .2s; text-decoration:none;
+}
+.account-nav a:hover { background:var(--c-white); color:var(--c-black); }
+.account-nav a.active { background:var(--c-black); color:var(--c-white); }
+.account-content { padding:48px 60px; }
+.account-tab { display:none; }
+.account-tab.active { display:block; }
+.account-tab h2 { font-family:var(--ff-serif); font-size:32px; font-weight:300; margin-bottom:32px; }
+.order-row {
+  display:grid; grid-template-columns:1fr 1fr 1fr 120px auto;
+  gap:16px; padding:20px 0; border-bottom:1px solid var(--c-light); align-items:center; font-size:13px;
+}
+.order-row-head {
+  font-size:10px; letter-spacing:2px; text-transform:uppercase; color:var(--c-taupe); padding-bottom:14px;
+}
+.order-badge {
+  display:inline-block; padding:4px 12px; font-size:10px; letter-spacing:1px;
+  text-transform:uppercase; border-radius:20px;
+}
+.order-badge-delivered { background:rgba(74,128,80,.12); color:#3a6040; }
+.order-badge-processing { background:rgba(201,169,110,.15); color:var(--c-taupe); }
+.btn-order-detail {
+  font-size:11px; letter-spacing:1px; color:var(--c-taupe); cursor:pointer;
+  background:none; border:none; font-family:var(--ff-sans); transition:color .2s;
+}
+.btn-order-detail:hover { color:var(--c-black); }
+.profile-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+@media(max-width:900px) {
+  .account-wrap { grid-template-columns:1fr; }
+  .account-sidebar { padding:32px 24px; }
+  .account-content { padding:32px 24px; }
+  .order-row { grid-template-columns:1fr 1fr; row-gap:8px; }
+  .profile-grid { grid-template-columns:1fr; }
+}
+
+/* ─── ORDER TRACKING ─── */
+.tracking-hero { padding:160px 60px 60px; background:var(--c-cream); }
+.tracking-body { padding:80px 60px; max-width:720px; margin:0 auto; }
+.tracking-form-wrap {
+  display:flex; gap:0; border:1.5px solid var(--c-light);
+  border-radius:4px; overflow:hidden; margin-bottom:60px;
+}
+.tracking-form-wrap input {
+  flex:1; border:none; outline:none; padding:16px 20px;
+  font-family:var(--ff-sans); font-size:14px; background:#fff;
+}
+.tracking-form-wrap button {
+  padding:0 28px; background:var(--c-black); color:var(--c-white); border:none;
+  cursor:pointer; font-family:var(--ff-sans); font-size:11px; letter-spacing:2px;
+  text-transform:uppercase; transition:background .2s;
+}
+.tracking-form-wrap button:hover { background:var(--c-taupe); }
+.tracking-timeline { display:none; }
+.tracking-timeline.visible { display:block; }
+.tracking-step { display:flex; gap:24px; position:relative; }
+.tracking-step:not(:last-child)::after {
+  content:''; position:absolute; left:15px; top:36px;
+  width:1px; height:calc(100%); background:var(--c-light);
+}
+.tracking-node {
+  width:32px; height:32px; border-radius:50%; border:2px solid var(--c-light);
+  background:var(--c-white); display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; font-size:12px; margin-top:4px; position:relative; z-index:1;
+}
+.tracking-node.done { background:var(--c-gold); border-color:var(--c-gold); color:var(--c-black); }
+.tracking-node.current { background:var(--c-black); border-color:var(--c-black); color:var(--c-white); }
+.tracking-step-content { padding-bottom:36px; }
+.tracking-step-title { font-size:14px; font-weight:500; margin-bottom:4px; color:var(--c-black); }
+.tracking-step-date { font-size:12px; color:var(--c-mid); }
+@media(max-width:900px) {
+  .tracking-hero { padding:120px 30px 40px; }
+  .tracking-body { padding:60px 30px; }
+}
 </style>
 </head>
 <body>
@@ -2138,7 +2429,7 @@ nav.scrolled .hamburger span { background:var(--c-black); }
     <button onclick="toggleSearch()" title="Căutare">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </button>
-    <button onclick="showPage('login')" title="Cont">
+    <button onclick="showPage('account')" title="Cont">
       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     </button>
     <button class="cart-badge" onclick="toggleCart()" title="Cos">
@@ -2162,7 +2453,9 @@ nav.scrolled .hamburger span { background:var(--c-black); }
     <a onclick="showPage('shop');toggleMenu()" data-i18n="nav.blouses">Bluze</a>
     <a onclick="showPage('shop');toggleMenu()" data-i18n="nav.accessories">Accesorii</a>
     <a onclick="showPage('story');toggleMenu()" data-i18n="nav.story">Povestea Noastră</a>
-    <a onclick="showPage('login');toggleMenu()" data-i18n="mob.account">Contul Meu</a>
+    <a onclick="showPage('contact');toggleMenu()">Contact</a>
+    <a onclick="showPage('wishlist');toggleMenu()">Lista de Dorințe</a>
+    <a onclick="showPage('account');toggleMenu()" data-i18n="mob.account">Contul Meu</a>
   </nav>
 </div>
 
@@ -2623,6 +2916,42 @@ nav.scrolled .hamburger span { background:var(--c-black); }
     </div>
   </section>
 
+  <!-- Instagram -->
+  <section class="instagram-section reveal">
+    <p class="section-label">Social Media</p>
+    <h2 class="section-title">Ne găsești <em>@elyvo.ro</em></h2>
+    <p style="font-size:13px;color:var(--c-mid);margin-top:-8px;margin-bottom:0">Urmărește-ne pe Instagram pentru inspirație zilnică</p>
+    <div class="instagram-grid">
+      <div class="insta-card">
+        <div class="insta-card-bg" style="background:linear-gradient(135deg,#3d2e1e,#c9a96e)"></div>
+        <div class="insta-overlay"><span class="insta-icon">♡</span></div>
+      </div>
+      <div class="insta-card">
+        <div class="insta-card-bg" style="background:linear-gradient(135deg,#2d3a2e,#8fa88e)"></div>
+        <div class="insta-overlay"><span class="insta-icon">♡</span></div>
+      </div>
+      <div class="insta-card">
+        <div class="insta-card-bg" style="background:linear-gradient(135deg,#1e2a3d,#6080a8)"></div>
+        <div class="insta-overlay"><span class="insta-icon">♡</span></div>
+      </div>
+      <div class="insta-card">
+        <div class="insta-card-bg" style="background:linear-gradient(135deg,#3d1e2e,#a86080)"></div>
+        <div class="insta-overlay"><span class="insta-icon">♡</span></div>
+      </div>
+      <div class="insta-card">
+        <div class="insta-card-bg" style="background:linear-gradient(135deg,#2e1e3d,#8060a8)"></div>
+        <div class="insta-overlay"><span class="insta-icon">♡</span></div>
+      </div>
+      <div class="insta-card">
+        <div class="insta-card-bg" style="background:linear-gradient(135deg,#1a1410,#c9a96e,#3d2e1e)"></div>
+        <div class="insta-overlay"><span class="insta-icon">♡</span></div>
+      </div>
+    </div>
+    <div style="margin-top:32px">
+      <a href="https://www.instagram.com/" target="_blank" class="btn-outline-light" style="display:inline-block">Urmărește pe Instagram</a>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
     <div class="footer-grid">
@@ -2649,12 +2978,12 @@ nav.scrolled .hamburger span { background:var(--c-black); }
       <div class="footer-col">
         <h5 data-i18n="footer.col2">Informații</h5>
         <ul>
-          <li><a data-i18n="footer.about">Despre Noi</a></li>
-          <li><a data-i18n="footer.contact">Contact</a></li>
-          <li><a data-i18n="footer.size">Ghid Mărimi</a></li>
-          <li><a data-i18n="footer.delivery">Livrare & Retururi</a></li>
-          <li><a data-i18n="footer.terms">Termeni & Condiții</a></li>
-          <li><a data-i18n="footer.gdpr">GDPR</a></li>
+          <li><a onclick="showPage('story')" style="cursor:pointer" data-i18n="footer.about">Despre Noi</a></li>
+          <li><a onclick="showPage('contact')" style="cursor:pointer" data-i18n="footer.contact">Contact</a></li>
+          <li><a onclick="showPage('size-guide')" style="cursor:pointer" data-i18n="footer.size">Ghid Mărimi</a></li>
+          <li><a onclick="showPage('delivery')" style="cursor:pointer" data-i18n="footer.delivery">Livrare & Retururi</a></li>
+          <li><a onclick="showPage('terms')" style="cursor:pointer" data-i18n="footer.terms">Termeni & Condiții</a></li>
+          <li><a onclick="showPage('gdpr')" style="cursor:pointer" data-i18n="footer.gdpr">GDPR</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -2953,6 +3282,55 @@ nav.scrolled .hamburger span { background:var(--c-black); }
       </div>
     </div>
   </div>
+
+  <!-- Reviews Section -->
+  <section class="reviews-section">
+    <div class="reviews-header">
+      <div class="reviews-summary">
+        <div class="reviews-score">4.8</div>
+        <div>
+          <div class="reviews-stars">★★★★★</div>
+          <div class="reviews-count">din 47 de recenzii</div>
+        </div>
+      </div>
+      <button class="btn-outline-light" style="display:inline-block;padding:12px 28px;font-size:11px">Adaugă Recenzie</button>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Absolut superbă! Materialul este de o calitate excepțională, iar croiala îmbracă perfect. Am primit nenumărate complimente la eveniment."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#8b7355,#c9a96e)">A</div>
+          <div>
+            <div class="review-name">Ana M.</div>
+            <div class="review-date">Aprilie 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"A sosit în 2 zile, bine ambalată. Mărimea M se potrivește perfect. O să mai comand cu siguranță — ELYVO nu dezamăgește niciodată."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#4a6450,#8fa88e)">M</div>
+          <div>
+            <div class="review-name">Maria D.</div>
+            <div class="review-date">Martie 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Rochia este elegantă și bine realizată. Culoarea exactă ca în poze. Singurul lucru — livrarea a durat 4 zile, dar a meritat așteptarea."</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background:linear-gradient(135deg,#1e2a3d,#6080a8)">E</div>
+          <div>
+            <div class="review-name">Elena P.</div>
+            <div class="review-date">Februarie 2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Related Products -->
   <section class="section" style="background:var(--c-cream)">
@@ -3415,6 +3793,577 @@ nav.scrolled .hamburger span { background:var(--c-black); }
     </div>
   </div>
 </div>
+
+<!-- ===========================
+     PAGE: CONTACT
+     =========================== -->
+<div class="page" id="page-contact">
+  <div class="contact-hero">
+    <p class="section-label">Contact</p>
+    <h1 class="section-title">Ia <em>Legătura</em><br>cu Noi</h1>
+  </div>
+  <div class="contact-body">
+    <div class="contact-info reveal">
+      <p class="section-label" style="margin-bottom:24px">Informații Contact</p>
+      <div class="contact-info-item">
+        <div class="contact-icon">📍</div>
+        <div class="contact-info-text">
+          <h4>Adresă</h4>
+          <p>Calea Victoriei 45, Sector 1<br>București, 010063, România</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">📞</div>
+        <div class="contact-info-text">
+          <h4>Telefon</h4>
+          <p>+40 721 000 000<br>Lun – Vin: 9:00 – 17:00</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">✉</div>
+        <div class="contact-info-text">
+          <h4>Email</h4>
+          <p>elyvo@elyvo.ro<br>Răspundem în 24 de ore</p>
+        </div>
+      </div>
+      <div class="contact-info-item">
+        <div class="contact-icon">✦</div>
+        <div class="contact-info-text">
+          <h4>Social Media</h4>
+          <p>
+            <a href="https://www.facebook.com/brokart.elyvo/" target="_blank" style="color:var(--c-taupe);text-decoration:none">Facebook</a>
+            &nbsp;·&nbsp;
+            <a href="#" style="color:var(--c-taupe);text-decoration:none">Instagram</a>
+          </p>
+        </div>
+      </div>
+      <div class="contact-map">
+        <span>📍 Calea Victoriei, București</span>
+      </div>
+    </div>
+    <div class="contact-form-wrap reveal reveal-delay-1">
+      <h3>Trimite-ne un <em style="font-style:italic;color:var(--c-taupe)">Mesaj</em></h3>
+      <div class="form-group"><label>Nume Complet</label><input type="text" placeholder="Maria Popescu" id="contactName"></div>
+      <div class="form-row">
+        <div class="form-group"><label>Email</label><input type="email" placeholder="maria@email.com" id="contactEmail"></div>
+        <div class="form-group"><label>Telefon</label><input type="tel" placeholder="+40 7xx xxx xxx"></div>
+      </div>
+      <div class="form-group">
+        <label>Subiect</label>
+        <select style="width:100%;border:1.5px solid #e8e4e0;border-radius:4px;background:#fff;padding:14px 16px;font-family:var(--ff-sans);font-size:14px;outline:none;color:var(--c-black);transition:border-color var(--transition)">
+          <option>Comandă &amp; Livrare</option>
+          <option>Retur &amp; Schimb</option>
+          <option>Produs &amp; Disponibilitate</option>
+          <option>Parteneriat</option>
+          <option>Altele</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Mesaj</label>
+        <textarea rows="5" placeholder="Cum te putem ajuta?" style="width:100%;border:1.5px solid #e8e4e0;border-radius:4px;background:#fff;padding:14px 16px;font-family:var(--ff-sans);font-size:14px;outline:none;resize:vertical;color:var(--c-black);transition:border-color var(--transition),box-shadow var(--transition)" id="contactMsg"></textarea>
+      </div>
+      <button class="btn-primary" onclick="sendContact()">Trimite Mesajul</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO. Toate drepturile rezervate.</span><span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: SIZE GUIDE
+     =========================== -->
+<div class="page" id="page-size-guide">
+  <div class="size-guide-hero">
+    <p class="section-label">Ghid Mărimi</p>
+    <h1 class="section-title">Găsește <em>Mărimea</em><br>Perfectă</h1>
+  </div>
+  <div class="size-guide-body">
+    <div class="reveal">
+      <p class="section-label" style="margin-bottom:24px">Tabel Mărimi — Rochii &amp; Bluze</p>
+      <div class="size-table-wrap">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Mărime</th>
+              <th>Bust (cm)</th>
+              <th>Talie (cm)</th>
+              <th>Șolduri (cm)</th>
+              <th>Lungime (cm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>80 – 82</td><td>62 – 64</td><td>88 – 90</td><td>100 – 102</td></tr>
+            <tr><td>S</td><td>84 – 86</td><td>66 – 68</td><td>92 – 94</td><td>102 – 104</td></tr>
+            <tr><td>M</td><td>88 – 90</td><td>70 – 72</td><td>96 – 98</td><td>104 – 106</td></tr>
+            <tr><td>L</td><td>92 – 95</td><td>74 – 77</td><td>100 – 103</td><td>106 – 108</td></tr>
+            <tr><td>XL</td><td>96 – 100</td><td>78 – 82</td><td>104 – 108</td><td>108 – 110</td></tr>
+            <tr><td>XXL</td><td>101 – 106</td><td>83 – 88</td><td>109 – 114</td><td>110 – 112</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:var(--c-mid);margin-top:-40px;margin-bottom:60px">* Toate măsurătorile sunt orientative. Dacă ești între două mărimi, recomandăm mărimea mai mare.</p>
+    </div>
+
+    <div class="reveal">
+      <p class="section-label" style="margin-bottom:24px">Cum te Măsori</p>
+      <div class="measure-guide">
+        <div class="measure-card">
+          <div class="measure-num">①</div>
+          <h4>Bust</h4>
+          <p>Măsoară în jurul celei mai largi părți a bustului, ținând centimetrul paralel cu podeaua. Asigură-te că nu strângi prea tare.</p>
+        </div>
+        <div class="measure-card">
+          <div class="measure-num">②</div>
+          <h4>Talie</h4>
+          <p>Măsoară în jurul taliei naturale — cea mai îngustă parte a trunchiului tău, de obicei la câțiva centimetri deasupra buricului.</p>
+        </div>
+        <div class="measure-card">
+          <div class="measure-num">③</div>
+          <h4>Șolduri</h4>
+          <p>Măsoară în jurul celei mai largi părți a șoldurilor și a spatelui, de obicei la aproximativ 20 cm sub talie.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-top:60px;padding:40px;background:var(--c-cream)">
+      <p class="section-label" style="margin-bottom:12px">Ai nevoie de ajutor?</p>
+      <p style="font-size:14px;color:var(--c-mid);margin-bottom:24px">Echipa noastră te ajută să găsești mărimea potrivită. Contactează-ne la <strong>elyvo@elyvo.ro</strong> sau +40 721 000 000.</p>
+      <button class="btn-outline-light" style="display:inline-block" onclick="showPage('contact')">Contactează-ne</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO. Toate drepturile rezervate.</span><span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: DELIVERY & RETURNS
+     =========================== -->
+<div class="page" id="page-delivery">
+  <div class="delivery-hero">
+    <p class="section-label">Livrare &amp; Retururi</p>
+    <h1 class="section-title">Livrare <em>Rapidă</em>,<br>Retururi Ușoare</h1>
+  </div>
+  <div class="delivery-body">
+    <div class="reveal">
+      <p class="section-label" style="margin-bottom:8px">Opțiuni de Livrare</p>
+      <p style="font-size:14px;color:var(--c-mid);margin-bottom:32px">Livrare gratuită pentru comenzi peste <strong>300 RON</strong>.</p>
+      <div class="delivery-cards">
+        <div class="delivery-card">
+          <div class="delivery-card-left">
+            <h4>Romanian Post</h4>
+            <p>3 – 5 zile lucrătoare</p>
+          </div>
+          <div class="delivery-card-price">Gratuit</div>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-card-left">
+            <h4>GLS Standard</h4>
+            <p>2 – 3 zile lucrătoare</p>
+          </div>
+          <div class="delivery-card-price">15 RON</div>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-card-left">
+            <h4>DHL Express</h4>
+            <p>1 – 2 zile lucrătoare</p>
+          </div>
+          <div class="delivery-card-price">25 RON</div>
+        </div>
+        <div class="delivery-card">
+          <div class="delivery-card-left">
+            <h4>Ridicare Personală</h4>
+            <p>Calea Victoriei 45, București</p>
+          </div>
+          <div class="delivery-card-price">Gratuit</div>
+        </div>
+      </div>
+      <div style="margin-top:32px;padding:24px;background:var(--c-cream)">
+        <p style="font-size:13px;color:var(--c-mid);line-height:1.8">
+          ✦ Comenzile plasate până la ora <strong>14:00</strong> sunt procesate în aceeași zi.<br>
+          ✦ Vei primi un email cu numărul de urmărire odată ce coletul este expediat.<br>
+          ✦ Livrăm în <strong>România, Moldova și UE</strong>.
+        </p>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <p class="section-label" style="margin-bottom:8px">Politica de Retur</p>
+      <p style="font-size:14px;color:var(--c-mid);margin-bottom:32px">Acceptăm retururi în <strong>14 zile</strong> de la data livrării, fără nicio întrebare.</p>
+      <div class="returns-steps">
+        <div class="returns-step">
+          <div class="returns-step-num">1</div>
+          <div class="returns-step-text">
+            <h4>Contactează-ne</h4>
+            <p>Trimite un email la elyvo@elyvo.ro cu numărul comenzii și motivul returului. Vei primi un răspuns în 24 ore.</p>
+          </div>
+        </div>
+        <div class="returns-step">
+          <div class="returns-step-num">2</div>
+          <div class="returns-step-text">
+            <h4>Ambalează Produsul</h4>
+            <p>Produsul trebuie să fie nefolosit, cu eticheta intactă, în ambalajul original. Adaugă în colet formularul de retur primit.</p>
+          </div>
+        </div>
+        <div class="returns-step">
+          <div class="returns-step-num">3</div>
+          <div class="returns-step-text">
+            <h4>Trimite Coletul</h4>
+            <p>Expediază coletul la adresa noastră din București. Costul returului este suportat de client (excepție: produse defecte).</p>
+          </div>
+        </div>
+        <div class="returns-step">
+          <div class="returns-step-num">4</div>
+          <div class="returns-step-text">
+            <h4>Rambursare</h4>
+            <p>Odată primit și verificat produsul, rambursarea se efectuează în maxim 7 zile lucrătoare pe metoda de plată originală.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO. Toate drepturile rezervate.</span><span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: TERMS & CONDITIONS
+     =========================== -->
+<div class="page" id="page-terms">
+  <div class="legal-hero">
+    <p class="section-label">Informații Legale</p>
+    <h1 class="section-title">Termeni &amp;<br><em>Condiții</em></h1>
+    <p style="font-size:13px;color:var(--c-mid);margin-top:16px">Ultima actualizare: 1 ianuarie 2025</p>
+  </div>
+  <div class="legal-body">
+    <div class="legal-section">
+      <h3>1. Informații Generale</h3>
+      <p>SC ELYVO SRL, cu sediul în București, Calea Victoriei nr. 45, Sector 1, înregistrată la Registrul Comerțului sub nr. J40/0000/1997, CUI RO12345678, este operatorul website-ului elyvo.ro.</p>
+      <p>Prin utilizarea acestui website sau prin plasarea unei comenzi, ești de acord cu prezentele Termeni și Condiții. Te rugăm să le citești cu atenție înainte de orice achiziție.</p>
+    </div>
+    <div class="legal-section">
+      <h3>2. Produse și Prețuri</h3>
+      <p>Toate prețurile afișate pe elyvo.ro includ TVA și sunt exprimate în lei (RON). ELYVO își rezervă dreptul de a modifica prețurile în orice moment, fără notificare prealabilă, modificările neafectând comenzile deja plasate și confirmate.</p>
+      <p>Ne străduim să prezentăm culorile și materialele cât mai fidel, dar pot exista variații minore față de produsul fizic datorită setărilor de afișaj ale dispozitivului.</p>
+    </div>
+    <div class="legal-section">
+      <h3>3. Plasarea și Confirmarea Comenzilor</h3>
+      <p>O comandă este considerată finalizată după primirea unui email de confirmare de la ELYVO. Ne rezervăm dreptul de a anula sau refuza o comandă în cazul unor erori de preț, stocuri epuizate sau suspiciuni de fraudă.</p>
+    </div>
+    <div class="legal-section">
+      <h3>4. Livrare</h3>
+      <p>Termenele de livrare sunt orientative. ELYVO nu este responsabilă pentru întârzieri cauzate de transportatori terți, evenimente de forță majoră sau informații incorecte furnizate de client.</p>
+    </div>
+    <div class="legal-section">
+      <h3>5. Dreptul de Retragere (Retur)</h3>
+      <p>Conform legislației UE (Directiva 2011/83/UE), ai dreptul să returnezi produsele în 14 zile calendaristice de la primire, fără a fi necesar să justifici decizia. Produsele trebuie să fie returnate în starea originală, cu etichete intacte.</p>
+    </div>
+    <div class="legal-section">
+      <h3>6. Proprietate Intelectuală</h3>
+      <p>Toate conținuturile acestui website (texte, imagini, logo-uri, design) sunt proprietatea ELYVO SRL și sunt protejate de legislația privind drepturile de autor. Este interzisă reproducerea parțială sau integrală fără acordul scris al ELYVO.</p>
+    </div>
+    <div class="legal-section">
+      <h3>7. Legea Aplicabilă</h3>
+      <p>Prezentele Termeni și Condiții sunt guvernate de legea română. Orice litigiu va fi soluționat de instanțele competente din București.</p>
+    </div>
+    <div style="margin-top:40px">
+      <button class="btn-back" onclick="showPage('home')">← Înapoi Acasă</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     PAGE: GDPR / PRIVACY
+     =========================== -->
+<div class="page" id="page-gdpr">
+  <div class="legal-hero">
+    <p class="section-label">Confidențialitate</p>
+    <h1 class="section-title">Politica de<br><em>Confidențialitate</em></h1>
+    <p style="font-size:13px;color:var(--c-mid);margin-top:16px">Ultima actualizare: 1 ianuarie 2025 · GDPR Compliant</p>
+  </div>
+  <div class="legal-body">
+    <div class="legal-section">
+      <h3>1. Cine suntem</h3>
+      <p>SC ELYVO SRL este operatorul datelor tale cu caracter personal, în conformitate cu Regulamentul (UE) 2016/679 (GDPR). Ne poți contacta la adresa de email <strong>elyvo@elyvo.ro</strong> pentru orice solicitare legată de datele tale personale.</p>
+    </div>
+    <div class="legal-section">
+      <h3>2. Ce date colectăm</h3>
+      <ul>
+        <li>Date de identificare: nume, prenume, adresă de email, număr de telefon</li>
+        <li>Date de livrare: adresă, oraș, cod poștal, județ</li>
+        <li>Date de plată: procesate securizat prin furnizori certificați PCI-DSS (ELYVO nu stochează datele cardului)</li>
+        <li>Date de navigare: cookie-uri tehnice și de analiză</li>
+        <li>Date din newsletter: adresa de email (dacă te-ai abonat)</li>
+      </ul>
+    </div>
+    <div class="legal-section">
+      <h3>3. De ce folosim datele tale</h3>
+      <ul>
+        <li>Procesarea și livrarea comenzilor plasate</li>
+        <li>Comunicarea legată de comenzi și retururi</li>
+        <li>Trimiterea newsletter-ului (dacă ți-ai dat consimțământul)</li>
+        <li>Îmbunătățirea website-ului prin analiză statistică</li>
+        <li>Respectarea obligațiilor legale și fiscale</li>
+      </ul>
+    </div>
+    <div class="legal-section">
+      <h3>4. Cookie-uri</h3>
+      <p>Folosim cookie-uri necesare (funcționare site), analitice (Google Analytics — date anonimizate) și de marketing (numai cu consimțământul tău). Poți gestiona preferințele cookie-urilor în orice moment prin bannerul de cookie-uri.</p>
+    </div>
+    <div class="legal-section">
+      <h3>5. Drepturile tale</h3>
+      <p>Conform GDPR, ai dreptul la: acces la datele tale, rectificare, ștergere ("dreptul de a fi uitat"), portabilitate, opoziție și restricționarea prelucrării. Pentru a exercita aceste drepturi, contactează-ne la <strong>elyvo@elyvo.ro</strong>.</p>
+    </div>
+    <div class="legal-section">
+      <h3>6. Securitate și retenție</h3>
+      <p>Stocăm datele pe servere securizate localizate în UE. Datele comenzilor sunt păstrate 10 ani conform legislației fiscale române. Datele de newsletter sunt șterse imediat după dezabonare.</p>
+    </div>
+    <div style="margin-top:40px">
+      <button class="btn-back" onclick="showPage('home')">← Înapoi Acasă</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     PAGE: WISHLIST
+     =========================== -->
+<div class="page" id="page-wishlist">
+  <div class="wishlist-hero">
+    <p class="section-label">Lista de Dorințe</p>
+    <h1 class="section-title">Piesele <em>Preferate</em></h1>
+  </div>
+  <div class="wishlist-body">
+    <div id="wishlistContent">
+      <div class="wishlist-empty" id="wishlistEmpty">
+        <div class="wishlist-empty-icon">♡</div>
+        <h3>Lista ta este goală</h3>
+        <p>Adaugă produsele preferate la favorite apăsând ♡ pe orice produs.</p>
+        <button class="btn-hero" onclick="showPage('shop')" style="opacity:1">Descoperă Colecția</button>
+      </div>
+      <div id="wishlistGrid" class="products-grid" style="display:none"></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO. Toate drepturile rezervate.</span><span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- ===========================
+     PAGE: ACCOUNT DASHBOARD
+     =========================== -->
+<div class="page" id="page-account">
+  <div class="account-wrap">
+    <aside class="account-sidebar">
+      <div class="account-avatar">M</div>
+      <div class="account-name">Maria Popescu</div>
+      <div class="account-email">maria@email.com</div>
+      <ul class="account-nav">
+        <li><a class="active" onclick="switchAccountTab('orders',this)">Comenzile Mele</a></li>
+        <li><a onclick="switchAccountTab('profile',this)">Profilul Meu</a></li>
+        <li><a onclick="switchAccountTab('addresses',this)">Adresele Mele</a></li>
+        <li><a onclick="switchAccountTab('tracking',this)">Urmărire Colet</a></li>
+        <li><a onclick="showPage('wishlist')" style="margin-top:16px;display:block">Lista de Dorințe</a></li>
+        <li><a onclick="showPage('home')" style="color:var(--c-sand)">Deconectare</a></li>
+      </ul>
+    </aside>
+    <div class="account-content">
+      <!-- Tab: Orders -->
+      <div class="account-tab active" id="tab-orders">
+        <h2>Comenzile <em style="font-style:italic;color:var(--c-taupe)">Mele</em></h2>
+        <div class="order-row order-row-head">
+          <span>Număr</span><span>Data</span><span>Total</span><span>Status</span><span></span>
+        </div>
+        <div class="order-row">
+          <span style="font-weight:500">#ELV-2025-4892</span>
+          <span>28 Apr 2025</span>
+          <span>638 RON</span>
+          <span><span class="order-badge order-badge-delivered">Livrat</span></span>
+          <button class="btn-order-detail" onclick="showPage('tracking')">Detalii →</button>
+        </div>
+        <div class="order-row">
+          <span style="font-weight:500">#ELV-2025-3741</span>
+          <span>12 Mar 2025</span>
+          <span>389 RON</span>
+          <span><span class="order-badge order-badge-delivered">Livrat</span></span>
+          <button class="btn-order-detail" onclick="showPage('tracking')">Detalii →</button>
+        </div>
+        <div class="order-row">
+          <span style="font-weight:500">#ELV-2025-5010</span>
+          <span>1 Mai 2025</span>
+          <span>529 RON</span>
+          <span><span class="order-badge order-badge-processing">În procesare</span></span>
+          <button class="btn-order-detail" onclick="showPage('tracking')">Detalii →</button>
+        </div>
+      </div>
+      <!-- Tab: Profile -->
+      <div class="account-tab" id="tab-profile">
+        <h2>Profilul <em style="font-style:italic;color:var(--c-taupe)">Meu</em></h2>
+        <div class="profile-grid">
+          <div class="form-group"><label>Prenume</label><input type="text" value="Maria"></div>
+          <div class="form-group"><label>Nume</label><input type="text" value="Popescu"></div>
+          <div class="form-group"><label>Email</label><input type="email" value="maria@email.com"></div>
+          <div class="form-group"><label>Telefon</label><input type="tel" value="+40 721 000 000"></div>
+        </div>
+        <div class="form-group" style="margin-top:8px"><label>Data Nașterii</label><input type="date" value="1990-05-15"></div>
+        <div style="margin-top:24px;padding-top:24px;border-top:1px solid var(--c-light)">
+          <p class="section-label" style="margin-bottom:16px">Schimbă Parola</p>
+          <div class="profile-grid">
+            <div class="form-group"><label>Parolă Nouă</label><input type="password" placeholder="Min. 8 caractere"></div>
+            <div class="form-group"><label>Confirmă Parola</label><input type="password" placeholder="••••••••"></div>
+          </div>
+        </div>
+        <button class="btn-primary" style="max-width:240px;margin-top:8px" onclick="showToast('Profil actualizat cu succes ✓')">Salvează Modificările</button>
+      </div>
+      <!-- Tab: Addresses -->
+      <div class="account-tab" id="tab-addresses">
+        <h2>Adresele <em style="font-style:italic;color:var(--c-taupe)">Mele</em></h2>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:32px">
+          <div style="padding:28px;border:2px solid var(--c-black);position:relative">
+            <span style="position:absolute;top:12px;right:12px;font-size:10px;letter-spacing:1px;background:var(--c-black);color:var(--c-white);padding:3px 10px">IMPLICITĂ</span>
+            <p style="font-size:13px;line-height:1.9;color:var(--c-mid)">
+              <strong style="color:var(--c-black)">Maria Popescu</strong><br>
+              Str. Florilor nr. 12, Ap. 5<br>
+              București, 010063<br>
+              Ilfov, România<br>
+              +40 721 000 000
+            </p>
+            <button class="btn-back" style="margin-top:16px;margin-bottom:0" onclick="showToast('Adresă editată')">Editează</button>
+          </div>
+          <div style="padding:28px;border:1px dashed var(--c-light);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;cursor:pointer" onclick="showToast('Funcție disponibilă în curând')">
+            <span style="font-size:32px;color:var(--c-light)">+</span>
+            <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--c-mid)">Adaugă Adresă</span>
+          </div>
+        </div>
+      </div>
+      <!-- Tab: Tracking (embedded) -->
+      <div class="account-tab" id="tab-tracking">
+        <h2>Urmărire <em style="font-style:italic;color:var(--c-taupe)">Colet</em></h2>
+        <p style="font-size:14px;color:var(--c-mid);margin-bottom:32px">Introdu numărul comenzii sau codul de urmărire pentru a vedea statusul coletului tău.</p>
+        <div class="tracking-form-wrap" style="margin-bottom:40px">
+          <input type="text" placeholder="ex: #ELV-2025-4892 sau GLS123456789" id="trackingInputAcc">
+          <button onclick="trackOrder('trackingInputAcc','trackingResultAcc')">Caută</button>
+        </div>
+        <div class="tracking-timeline" id="trackingResultAcc">
+          <div class="tracking-step">
+            <div class="tracking-node done">✓</div>
+            <div class="tracking-step-content">
+              <div class="tracking-step-title">Comandă Plasată</div>
+              <div class="tracking-step-date">1 Mai 2025 · 14:32</div>
+            </div>
+          </div>
+          <div class="tracking-step">
+            <div class="tracking-node done">✓</div>
+            <div class="tracking-step-content">
+              <div class="tracking-step-title">Comandă Confirmată &amp; Procesată</div>
+              <div class="tracking-step-date">1 Mai 2025 · 15:10</div>
+            </div>
+          </div>
+          <div class="tracking-step">
+            <div class="tracking-node current">→</div>
+            <div class="tracking-step-content">
+              <div class="tracking-step-title">În Curs de Livrare — GLS</div>
+              <div class="tracking-step-date">2 Mai 2025 · 08:45 · București</div>
+            </div>
+          </div>
+          <div class="tracking-step">
+            <div class="tracking-node"></div>
+            <div class="tracking-step-content">
+              <div class="tracking-step-title">Livrat</div>
+              <div class="tracking-step-date">Estimat: 3 Mai 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================
+     PAGE: ORDER TRACKING
+     =========================== -->
+<div class="page" id="page-tracking">
+  <div class="tracking-hero">
+    <p class="section-label">Urmărire Colet</p>
+    <h1 class="section-title">Unde este <em>Comanda</em><br>Ta?</h1>
+  </div>
+  <div class="tracking-body">
+    <div class="tracking-form-wrap">
+      <input type="text" placeholder="Introdu numărul comenzii sau codul GLS/DHL..." id="trackingInput">
+      <button onclick="trackOrder('trackingInput','trackingResult')">Urmărește</button>
+    </div>
+    <div class="tracking-timeline" id="trackingResult">
+      <p class="section-label" style="margin-bottom:32px">Status Comandă #ELV-2025-5010</p>
+      <div class="tracking-step">
+        <div class="tracking-node done">✓</div>
+        <div class="tracking-step-content">
+          <div class="tracking-step-title">Comandă Plasată</div>
+          <div class="tracking-step-date">1 Mai 2025 · 14:32</div>
+        </div>
+      </div>
+      <div class="tracking-step">
+        <div class="tracking-node done">✓</div>
+        <div class="tracking-step-content">
+          <div class="tracking-step-title">Comandă Confirmată &amp; Procesată</div>
+          <div class="tracking-step-date">1 Mai 2025 · 15:10</div>
+        </div>
+      </div>
+      <div class="tracking-step">
+        <div class="tracking-node current">→</div>
+        <div class="tracking-step-content">
+          <div class="tracking-step-title">Expediat — GLS Express</div>
+          <div class="tracking-step-date">2 Mai 2025 · 08:45 · Depozit București</div>
+        </div>
+      </div>
+      <div class="tracking-step">
+        <div class="tracking-node"></div>
+        <div class="tracking-step-content">
+          <div class="tracking-step-title">Livrat</div>
+          <div class="tracking-step-date">Estimat: 3 – 4 Mai 2025</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:48px;padding:32px;background:var(--c-cream)">
+      <p class="section-label" style="margin-bottom:12px">Nevoie de ajutor?</p>
+      <p style="font-size:14px;color:var(--c-mid);margin-bottom:20px">Dacă ai o problemă cu livrarea ta, echipa noastră este disponibilă Lun–Vin 9:00–17:00.</p>
+      <button class="btn-outline-light" style="display:inline-block" onclick="showPage('contact')">Contactează-ne</button>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-bottom" style="border-top:1px solid rgba(250,248,245,.1);padding-top:32px;display:flex;justify-content:space-between;font-size:12px;color:rgba(250,248,245,.3)">
+      <span>© 2025 ELYVO. Toate drepturile rezervate.</span><span>Fabricat cu ♡ în România</span>
+    </div>
+  </footer>
+</div>
+
+<!-- Cookie Consent Banner -->
+<div class="cookie-banner" id="cookieBanner">
+  <p>
+    Folosim cookie-uri pentru a îmbunătăți experiența ta pe elyvo.ro, pentru a analiza traficul și pentru personalizare.
+    Prin apăsarea „Acceptă", ești de acord cu utilizarea tuturor cookie-urilor.
+    <a onclick="showPage('gdpr')">Politica de Confidențialitate</a>
+  </p>
+  <div class="cookie-actions">
+    <button class="btn-cookie-accept" onclick="acceptCookies()">Acceptă</button>
+    <button class="btn-cookie-decline" onclick="declineCookies()">Doar Esențiale</button>
+  </div>
+</div>
+
+<!-- WhatsApp Floating Button -->
+<a class="whatsapp-btn" href="https://wa.me/40721000000?text=Buna%20ziua%2C%20am%20o%20intrebare%20despre%20o%20comanda%20ELYVO." target="_blank" title="Chat WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.554 4.122 1.523 5.854L.054 23.5l5.81-1.524A11.955 11.955 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.885 0-3.652-.518-5.162-1.42l-.37-.22-3.447.905.92-3.354-.24-.386A9.944 9.944 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+  </svg>
+</a>
 
 <script>
 
@@ -3946,7 +4895,7 @@ function toggleAccordion(btn) {
 // ── Login ──
 function handleLogin() {
   showToast(window._loggedIn || 'Conectare reușită! Bun revenit 👋');
-  setTimeout(() => showPage('home'), 1000);
+  setTimeout(() => showPage('account'), 1000);
 }
 function showRegister() {
   document.getElementById('loginFormInner').innerHTML = `
@@ -4001,6 +4950,138 @@ document.querySelectorAll('.color-swatch').forEach(s => {
     s.classList.add('active');
   });
 });
+
+// ── Cart Persistence (localStorage) ──
+function saveCart() {
+  try { localStorage.setItem('elyvo_cart', cartNum); } catch(e) {}
+}
+function loadCart() {
+  try {
+    const saved = localStorage.getItem('elyvo_cart');
+    if (saved !== null) {
+      cartNum = parseInt(saved) || 0;
+      document.getElementById('cartCount').textContent = cartNum;
+      updateCartLabel();
+    }
+  } catch(e) {}
+}
+// Patch addToCart to also save
+const _origAddToCart = addToCart;
+addToCart = function(e) { _origAddToCart(e); saveCart(); };
+const _origAddToCartFull = addToCartFull;
+addToCartFull = function() { _origAddToCartFull(); saveCart(); };
+loadCart();
+
+// ── Cookie Consent ──
+function initCookieBanner() {
+  try {
+    if (!localStorage.getItem('elyvo_cookie_consent')) {
+      setTimeout(() => {
+        document.getElementById('cookieBanner').classList.add('show');
+      }, 1500);
+    }
+  } catch(e) {
+    document.getElementById('cookieBanner').classList.add('show');
+  }
+}
+function acceptCookies() {
+  try { localStorage.setItem('elyvo_cookie_consent', 'all'); } catch(e) {}
+  document.getElementById('cookieBanner').classList.remove('show');
+  showToast('Preferințe salvate ✓');
+}
+function declineCookies() {
+  try { localStorage.setItem('elyvo_cookie_consent', 'essential'); } catch(e) {}
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+initCookieBanner();
+
+// ── Account Dashboard Tabs ──
+function switchAccountTab(tabId, link) {
+  document.querySelectorAll('.account-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.account-nav a').forEach(a => a.classList.remove('active'));
+  const tab = document.getElementById('tab-' + tabId);
+  if (tab) tab.classList.add('active');
+  if (link) link.classList.add('active');
+}
+
+// ── Order Tracking ──
+function trackOrder(inputId, resultId) {
+  const input = document.getElementById(inputId);
+  const result = document.getElementById(resultId);
+  if (!input || !result) return;
+  const val = input.value.trim();
+  if (!val) {
+    showToast('Introdu un număr de comandă sau cod de urmărire');
+    return;
+  }
+  result.classList.add('visible');
+  showToast('Comandă găsită: ' + val + ' ✓');
+}
+
+// ── Contact Form ──
+function sendContact() {
+  const name = document.getElementById('contactName');
+  const email = document.getElementById('contactEmail');
+  const msg = document.getElementById('contactMsg');
+  if (name && !name.value.trim()) { showToast('Te rugăm completează numele'); return; }
+  if (email && !email.value.trim()) { showToast('Te rugăm completează email-ul'); return; }
+  if (msg && !msg.value.trim()) { showToast('Te rugăm scrie un mesaj'); return; }
+  showToast('Mesaj trimis cu succes! Îți răspundem în 24h ✓');
+  if (name) name.value = '';
+  if (email) email.value = '';
+  if (msg) msg.value = '';
+}
+
+// ── Wishlist Page ──
+const wishlistItems = new Map(); // name -> {price, color}
+function refreshWishlistPage() {
+  const empty = document.getElementById('wishlistEmpty');
+  const grid = document.getElementById('wishlistGrid');
+  if (!empty || !grid) return;
+  if (wishlistItems.size === 0) {
+    empty.style.display = '';
+    grid.style.display = 'none';
+    grid.innerHTML = '';
+  } else {
+    empty.style.display = 'none';
+    grid.style.display = '';
+    grid.innerHTML = [...wishlistItems.entries()].map(([name, data]) => `
+      <div class="product-card" onclick="showPage('product')">
+        <div class="product-img">
+          <div class="product-img-bg product-p1">
+            <svg class="dress-shape" viewBox="0 0 200 300" fill="#8b7355" opacity=".6"><path d="M55 50 Q65 25 100 20 Q135 25 145 50 L165 75 L170 290 L30 290 Z"/></svg>
+          </div>
+          <div class="product-actions">
+            <button class="btn-quick" onclick="addToCart(event)">Adaugă</button>
+            <button class="btn-wish hearted" onclick="removeFromWishlistPage('${name}',event)">♥</button>
+          </div>
+        </div>
+        <div class="product-info"><h4>${name}</h4><div class="price">${data.price}</div></div>
+      </div>`).join('');
+  }
+}
+function removeFromWishlistPage(name, e) {
+  if (e) e.stopPropagation();
+  wishlistItems.delete(name);
+  refreshWishlistPage();
+}
+
+// Patch toggleWish to also track wishlist page items
+const _origToggleWish = toggleWish;
+toggleWish = function(e) {
+  _origToggleWish(e);
+  const btn = e.currentTarget;
+  const card = btn.closest('.product-card');
+  if (card) {
+    const name = card.querySelector('h4') ? card.querySelector('h4').textContent : 'Produs';
+    const price = card.querySelector('.price') ? card.querySelector('.price').textContent : '';
+    if (btn.classList.contains('hearted')) {
+      wishlistItems.set(name, {price});
+    } else {
+      wishlistItems.delete(name);
+    }
+  }
+};
 
 // Init
 window.dispatchEvent(new Event('scroll'));
